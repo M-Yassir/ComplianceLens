@@ -174,8 +174,8 @@ def parse_and_split_pdf(
         out_path = Path(output_dir)
         out_path.mkdir(parents=True, exist_ok=True)
 
-        path_n_minus_1 = out_path / "version_N_minus_1.txt"
-        path_n = out_path / "version_N.txt"
+        path_n_minus_1 = out_path / "version_2023.txt"
+        path_n = out_path / "version_2026.txt"
 
         path_n_minus_1.write_text(text_n_minus_1, encoding="utf-8")
         path_n.write_text(text_n, encoding="utf-8")

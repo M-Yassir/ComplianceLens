@@ -1,0 +1,566 @@
+[
+  {
+    "version": "2026",
+    "term": "agency",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(a)",
+    "definition_text": "(a) \u201cAgency\u201d means the California Privacy Protection Agency established by Civil\nCode section 1798.199.10 et seq.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2026_sec7001_child_a"
+  },
+  {
+    "version": "2026",
+    "term": "alternative opt-out link",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(b)",
+    "definition_text": "(b) \u201cAlternative Opt-out Link\u201d means the alternative opt-out link that a business\nmay provide instead of posting the two separate \u201cDo Not Sell or Share My\nPersonal Information\u201d and \u201cLimit the Use of My Sensitive Personal Information\u201d\nlinks as set forth in Civil Code section 1798.135, subdivision (a)(3), and\nspecified in section 7015.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_b"
+  },
+  {
+    "version": "2026",
+    "term": "attorney general",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(c)",
+    "definition_text": "(c)\n\u201cAttorney General\u201d means the California Attorney General or any officer or\nemployee of the California Department of Justice acting under the authority of\nthe California Attorney General.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_c"
+  },
+  {
+    "version": "2026",
+    "term": "authorized agent",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(d)",
+    "definition_text": "(d) \u201cAuthorized agent\u201d means a natural person or a business entity that a\nconsumer has authorized to act on their behalf subject to the requirements set\nforth in section 7063.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_d"
+  },
+  {
+    "version": "2026",
+    "term": "automated decisionmaking technology",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(e)",
+    "definition_text": "(e)\n\u201cAutomated decisionmaking technology\u201d or \u201cADMT\u201d means any technology\nthat processes personal information and uses computation to replace human\ndecisionmaking or substantially replace human decisionmaking.\n(1)\nFor purposes of this definition, to \u201csubstantially replace human\ndecisionmaking\u201d means a business uses the technology\u2019s output to make\na decision without human involvement. Human involvement requires the\nhuman reviewer to:\n(A) Know how to interpret and use the technology\u2019s output to make the\ndecision;\n(B) Review and analyze the output of the technology, and any other\ninformation that is relevant to make or change the decision; and\n(C) Have the authority to make or change the decision based on their\nanalysis in subsection (B).\n(2) ADMT includes profiling that replaces human decisionmaking or\nsubstantially replaces human decisionmaking.\n(3) ADMT does not include web hosting, domain registration, networking,\ncaching, website-loading, data storage, firewalls, anti-virus, anti-malware,\nspam- and robocall-filtering, spellchecking, calculators, databases, and\nspreadsheets, provided that they do not replace human decisionmaking.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_e"
+  },
+  {
+    "version": "2026",
+    "term": "categories of sources",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(f)",
+    "definition_text": "(f)\n\u201cCategories of sources\u201d means types or groupings of persons or entities\nfrom which a business collects personal information about consumers,\ndescribed with enough particularity to provide consumers with a meaningful\nunderstanding of the type of person or entity. They may include the consumer\ndirectly, advertising networks, internet service providers, data analytics\nproviders, government entities, operating systems and platforms, social\nnetworks, and data brokers.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_f"
+  },
+  {
+    "version": "2026",
+    "term": "categories of third parties",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(g)",
+    "definition_text": "(g) \u201cCategories of third parties\u201d means types or groupings of third parties with\nwhom the business shares personal information, described with enough\nparticularity to provide consumers with a meaningful understanding of the\ntype of third party. They may include advertising networks, internet service\nproviders, data analytics providers, government entities, operating systems\nand platforms, social networks, and data brokers.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_g"
+  },
+  {
+    "version": "2026",
+    "term": "ccpa",
+    "aliases": [
+      "CCPA"
+    ],
+    "section_citation": "\u00a7 7001(h)",
+    "definition_text": "(h)\n\u201cCCPA\u201d means the California Consumer Privacy Act of 2018, Civil Code\nsection 1798.100 et seq.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_h"
+  },
+  {
+    "version": "2026",
+    "term": "coppa",
+    "aliases": [
+      "COPPA"
+    ],
+    "section_citation": "\u00a7 7001(i)",
+    "definition_text": "(i)\n\u201cCOPPA\u201d means the Children\u2019s Online Privacy Protection Act, 15 U.S.C.\nsections 6501 to 6506 and 16 Code of Federal Regulations part 312.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_i"
+  },
+  {
+    "version": "2026",
+    "term": "cybersecurity audit",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(j)",
+    "definition_text": "(j)\n\u201cCybersecurity audit\u201d means the annual cybersecurity audit that every\nbusiness whose processing of consumers\u2019 personal information presents\nsignificant risk to consumers\u2019 security as set forth in section 7120, subsection",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_j"
+  },
+  {
+    "version": "2026",
+    "term": "cybersecurity program",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(k)",
+    "definition_text": "(k)\n\u201cCybersecurity program\u201d means the policies, procedures, and practices that\nprotect personal information from unauthorized access, destruction, use,\nmodification, or disclosure; and protect against unauthorized activity resulting\nin the loss of availability of personal information.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_k"
+  },
+  {
+    "version": "2026",
+    "term": "cybersecurity audit report",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(l)",
+    "definition_text": "(l)\n\u201cCybersecurity audit report\u201d means the document that every business must\ncreate as part of its cybersecurity audit. The cybersecurity audit report\nincludes the information set forth in section 7123, subsection (e).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_l"
+  },
+  {
+    "version": "2026",
+    "term": "disproportionate effort",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(m)",
+    "definition_text": "(m) \u201cDisproportionate effort\u201d within the context of a business, service provider,\ncontractor, or third party responding to a consumer request means the time\nand/or resources expended by the business, service provider, contractor, or\nthird party to respond to the individualized request significantly outweighs the\nreasonably foreseeable impact to the consumer by not responding, taking into\naccount applicable circumstances, such as the size of the business, service\nprovider, contractor, or third party, the nature of the request, and the technical\nlimitations impacting their ability to respond. For example, responding to a\nconsumer request to know may require disproportionate effort when the\npersonal information that is the subject of the request is not in a searchable or\nreadily-accessible format, is maintained only for legal or compliance purposes,\nis not sold or used for any commercial purpose, and there is no reasonably\nforeseeable material impact to the consumer by not responding. By contrast,\nthe impact to the consumer of denying a request to correct inaccurate\ninformation that the business uses and/or sells may outweigh the burden on\nthe business, service provider, contractor, or third party in honoring the\nrequest when the reasonably foreseeable consequence of denying the request\nwould be the denial of services or opportunities to the consumer. A business,\nservice provider, contractor, or third party that has failed to put in place\nadequate processes and procedures to receive and process consumer\nrequests in accordance with the CCPA and these regulations cannot claim that\nresponding to a consumer\u2019s request requires disproportionate effort.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_m"
+  },
+  {
+    "version": "2026",
+    "term": "employment benefits",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(n)",
+    "definition_text": "(n)\n\u201cEmployment benefits\u201d means retirement, health, and other benefit\nprograms, services, or products to which consumers and their dependents or\ntheir beneficiaries receive access through the consumer\u2019s employer.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_n"
+  },
+  {
+    "version": "2026",
+    "term": "employment-related information",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(o)",
+    "definition_text": "(o)\n\u201cEmployment-related information\u201d means personal information that is\ncollected by the business about a natural person for the reasons identified in\nCivil Code section 1798.145, subdivision (m)(1). The collection of employment-\nrelated information, including for the purpose of administering employment\nbenefits, shall be considered a business purpose.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_o"
+  },
+  {
+    "version": "2026",
+    "term": "financial incentive",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(p)",
+    "definition_text": "(p)\n\u201cFinancial incentive\u201d means a program, benefit, or other offering, including\npayments to consumers, for the collection, retention, sale, or sharing of\npersonal information. Price or service differences are types of financial\nincentives.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_p"
+  },
+  {
+    "version": "2026",
+    "term": "first party",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(q)",
+    "definition_text": "(q)\n\u201cFirst party\u201d means a consumer-facing business with which the consumer\nintends and expects to interact.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_q"
+  },
+  {
+    "version": "2026",
+    "term": "frictionless manner",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(r)",
+    "definition_text": "(r)\n\u201cFrictionless manner\u201d means a business\u2019s processing of an opt-out\npreference signal that complies with the requirements set forth in section\n7025, subsection (f).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_r"
+  },
+  {
+    "version": "2026",
+    "term": "information practices",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(s)",
+    "definition_text": "(s)\n\u201cInformation practices\u201d means practices regarding the collection, use,\ndisclosure, sale, sharing, and retention of personal information.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_s"
+  },
+  {
+    "version": "2026",
+    "term": "information system",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(t)",
+    "definition_text": "(t)\n\u201cInformation system\u201d means the resources (e.g., network, hardware, and\nsoftware) organized for the processing of personal information or that can\nprovide access to personal information. The business\u2019s information system\nincludes the resources organized for the business\u2019s processing of personal\ninformation, regardless of whether the business owns those resources.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_t"
+  },
+  {
+    "version": "2026",
+    "term": "multi-factor authentication",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(u)",
+    "definition_text": "(u)\n\u201cMulti-factor authentication\u201d means authentication through verification of at\nleast two of the following types of authentication factors: (1) knowledge\nfactors, such as a password; (2) possession factors, such as a token; or (3)\ninherence factors, such as a biometric characteristic.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_u"
+  },
+  {
+    "version": "2026",
+    "term": "nonbusiness",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(v)",
+    "definition_text": "(v)\n\u201cNonbusiness\u201d means a person or entity that does not meet the definition of\na \u201cbusiness\u201d as defined in Civil Code section 1798.140, subdivision (d). For\nexample, government entities and many non-profits are\nnonbusinesses because\nthey are not \u201corganized or operated for the profit or financial\nbenefit of its shareholders or other owners.\u201d",
+    "is_distinctive": false,
+    "source_chunk_id": "v2026_sec7001_child_v"
+  },
+  {
+    "version": "2026",
+    "term": "notice at collection",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(w)",
+    "definition_text": "(w) \u201cNotice at Collection\u201d means the notice given by a business to a consumer\nat or before the point at which a business collects personal information from\nthe consumer as required by Civil Code section 1798.100, subdivisions (a) and",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_w"
+  },
+  {
+    "version": "2026",
+    "term": "notice of right to limit",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(x)",
+    "definition_text": "(x)\n\u201cNotice of Right to Limit\u201d means the notice given by a business informing\nconsumers of their right to limit the use or disclosure of the consumer\u2019s\nsensitive personal information as required by Civil Code sections 1798.121 and\n1798.135 and specified in these regulations.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_x"
+  },
+  {
+    "version": "2026",
+    "term": "notice of right to opt-out of sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(y)",
+    "definition_text": "(y)\n\u201cNotice of Right to Opt-out of Sale/Sharing\u201d means the notice given by a\nbusiness informing consumers of their right to opt-out of the sale or sharing of\ntheir personal information as required by Civil Code sections 1798.120 and\n1798.135 and specified in these regulations.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_y"
+  },
+  {
+    "version": "2026",
+    "term": "notice of financial incentive",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(z)",
+    "definition_text": "(z)\n\u201cNotice of Financial Incentive\u201d means the notice given by a business\nexplaining each financial incentive or price or service difference as required by\nCivil Code section 1798.125, subdivision (b), and specified in these regulations.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_z"
+  },
+  {
+    "version": "2026",
+    "term": "opt-out preference signal",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(aa)",
+    "definition_text": "(aa) \u201cOpt-out preference signal\u201d means a signal that is sent by a platform,\ntechnology, or mechanism, on behalf of the consumer, that communicates the\nconsumer choice to opt-out of the sale and sharing of personal information and\nthat complies with the requirements set forth in section 7025, subsection (b).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_aa"
+  },
+  {
+    "version": "2026",
+    "term": "penetration testing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(bb)",
+    "definition_text": "(bb) \u201cPenetration testing\u201d means testing the security of an information system by\nattempting to circumvent or defeat its security features by authorizing\nattempted penetration of the information system.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_bb"
+  },
+  {
+    "version": "2026",
+    "term": "performance at work",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(cc)",
+    "definition_text": "(cc) \u201cPerformance at work\u201d means the performance of job duties for which the\nconsumer has been hired or has applied to be hired. The following are not\n\u201cperformance at work\u201d: a consumer\u2019s union membership or interest in\nunionizing; a consumer\u2019s interest in seeking other employment opportunities; a\nconsumer\u2019s location when off-duty or on breaks; or a consumer\u2019s use of a\npersonal account (e.g., email, text messages, or social media) unless solely to\nprevent or limit the use of these accounts on the business\u2019s information\nsystem or to prevent the disclosure of confidential information.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_cc"
+  },
+  {
+    "version": "2026",
+    "term": "performance in an educational program",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(dd)",
+    "definition_text": "(dd) \u201cPerformance in an educational program\u201d means the performance of\ncoursework in an educational program in which the consumer is enrolled or has\napplied to be enrolled. The following are not \u201cperformance in an educational\nprogram\u201d: a consumer\u2019s use of a personal account (e.g., email, text messages,\nor social media) unless solely to prevent or limit the use of these accounts on\nthe educational program provider\u2019s information system, including to prevent\nthe disclosure of confidential information or to prevent cheating; or a\nconsumer\u2019s location when they are not performing coursework.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_dd"
+  },
+  {
+    "version": "2026",
+    "term": "physical or biological identification or profiling",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ee)",
+    "definition_text": "(ee) \u201cPhysical or biological identification or profiling\u201d means identifying or profiling\na consumer using automated measurements or analysis of their physical or\nbiological characteristics, or automated measurements or analysis of or\nrelating to their body. This includes using biometric information, vocal\nintonation, facial expression, and gesture (e.g., to identify or infer emotion).\nThis does not include processing physical or biological characteristics that do\nnot identify, and cannot reasonably be linked with, a particular consumer.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_ee"
+  },
+  {
+    "version": "2026",
+    "term": "price or service difference",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ff)",
+    "definition_text": "(ff) \u201cPrice or service difference\u201d means (1) any difference in the price or rate\ncharged for any goods or services to any consumer related to the collection,\nretention, sale, or sharing of personal information, or (2) any difference in the\nlevel or quality of any goods or services offered to any consumer related to the\ncollection, retention, sale, or sharing of personal information, including the\ndenial of goods or services to the consumer.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_ff"
+  },
+  {
+    "version": "2026",
+    "term": "privacy policy,",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(gg)",
+    "definition_text": "(gg) \u201cPrivacy policy,\u201d as referred to in Civil Code sections 1798.130, subdivision",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_gg"
+  },
+  {
+    "version": "2026",
+    "term": "privileged account",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(hh)",
+    "definition_text": "(hh) \u201cPrivileged account\u201d means any authorized user account (i.e., an account\ndesigned to be used by an individual) or service account (i.e., an account\ndesigned to be used only by a service, not by an individual) that can be used to\nperform functions that other user accounts are not authorized to perform,\nincluding but not limited to the ability to add, change, or remove other\naccounts, or make configuration changes to an information system.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_hh"
+  },
+  {
+    "version": "2026",
+    "term": "profiling",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ii)",
+    "definition_text": "(ii)\n\u201cProfiling\u201d means any form of automated processing of personal information to\nevaluate certain personal aspects (including intelligence, ability, aptitude,\npredispositions) relating to a natural person and in particular to analyze or\npredict aspects concerning that natural person\u2019s performance at work,\neconomic situation, health (including mental health), personal preferences,\ninterests, reliability, predispositions, behavior, location, or movements.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2026_sec7001_child_ii"
+  },
+  {
+    "version": "2026",
+    "term": "request to access admt",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(jj)",
+    "definition_text": "(jj)\n\u201cRequest to access ADMT\u201d means a consumer request that a business provide\ninformation to the consumer about the business\u2019s use of ADMT with respect to\nthe consumer, pursuant to Civil Code section 1798.185(a)(15) and Article 11.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_jj"
+  },
+  {
+    "version": "2026",
+    "term": "request to appeal admt",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(kk)",
+    "definition_text": "(kk) \u201cRequest to appeal ADMT\u201d means a consumer request to appeal the business\u2019s\nuse of ADMT for a significant decision as set forth in section 7221, subsection",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_kk"
+  },
+  {
+    "version": "2026",
+    "term": "request to correct",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ll)",
+    "definition_text": "(ll)\n\u201cRequest to correct\u201d means a consumer request that a business correct\ninaccurate personal information that it maintains about the consumer,\npursuant to Civil Code section 1798.106.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_ll"
+  },
+  {
+    "version": "2026",
+    "term": "request to delete",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(mm)",
+    "definition_text": "(mm) \u201cRequest to delete\u201d means a consumer request that a business delete\npersonal information about the consumer that the business has collected from\nthe consumer, pursuant to Civil Code section 1798.105.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_mm"
+  },
+  {
+    "version": "2026",
+    "term": "request to know",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(nn)",
+    "definition_text": "(nn) \u201cRequest to know\u201d means a consumer request that a business disclose\npersonal information that it has collected about the consumer pursuant to Civil\nCode sections 1798.110 or 1798.115. It includes a request for any or all of the\nfollowing:\n(1) Specific pieces of personal information that a business has collected\nabout the consumer;\n(2) Categories of personal information it has collected about the consumer;\n(3) Categories of sources from which the personal information is collected;\n(4) Categories of personal information that the business sold, shared, or\ndisclosed for a business purpose about the consumer;\n(5) Categories of third parties to whom the personal information was sold,\nshared, or disclosed and\n(6) The business or commercial purpose for collecting, selling, or sharing\npersonal information.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_nn"
+  },
+  {
+    "version": "2026",
+    "term": "request to limit",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(oo)",
+    "definition_text": "(oo) \u201cRequest to limit\u201d means a consumer request that a business limit the use\nand disclosure of the consumer\u2019s sensitive personal information, pursuant to\nCivil Code section 1798.121, subdivision (a).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_oo"
+  },
+  {
+    "version": "2026",
+    "term": "request to opt-in to sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(pp)",
+    "definition_text": "(pp) \u201cRequest to opt-in to sale/sharing\u201d means an action demonstrating that\nthe consumer has consented to the business\u2019s sale or sharing of personal\ninformation about the consumer by a parent or guardian of a consumer less\nthan 13 years of age or by a consumer at least 13 years of age.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_pp"
+  },
+  {
+    "version": "2026",
+    "term": "request to opt-out of admt",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(qq)",
+    "definition_text": "(qq) \u201cRequest to opt-out of ADMT\u201d means a consumer request that a business not\nuse ADMT with respect to the consumer, pursuant to Civil Code section\n1798.185(a)(15) and Article 11.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_qq"
+  },
+  {
+    "version": "2026",
+    "term": "request to opt-out of sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(rr)",
+    "definition_text": "(rr) \u201cRequest to opt-out of sale/sharing\u201d means a consumer request that a\nbusiness neither sell nor share the consumer\u2019s personal information to third\nparties, pursuant to Civil Code section 1798.120, subdivision (a).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_rr"
+  },
+  {
+    "version": "2026",
+    "term": "right to access admt",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ss)",
+    "definition_text": "(ss) \u201cRight to access ADMT\u201d means a consumer\u2019s right to request that a business\nprovide information to the consumer about the business\u2019s use of ADMT with\nrespect to the consumer as set forth in Civil Code section 1798.185(a)(15) and\nArticle 11.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_ss"
+  },
+  {
+    "version": "2026",
+    "term": "right to correct",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(tt)",
+    "definition_text": "(tt) \u201cRight to correct\u201d means the consumer\u2019s right to request that a business\ncorrect inaccurate personal information that it maintains about the consumer\nas set forth in Civil Code section 1798.106.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_tt"
+  },
+  {
+    "version": "2026",
+    "term": "right to delete",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(uu)",
+    "definition_text": "(uu) \u201cRight to delete\u201d means the consumer\u2019s right to request that a business\ndelete any personal information about the consumer that the business has\ncollected from the consumer as set forth in Civil Code section 1798.105.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_uu"
+  },
+  {
+    "version": "2026",
+    "term": "right to know",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(vv)",
+    "definition_text": "(vv) \u201cRight to know\u201d means the consumer\u2019s right to request that a business\ndisclose personal information that it has collected, sold, or shared about the\nconsumer as set forth in Civil Code sections 1798.110 and 1798.115.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_vv"
+  },
+  {
+    "version": "2026",
+    "term": "right to limit",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ww)",
+    "definition_text": "(ww) \u201cRight to limit\u201d means the consumer\u2019s right to request that a business\nlimit the use and disclosure of a consumer\u2019s sensitive personal information as\nset forth in Civil Code section 1798.121.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_ww"
+  },
+  {
+    "version": "2026",
+    "term": "right to opt-out of admt",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(xx)",
+    "definition_text": "(xx) \u201cRight to opt-out of ADMT\u201d means a consumer\u2019s right to direct that a business\nnot use ADMT with respect to the consumer as set forth in Civil Code section\n1798.185(a)(15) and Article 11.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_xx"
+  },
+  {
+    "version": "2026",
+    "term": "right to opt-out of sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(yy)",
+    "definition_text": "(yy) \u201cRight to opt-out of sale/sharing\u201d means the consumer\u2019s right to direct a\nbusiness that sells or shares personal information about the consumer to third\nparties to stop doing so as set forth in Civil Code section 1798.120.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_yy"
+  },
+  {
+    "version": "2026",
+    "term": "risk assessment report",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(zz)",
+    "definition_text": "(zz) \u201cRisk assessment report\u201d means the document that every business that is\nrequired to conduct a risk assessment must create as part of its risk\nassessment. The risk assessment report includes the information set forth in\nsection 7152, subsections (a)(1)\u2013(3), (6)\u2013(9).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_zz"
+  },
+  {
+    "version": "2026",
+    "term": "sensitive location",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(aaa)",
+    "definition_text": "(aaa) \u201cSensitive location\u201d means any of the following physical places: healthcare\nfacilities including hospitals, doctors\u2019 offices, urgent care facilities, and\ncommunity health clinics; pharmacies; domestic violence shelters; food\npantries; housing/emergency shelters; educational institutions; political party\noffices; legal services offices; union offices; and places of worship.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_aaa"
+  },
+  {
+    "version": "2026",
+    "term": "sensitive personal information",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(bbb)",
+    "definition_text": "(bbb) \u201cSensitive personal information\u201d means:\n(1)\nPersonal information that reveals:\n(A) A consumer\u2019s social security, driver\u2019s license, state identification\ncard, or passport number.\n(B) A consumer\u2019s account log-in, financial account, debit card, or credit\ncard number in combination with any required security or access\ncode, password, or credentials allowing access to an account.\n(C) A consumer\u2019s precise geolocation.\n(D) A consumer\u2019s racial or ethnic origin, citizenship or immigration status,\nreligious or philosophical beliefs, or union membership.\n(E) The contents of a consumer\u2019s mail, email, and text messages unless\nthe business is the intended recipient of the communication.\n(F) A consumer\u2019s genetic data.\n(G) A consumer\u2019s neural data, which means information that is generated\nby measuring the activity of a consumer\u2019s central or peripheral\nnervous system, and that is not inferred from nonneural information.\n(2)\nThe processing of biometric information for the purpose of uniquely\nidentifying a consumer.\n(3) Personal information collected and analyzed concerning a consumer\u2019s\nhealth, sex life, or sexual orientation.\n(4) Personal information of consumers that the business has actual\nknowledge are less than 16 years of age. A business that willfully\ndisregards the consumer\u2019s age shall be deemed to have had actual\nknowledge of the consumer\u2019s age.\nSensitive personal information does not include information that is \u201cpublicly\navailable\u201d pursuant to Civil Code section 1798.140, subdivision (v)(2).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_bbb"
+  },
+  {
+    "version": "2026",
+    "term": "signed",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ccc)",
+    "definition_text": "(ccc) \u201cSigned\u201d means that the written attestation, declaration, or permission\nhas either been physically signed or provided electronically in accordance with\nthe Uniform Electronic Transactions Act, Civil Code section 1633.1 et seq.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2026_sec7001_child_ccc"
+  },
+  {
+    "version": "2026",
+    "term": "significant decision",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ddd)",
+    "definition_text": "(ddd) \u201cSignificant decision\u201d means a decision that results in the provision or denial\nof financial or lending services, housing, education enrollment or opportunities,\nemployment or independent contracting opportunities or compensation, or\nhealthcare services. For purposes of this definition:\n(1)\n\u201cFinancial or lending services\u201d means the extension of credit or a loan,\ntransmitting or exchanging funds, the provision of deposit or checking\naccounts, check cashing, or installment payment plans.\n(2) \u201cHousing\u201d means any building, structure, or portion thereof that is used or\noccupied as, or designed, arranged, or intended to be used or occupied as,\na home, residence, or sleeping place by one or more consumers including\nfor permanent or temporary occupancy. The use of ADMT that provides or\ndenies housing to a consumer based solely on the availability or vacancy\nof the housing or the successful receipt of payment for housing from the\nconsumer is not making a significant decision.\n(3) \u201cEducation enrollment or opportunities\u201d means:\n(A) Admission or acceptance into academic or vocational programs;\n(B) Educational credentials (e.g., a degree, diploma, or certificate); and\n(C) Suspension and expulsion.\n(4) \u201cEmployment or independent contracting opportunities or compensation\u201d\nmeans:\n(A) Hiring;\n(B) Allocation or assignment of work for employees; or salary, hourly or\nper-assignment compensation, incentive compensation such as a\nbonus, or another benefit (\u201callocation/assignment of work and\ncompensation\u201d);\n(C) Promotion; and\n(D) Demotion, suspension, and termination.\n(5) \u201cHealthcare services\u201d means services related to the diagnosis, prevention,\nor treatment of human disease or impairment, or the assessment or care\nof an individual's health.\n(6) Significant decision does not include advertising to a consumer.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_ddd"
+  },
+  {
+    "version": "2026",
+    "term": "systematic observation",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(eee)",
+    "definition_text": "(eee) \u201cSystematic observation\u201d means methodical and regular or continuous\nobservation. This includes, for example, methodical and regular or continuous\nobservation using Wi-Fi or Bluetooth tracking, radio frequency identification,\ndrones, video or audio recording or live-streaming, technologies that enable\nphysical or biological identification or profiling; and geofencing, location\ntrackers, or license-plate recognition.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_eee"
+  },
+  {
+    "version": "2026",
+    "term": "train",
+    "aliases": [
+      "TRAIN"
+    ],
+    "section_citation": "\u00a7 7001(fff)",
+    "definition_text": "(fff) \u201cTrain\u201d for the purposes of sections 7150, subsection (b)(6), and 7153 means\nthe process through which a technology discovers underlying patterns, learns\na series of actions, or is taught to generate a desired output. Examples of\ntraining include adjusting the parameters of an algorithm used for ADMT,\nimproving the algorithm that determines how a machine-learning model learns,\nand iterating the datasets fed into ADMT.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2026_sec7001_child_fff"
+  },
+  {
+    "version": "2026",
+    "term": "third-party identity verification service",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ggg)",
+    "definition_text": "(ggg) \u201cThird-party identity verification service\u201d means a security process offered\nby an independent third party that verifies the identity of the consumer making\na request to the business. Third-party identity verification services are subject\nto the requirements set forth in Article 5 regarding requests to delete,\nrequests to correct, or requests to know.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_ggg"
+  },
+  {
+    "version": "2026",
+    "term": "unstructured",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(hhh)",
+    "definition_text": "(hhh) \u201cUnstructured\u201d as it relates to personal information means personal\ninformation that is not organized in a pre-defined manner and could not be\nretrieved or organized in a pre-defined manner without disproportionate effort\non behalf of the business, service provider, contractor, or third party.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2026_sec7001_child_hhh"
+  },
+  {
+    "version": "2026",
+    "term": "value of the consumer",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(iii)",
+    "definition_text": "(iii) \u201cValue of the consumer\u2019s data\u201d means the value provided to the business\nby the consumer\u2019s data as calculated under section 7081.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2026_sec7001_child_iii"
+  },
+  {
+    "version": "2026",
+    "term": "verify",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(jjj)",
+    "definition_text": "(jjj) \u201cVerify\u201d means to determine that the consumer making a request to\ndelete, request to correct, request to know, or request to access ADMT is\nthe consumer about whom the business has collected information, or if that\nconsumer is less than 13 years of age, the consumer\u2019s parent or legal guardian.\nNote: Authority cited: Sections 1798.185, Civil Code. Reference: Sections\n1798.100, 1798.105, 1798.106, 1798.110, 1798.115, 1798.120, 1798.121, 1798.125,\n1798.130, 1798.135, 1798.140, 1798.145, 1798.150, 1798.155, 1798.175, 1798.185,\n1798.199.40, 1798.199.45, 1798.199.50, and 1798.199.65, Civil Code.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2026_sec7001_child_jjj"
+  }
+]
