@@ -20,12 +20,7 @@ sdist/
 var/
 wheels/
 share/python-wheels/
-*.egg-infoHere is a comprehensive `.gitignore` tailored for your Python, `uv`, and RAG setup. It ignores virtual environments, local environment variables, cache files, IDE configurations, and large raw PDF/processed text outputs so your repository stays clean.
 
-You can create and populate `.gitignore` by running this command in your repository root:
-
-```bash
-cat << 'EOF' > .gitignore
 # ==========================================
 # Environments & Virtual Envs
 # ==========================================
