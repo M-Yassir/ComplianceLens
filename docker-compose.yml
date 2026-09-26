@@ -1,6 +1,6 @@
 services:
   chromadb:
-    image: chromadb/chroma:0.5.0
+    image: chromadb/chroma:latest
     container_name: ccpa_chroma_db
     ports:
       - "8000:8000"
