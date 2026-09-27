@@ -106,19 +106,18 @@ class LegalChunker:
     def _process_definitions(
         self, sec_num: str, sec_title: str, body: str, version: str
     ) -> Tuple[List[ChildChunk], List[ParentChunk], List[GlossaryEntry]]:
-        """RULE A: Treats each definition as an atomic ChildChunk.
-
-        Parent ID self-references chunk ID so parent-store lookups fall back seamlessly.
-        """
+        """RULE A: Treats each definition as an atomic ChildChunk."""
         children, glossary = [], []
 
         QUOTES = r"[\"'\u201c\u201d\u2018\u2019]"
-
-        # ONLY split when a sub-item tag (a-z) is immediately followed by a quoted term
         def_pattern = rf"(?=\n\([a-z]{{1,3}}\)\s*{QUOTES})"
         defs = [d.strip() for d in re.split(def_pattern, body) if d.strip()]
 
         for idx, def_text in enumerate(defs):
+            # SKIP header preamble line e.g. "§ 7001. Definitions."
+            if not re.search(r"^\([a-z]{1,3}\)", def_text, re.IGNORECASE):
+                continue
+
             sub_match = re.search(r"^\(([a-z]{1,3})\)", def_text, re.IGNORECASE)
             sub_item = f"({sub_match.group(1)})" if sub_match else f"({idx + 1})"
 
@@ -132,7 +131,6 @@ class LegalChunker:
             sub_tag = sub_item.strip("()")
 
             chunk_id = f"v{version}_sec{sec_num}_child_{sub_tag}"
-            # Self-referential parent_id: eliminates duplicate JSON payload in parents_2026.json
             parent_id = chunk_id
             prov_lineage = f"v{version}_sec{sec_num}_sub_{sub_tag}"
 
@@ -170,7 +168,6 @@ class LegalChunker:
                     )
                 )
 
-        # Returns empty parent list since definition child chunks serve as their own parents
         return children, [], glossary
 
     def _process_micro_section(
@@ -287,6 +284,11 @@ class LegalChunker:
         child_idx = 1
         for sub in subs:
             match = re.search(r"^\(([a-z0-9]+)\)", sub, re.IGNORECASE)
+
+            # Skip creating a ChildChunk for the standalone header preamble line
+            if not match and sub.startswith("§") and len(subs) > 1:
+                continue
+
             sub_item = (
                 f"({match.group(1)})" if match else f"p{parent_idx}_c{child_idx}"
             )
