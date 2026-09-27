@@ -15,14 +15,14 @@
   {
     "version": "2026",
     "section": "7001",
-    "sub_item": "(0)",
+    "sub_item": "(1)",
     "section_title": "Definitions.",
-    "provisional_lineage_id": "v2026_sec7001_sub_0",
-    "parent_id": "v2026_sec7001_parent_0",
+    "provisional_lineage_id": "v2026_sec7001_sub_1",
+    "parent_id": "v2026_sec7001_parent_1",
     "text": "\u00a7 7001. Definitions.\n\u00a7 7001. Definitions.\nIn addition to the definitions set forth in Civil Code section 1798.140, for purposes of\nthese regulations:",
     "token_count": 38,
     "child_ids": [
-      "v2026_sec7001_child_0"
+      "v2026_sec7001_child_1"
     ]
   },
   {
@@ -149,23 +149,10 @@
     "section_title": "Definitions.",
     "provisional_lineage_id": "v2026_sec7001_sub_j",
     "parent_id": "v2026_sec7001_parent_j",
-    "text": "\u00a7 7001. Definitions.\n(j)\n\u201cCybersecurity audit\u201d means the annual cybersecurity audit that every\nbusiness whose processing of consumers\u2019 personal information presents\nsignificant risk to consumers\u2019 security as set forth in section 7120, subsection",
-    "token_count": 49,
+    "text": "\u00a7 7001. Definitions.\n(j)\n\u201cCybersecurity audit\u201d means the annual cybersecurity audit that every\nbusiness whose processing of consumers\u2019 personal information presents\nsignificant risk to consumers\u2019 security as set forth in section 7120, subsection\n(b), is required to complete.",
+    "token_count": 57,
     "child_ids": [
       "v2026_sec7001_child_j"
-    ]
-  },
-  {
-    "version": "2026",
-    "section": "7001",
-    "sub_item": "(b)",
-    "section_title": "Definitions.",
-    "provisional_lineage_id": "v2026_sec7001_sub_b",
-    "parent_id": "v2026_sec7001_parent_b",
-    "text": "\u00a7 7001. Definitions.\n(b), is required to complete.",
-    "token_count": 14,
-    "child_ids": [
-      "v2026_sec7001_child_b"
     ]
   },
   {
@@ -331,23 +318,10 @@
     "section_title": "Definitions.",
     "provisional_lineage_id": "v2026_sec7001_sub_w",
     "parent_id": "v2026_sec7001_parent_w",
-    "text": "\u00a7 7001. Definitions.\n(w) \u201cNotice at Collection\u201d means the notice given by a business to a consumer\nat or before the point at which a business collects personal information from\nthe consumer as required by Civil Code section 1798.100, subdivisions (a) and",
-    "token_count": 58,
+    "text": "\u00a7 7001. Definitions.\n(w) \u201cNotice at Collection\u201d means the notice given by a business to a consumer\nat or before the point at which a business collects personal information from\nthe consumer as required by Civil Code section 1798.100, subdivisions (a) and\n(b), and specified in these regulations.",
+    "token_count": 67,
     "child_ids": [
       "v2026_sec7001_child_w"
-    ]
-  },
-  {
-    "version": "2026",
-    "section": "7001",
-    "sub_item": "(b)",
-    "section_title": "Definitions.",
-    "provisional_lineage_id": "v2026_sec7001_sub_b",
-    "parent_id": "v2026_sec7001_parent_b",
-    "text": "\u00a7 7001. Definitions.\n(b), and specified in these regulations.",
-    "token_count": 15,
-    "child_ids": [
-      "v2026_sec7001_child_b"
     ]
   },
   {
@@ -474,23 +448,10 @@
     "section_title": "Definitions.",
     "provisional_lineage_id": "v2026_sec7001_sub_gg",
     "parent_id": "v2026_sec7001_parent_gg",
-    "text": "\u00a7 7001. Definitions.\n(gg) \u201cPrivacy policy,\u201d as referred to in Civil Code sections 1798.130, subdivision",
-    "token_count": 28,
+    "text": "\u00a7 7001. Definitions.\n(gg) \u201cPrivacy policy,\u201d as referred to in Civil Code sections 1798.130, subdivision\n(a)(5), and 1798.135, subdivision (c)(2), means the statement that a business\nshall make available to consumers describing the business\u2019s online and offline\ninformation practices, and the rights of consumers regarding their own\npersonal information.",
+    "token_count": 81,
     "child_ids": [
       "v2026_sec7001_child_gg"
-    ]
-  },
-  {
-    "version": "2026",
-    "section": "7001",
-    "sub_item": "(a)",
-    "section_title": "Definitions.",
-    "provisional_lineage_id": "v2026_sec7001_sub_a",
-    "parent_id": "v2026_sec7001_parent_a",
-    "text": "\u00a7 7001. Definitions.\n(a)(5), and 1798.135, subdivision (c)(2), means the statement that a business\nshall make available to consumers describing the business\u2019s online and offline\ninformation practices, and the rights of consumers regarding their own\npersonal information.",
-    "token_count": 59,
-    "child_ids": [
-      "v2026_sec7001_child_a"
     ]
   },
   {
@@ -539,23 +500,10 @@
     "section_title": "Definitions.",
     "provisional_lineage_id": "v2026_sec7001_sub_kk",
     "parent_id": "v2026_sec7001_parent_kk",
-    "text": "\u00a7 7001. Definitions.\n(kk) \u201cRequest to appeal ADMT\u201d means a consumer request to appeal the business\u2019s\nuse of ADMT for a significant decision as set forth in section 7221, subsection",
-    "token_count": 45,
+    "text": "\u00a7 7001. Definitions.\n(kk) \u201cRequest to appeal ADMT\u201d means a consumer request to appeal the business\u2019s\nuse of ADMT for a significant decision as set forth in section 7221, subsection\n(b)(1).",
+    "token_count": 50,
     "child_ids": [
       "v2026_sec7001_child_kk"
-    ]
-  },
-  {
-    "version": "2026",
-    "section": "7001",
-    "sub_item": "(b)",
-    "section_title": "Definitions.",
-    "provisional_lineage_id": "v2026_sec7001_sub_b",
-    "parent_id": "v2026_sec7001_parent_b",
-    "text": "\u00a7 7001. Definitions.\n(b)(1).",
-    "token_count": 11,
-    "child_ids": [
-      "v2026_sec7001_child_b"
     ]
   },
   {
@@ -1932,27 +1880,14 @@
   {
     "version": "2026",
     "section": "7270",
-    "sub_item": "(0)",
+    "sub_item": "(1)",
     "section_title": "Definition of Insurance Company.",
-    "provisional_lineage_id": "v2026_sec7270_sub_0",
-    "parent_id": "v2026_sec7270_parent_0",
-    "text": "\u00a7 7270. Definition of Insurance Company.\n\u00a7 7270. Definition of Insurance Company.",
-    "token_count": 20,
+    "provisional_lineage_id": "v2026_sec7270_sub_1",
+    "parent_id": "v2026_sec7270_parent_1",
+    "text": "\u00a7 7270. Definition of Insurance Company.\n\u00a7 7270. Definition of Insurance Company.\n(a)\nFor the purposes of these regulations, insurance company shall mean any\nperson that is subject to the California Insurance Code and its regulations.\nInsurance company shall include insurance institutions, agents, and insurance-\nsupport organizations, as those terms are defined in Insurance Code, section\n791.02.\nNote: Authority cited: Section 1798.185, Civil Code. Reference: Section 1798.185, Civil\nCode.",
+    "token_count": 106,
     "child_ids": [
-      "v2026_sec7270_child_0"
-    ]
-  },
-  {
-    "version": "2026",
-    "section": "7270",
-    "sub_item": "(a)",
-    "section_title": "Definition of Insurance Company.",
-    "provisional_lineage_id": "v2026_sec7270_sub_a",
-    "parent_id": "v2026_sec7270_parent_a",
-    "text": "\u00a7 7270. Definition of Insurance Company.\n(a)\nFor the purposes of these regulations, insurance company shall mean any\nperson that is subject to the California Insurance Code and its regulations.\nInsurance company shall include insurance institutions, agents, and insurance-\nsupport organizations, as those terms are defined in Insurance Code, section\n791.02.\nNote: Authority cited: Section 1798.185, Civil Code. Reference: Section 1798.185, Civil\nCode.",
-    "token_count": 96,
-    "child_ids": [
-      "v2026_sec7270_child_a"
+      "v2026_sec7270_child_1"
     ]
   },
   {

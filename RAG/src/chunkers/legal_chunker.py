@@ -83,19 +83,16 @@ class LegalChunker:
         """RULE A: Treats each definition as an atomic unit (1 definition = 1 ChildChunk = 1 ParentChunk)."""
         children, parents, glossary = [], [], []
 
-        # 1. Split by top-level item marker e.g., (a), (b), (ccc)
-        def_pattern = r"(?=\n\([a-z]{1,3}\)\s*)"
-        defs = [d.strip() for d in re.split(def_pattern, body) if d.strip()]
-
-        # Quote set capturing standard (", ') and smart/curly quotes (“ ” ‘ ’)
         QUOTES = r"[\"'\u201c\u201d\u2018\u2019]"
 
-        for idx, def_text in enumerate(defs):
-            # Match item letter e.g., (a)
-            sub_match = re.search(r"^\(([a-z]{1,3})\)", def_text, re.IGNORECASE)
-            sub_item = f"({sub_match.group(1)})" if sub_match else f"({idx})"
+        # ONLY split when a sub-item tag (a-z) is immediately followed by a quoted term
+        def_pattern = rf"(?=\n\([a-z]{{1,3}}\)\s*{QUOTES})"
+        defs = [d.strip() for d in re.split(def_pattern, body) if d.strip()]
 
-            # Match term inside any flavor of quotes: (a) "Term" or (a) “Term”
+        for idx, def_text in enumerate(defs):
+            sub_match = re.search(r"^\(([a-z]{1,3})\)", def_text, re.IGNORECASE)
+            sub_item = f"({sub_match.group(1)})" if sub_match else f"({idx + 1})"
+
             term_match = re.search(
                 rf"^\([a-z]{{1,3}}\)\s*{QUOTES}([^\"'\u201c\u201d\u2018\u2019]+){QUOTES}",
                 def_text,
@@ -103,10 +100,11 @@ class LegalChunker:
             )
 
             term_name = term_match.group(1).strip().lower() if term_match else ""
+            sub_tag = sub_item.strip("()")
 
-            chunk_id = f"v{version}_sec{sec_num}_child_{sub_item.strip('()')}"
-            parent_id = f"v{version}_sec{sec_num}_parent_{sub_item.strip('()')}"
-            prov_lineage = f"v{version}_sec{sec_num}_sub_{sub_item.strip('()')}"
+            chunk_id = f"v{version}_sec{sec_num}_child_{sub_tag}"
+            parent_id = f"v{version}_sec{sec_num}_parent_{sub_tag}"
+            prov_lineage = f"v{version}_sec{sec_num}_sub_{sub_tag}"
 
             formatted_text = f"§ {sec_num}. {sec_title}\n{def_text}"
             tokens = count_tokens(formatted_text)
