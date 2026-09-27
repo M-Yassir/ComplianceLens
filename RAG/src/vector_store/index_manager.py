@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 import chromadb
 from chromadb.config import Settings as ChromaSettings
-
+from typing import Optional
 from src.config import settings
 from src.schemas.chunks import ChildChunk
 
@@ -11,16 +11,22 @@ from src.schemas.chunks import ChildChunk
 class VectorIndexManager:
     def __init__(
         self,
-        host: str = settings.CHROMA_HOST,
-        port: int = settings.CHROMA_PORT,
-        collection_name: str = settings.CHROMA_COLLECTION_NAME,
+        host: Optional[str] = None,
+        port: Optional[int] = None,
+        collection_name: Optional[str] = None,
     ):
+        # Resolve parameters dynamically at runtime
+        self.host = host or settings.CHROMA_HOST
+        self.port = port or settings.CHROMA_PORT
+        self.collection_name = collection_name or settings.CHROMA_COLLECTION_NAME
+
+        print(f"Connecting to ChromaDB at http://{self.host}:{self.port}...")
+
         self.client = chromadb.HttpClient(
-            host=host,
-            port=port,
+            host=self.host,
+            port=self.port,
             settings=ChromaSettings(anonymized_telemetry=False),
         )
-        self.collection_name = collection_name
         self.collection = self.client.get_or_create_collection(
             name=self.collection_name,
             metadata={"hnsw:space": "cosine"},
