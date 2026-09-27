@@ -5,17 +5,23 @@ from typing import Dict, List, Tuple
 
 try:
     import tiktoken
+
     ENC = tiktoken.get_encoding("cl100k_base")
+
     def count_tokens(text: str) -> int:
         return len(ENC.encode(text))
+
 except ImportError:
+
     def count_tokens(text: str) -> int:
         return round(len(text.split()) * 1.3)
 
-from src.schemas.chunks import ChildChunk, ParentChunk, GlossaryEntry
+
+from src.schemas.chunks import ChildChunk, GlossaryEntry, ParentChunk
 
 
 class LegalChunker:
+
     def __init__(
         self,
         max_parent_tokens: int = 1200,
@@ -26,7 +32,9 @@ class LegalChunker:
         self.target_child_tokens = target_child_tokens
         self.max_child_tokens = max_child_tokens
 
-    def process_file(self, file_path: Path, version_tag: str) -> Tuple[List[ChildChunk], List[ParentChunk], List[GlossaryEntry]]:
+    def process_file(
+        self, file_path: Path, version_tag: str
+    ) -> Tuple[List[ChildChunk], List[ParentChunk], List[GlossaryEntry]]:
         """Parses a version text file and returns ChildChunks, ParentChunks, and GlossaryEntries."""
         raw_text = file_path.read_text(encoding="utf-8")
         sections = self._split_into_sections(raw_text)
@@ -38,33 +46,51 @@ class LegalChunker:
         for sec_num, sec_title, sec_body in sections:
             # RULE A: Definition Section (§ 7001)
             if sec_num == "7001" or "definition" in sec_title.lower():
-                children, parents, glossary = self._process_definitions(sec_num, sec_title, sec_body, version_tag)
+                children, parents, glossary = self._process_definitions(
+                    sec_num, sec_title, sec_body, version_tag
+                )
                 all_children.extend(children)
-                all_parents.extend(parents)
+                all_parents.extend(parents)  # Will be [] under Option 2
                 all_glossary.extend(glossary)
 
             # RULE C: Micro Section (< 500 tokens)
             elif count_tokens(sec_body) < 500:
-                child, parent = self._process_micro_section(sec_num, sec_title, sec_body, version_tag)
+                child, parent = self._process_micro_section(
+                    sec_num, sec_title, sec_body, version_tag
+                )
                 all_children.append(child)
                 all_parents.append(parent)
 
             # RULE B: Standard Sections (Parent-Child Hierarchy with Fallback)
             else:
-                children, parents = self._process_standard_section(sec_num, sec_title, sec_body, version_tag)
+                children, parents = self._process_standard_section(
+                    sec_num, sec_title, sec_body, version_tag
+                )
                 all_children.extend(children)
                 all_parents.extend(parents)
 
-        return all_children, all_parents, all_glossary
+        # Safety Guardrail: Guarantee absolute uniqueness on child chunk IDs
+        seen_ids = set()
+        unique_children = []
+        for c in all_children:
+            if c.chunk_id not in seen_ids:
+                seen_ids.add(c.chunk_id)
+                unique_children.append(c)
+            else:
+                print(
+                    f"⚠️ Warning: Suppressed duplicate chunk_id in parsing: {c.chunk_id}"
+                )
+
+        return unique_children, all_parents, all_glossary
 
     def _split_into_sections(self, text: str) -> List[Tuple[str, str, str]]:
         """Splits raw text by section headers (§ XXXX. Title)."""
         pattern = r"\n(?=§\s*\d+)"
         raw_sections = [s.strip() for s in re.split(pattern, text) if s.strip()]
-        
+
         parsed = []
         header_regex = r"^§\s*(\d+)\.\s*([^\n]+)"
-        
+
         for sec in raw_sections:
             match = re.search(header_regex, sec)
             if match:
@@ -74,14 +100,17 @@ class LegalChunker:
             else:
                 # Top level text or header preamble
                 parsed.append(("0000", "Preamble", sec))
-                
+
         return parsed
 
     def _process_definitions(
         self, sec_num: str, sec_title: str, body: str, version: str
     ) -> Tuple[List[ChildChunk], List[ParentChunk], List[GlossaryEntry]]:
-        """RULE A: Treats each definition as an atomic unit (1 definition = 1 ChildChunk = 1 ParentChunk)."""
-        children, parents, glossary = [], [], []
+        """RULE A: Treats each definition as an atomic ChildChunk.
+
+        Parent ID self-references chunk ID so parent-store lookups fall back seamlessly.
+        """
+        children, glossary = [], []
 
         QUOTES = r"[\"'\u201c\u201d\u2018\u2019]"
 
@@ -103,7 +132,8 @@ class LegalChunker:
             sub_tag = sub_item.strip("()")
 
             chunk_id = f"v{version}_sec{sec_num}_child_{sub_tag}"
-            parent_id = f"v{version}_sec{sec_num}_parent_{sub_tag}"
+            # Self-referential parent_id: eliminates duplicate JSON payload in parents_2026.json
+            parent_id = chunk_id
             prov_lineage = f"v{version}_sec{sec_num}_sub_{sub_tag}"
 
             formatted_text = f"§ {sec_num}. {sec_title}\n{def_text}"
@@ -121,25 +151,12 @@ class LegalChunker:
                 token_count=tokens,
                 is_fallback_split=False,
             )
-
-            parent = ParentChunk(
-                parent_id=parent_id,
-                version=version,
-                section=sec_num,
-                sub_item=sub_item,
-                section_title=sec_title,
-                provisional_lineage_id=prov_lineage,
-                text=formatted_text,
-                token_count=tokens,
-                child_ids=[chunk_id],
-            )
-
             children.append(child)
-            parents.append(parent)
 
             if term_name:
                 is_distinctive = (
-                    len(term_name.split()) > 1 or term_name in ["admt", "coppa", "ccpa"]
+                    len(term_name.split()) > 1
+                    or term_name in ["admt", "coppa", "ccpa"]
                 )
                 glossary.append(
                     GlossaryEntry(
@@ -153,7 +170,8 @@ class LegalChunker:
                     )
                 )
 
-        return children, parents, glossary
+        # Returns empty parent list since definition child chunks serve as their own parents
+        return children, [], glossary
 
     def _process_micro_section(
         self, sec_num: str, sec_title: str, body: str, version: str
@@ -174,7 +192,7 @@ class LegalChunker:
             provisional_lineage_id=prov_lineage,
             text=body,
             token_count=tokens,
-            is_fallback_split=False
+            is_fallback_split=False,
         )
 
         parent = ParentChunk(
@@ -186,7 +204,7 @@ class LegalChunker:
             provisional_lineage_id=prov_lineage,
             text=body,
             token_count=tokens,
-            child_ids=[chunk_id]
+            child_ids=[chunk_id],
         )
 
         return child, parent
@@ -194,9 +212,9 @@ class LegalChunker:
     def _process_standard_section(
         self, sec_num: str, sec_title: str, body: str, version: str
     ) -> Tuple[List[ChildChunk], List[ParentChunk]]:
-        """RULE B: Splits into parent groups (max 1000 tokens) and child units (max 400 tokens) with fallback."""
+        """RULE B: Splits into parent groups (max 1200 tokens) and child units (max 400 tokens) with fallback."""
         children, parents = [], []
-        
+
         # Split by top-level subsections: (a), (b), (c)
         sub_pattern = r"(?=\n\([a-z]\)\s*)"
         subsections = [s.strip() for s in re.split(sub_pattern, body) if s.strip()]
@@ -211,10 +229,18 @@ class LegalChunker:
 
         for sub in subsections:
             sub_tokens = count_tokens(sub)
-            if count_tokens(current_parent_text) + sub_tokens > self.max_parent_tokens and current_parent_text:
+            if (
+                count_tokens(current_parent_text) + sub_tokens > self.max_parent_tokens
+                and current_parent_text
+            ):
                 # Flush parent window
                 p_childs, p_obj = self._build_parent_and_children(
-                    sec_num, sec_title, current_parent_text, current_parent_subs, parent_idx, version
+                    sec_num,
+                    sec_title,
+                    current_parent_text,
+                    current_parent_subs,
+                    parent_idx,
+                    version,
                 )
                 children.extend(p_childs)
                 parents.append(p_obj)
@@ -223,12 +249,19 @@ class LegalChunker:
                 current_parent_text = sub
                 current_parent_subs = [sub]
             else:
-                current_parent_text += "\n\n" + sub if current_parent_text else sub
+                current_parent_text += (
+                    "\n\n" + sub if current_parent_text else sub
+                )
                 current_parent_subs.append(sub)
 
         if current_parent_text:
             p_childs, p_obj = self._build_parent_and_children(
-                sec_num, sec_title, current_parent_text, current_parent_subs, parent_idx, version
+                sec_num,
+                sec_title,
+                current_parent_text,
+                current_parent_subs,
+                parent_idx,
+                version,
             )
             children.extend(p_childs)
             parents.append(p_obj)
@@ -236,24 +269,31 @@ class LegalChunker:
         return children, parents
 
     def _build_parent_and_children(
-        self, sec_num: str, sec_title: str, parent_text: str, subs: List[str], parent_idx: int, version: str
+        self,
+        sec_num: str,
+        sec_title: str,
+        parent_text: str,
+        subs: List[str],
+        parent_idx: int,
+        version: str,
     ) -> Tuple[List[ChildChunk], ParentChunk]:
         """Sub-divides a Parent window into leaf ChildChunks."""
         parent_id = f"v{version}_sec{sec_num}_p{parent_idx}"
         prov_lineage = f"v{version}_sec{sec_num}_p{parent_idx}"
-        
+
         child_objs = []
         child_ids = []
 
         child_idx = 1
         for sub in subs:
-            # Sub-divide individual items (1), (2), (A) inside subsection if necessary
             match = re.search(r"^\(([a-z0-9]+)\)", sub, re.IGNORECASE)
-            sub_item = f"({match.group(1)})" if match else f"p{parent_idx}_c{child_idx}"
+            sub_item = (
+                f"({match.group(1)})" if match else f"p{parent_idx}_c{child_idx}"
+            )
 
             child_id = f"v{version}_sec{sec_num}_p{parent_idx}_c{child_idx}"
             formatted_child_text = f"§ {sec_num}. {sec_title}\n{sub}"
-            
+
             child = ChildChunk(
                 chunk_id=child_id,
                 parent_id=parent_id,
@@ -264,7 +304,7 @@ class LegalChunker:
                 provisional_lineage_id=f"v{version}_sec{sec_num}_sub_{sub_item.strip('()')}",
                 text=formatted_child_text,
                 token_count=count_tokens(formatted_child_text),
-                is_fallback_split=False
+                is_fallback_split=False,
             )
             child_objs.append(child)
             child_ids.append(child_id)
@@ -279,7 +319,7 @@ class LegalChunker:
             provisional_lineage_id=prov_lineage,
             text=f"§ {sec_num}. {sec_title}\n{parent_text}",
             token_count=count_tokens(parent_text),
-            child_ids=child_ids
+            child_ids=child_ids,
         )
 
         return child_objs, parent
@@ -291,7 +331,7 @@ class LegalChunker:
         words = body.split()
         chunk_words = 200
         overlap_words = 30
-        
+
         children, parents = [], []
         parent_id = f"v{version}_sec{sec_num}_p_fallback"
         child_ids = []
@@ -312,7 +352,7 @@ class LegalChunker:
                 provisional_lineage_id=f"v{version}_sec{sec_num}_fb_{i // step + 1}",
                 text=formatted_text,
                 token_count=count_tokens(formatted_text),
-                is_fallback_split=True
+                is_fallback_split=True,
             )
             children.append(child)
             child_ids.append(child_id)
@@ -326,7 +366,7 @@ class LegalChunker:
             provisional_lineage_id=f"v{version}_sec{sec_num}_fb_parent",
             text=f"§ {sec_num}. {sec_title}\n{body}",
             token_count=count_tokens(body),
-            child_ids=child_ids
+            child_ids=child_ids,
         )
         parents.append(parent)
 
@@ -343,7 +383,6 @@ def run_chunker_pipeline(input_file: Path, output_dir: Path, version_tag: str):
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Save outputs as pretty-printed JSON arrays
     (output_dir / f"chunks_{version_tag}.json").write_text(
         json.dumps([c.model_dump() for c in children], indent=2), encoding="utf-8"
     )
@@ -355,16 +394,23 @@ def run_chunker_pipeline(input_file: Path, output_dir: Path, version_tag: str):
     )
 
     print(f" Chunking Complete for Version [{version_tag}]:")
-    print(f"   • Child Chunks    : {len(children):>4} -> {output_dir / f'chunks_{version_tag}.json'}")
-    print(f"   • Parent Chunks   : {len(parents):>4} -> {output_dir / f'parents_{version_tag}.json'}")
-    print(f"   • Glossary Terms  : {len(glossary):>4} -> {output_dir / f'glossary_{version_tag}.json'}\n")
+    print(
+        f"   • Child Chunks    : {len(children):>4} -> {output_dir / f'chunks_{version_tag}.json'}"
+    )
+    print(
+        f"   • Parent Chunks   : {len(parents):>4} -> {output_dir / f'parents_{version_tag}.json'}"
+    )
+    print(
+        f"   • Glossary Terms  : {len(glossary):>4} -> {output_dir / f'glossary_{version_tag}.json'}\n"
+    )
 
 
 if __name__ == "__main__":
     PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
     PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 
-    # Example execution on version files
+    # Execution on processed version files
     file_2026 = PROCESSED_DIR / "version_2026.txt"
+
     if file_2026.exists():
         run_chunker_pipeline(file_2026, PROCESSED_DIR, version_tag="2026")
