@@ -1,24 +1,24 @@
 import json
 from pathlib import Path
-from typing import List, Optional, Dict, Any
+from typing import List, Dict, Any
 import chromadb
-from chromadb.config import Settings
-from pydantic import BaseModel
+from chromadb.config import Settings as ChromaSettings
 
+from src.config import settings
 from src.schemas.chunks import ChildChunk
 
 
 class VectorIndexManager:
     def __init__(
         self,
-        host: str = "localhost",
-        port: int = 8000,
-        collection_name: str = "ccpa_child_chunks",
+        host: str = settings.CHROMA_HOST,
+        port: int = settings.CHROMA_PORT,
+        collection_name: str = settings.CHROMA_COLLECTION_NAME,
     ):
         self.client = chromadb.HttpClient(
             host=host,
             port=port,
-            settings=Settings(anonymized_telemetry=False),
+            settings=ChromaSettings(anonymized_telemetry=False),
         )
         self.collection_name = collection_name
         self.collection = self.client.get_or_create_collection(
@@ -27,9 +27,9 @@ class VectorIndexManager:
         )
 
     def _sanitize_metadata(self, chunk: ChildChunk) -> Dict[str, Any]:
-        """Flattens ChildChunk fields into primitive types allowed by ChromaDB (str, int, float, bool)."""
+        """Flattens ChildChunk fields into primitive types allowed by ChromaDB."""
         raw_meta = chunk.model_dump(
-            exclude={"chunk_id", "text"}  # chunk_id is used as DB ID, text is document payload
+            exclude={"chunk_id", "text"}
         )
         clean_meta = {}
         for k, v in raw_meta.items():
@@ -48,7 +48,6 @@ class VectorIndexManager:
         documents = [c.text for c in chunks]
         metadatas = [self._sanitize_metadata(c) for c in chunks]
 
-        # ChromaDB handles batching internally or via explicit upsert
         self.collection.upsert(
             ids=ids,
             documents=documents,
@@ -65,9 +64,6 @@ class VectorIndexManager:
         return self.collection.count()
 
 
-# =====================================================================
-# Pipeline Execution
-# =====================================================================
 def load_and_index_file(json_file: Path, index_mgr: VectorIndexManager):
     if not json_file.exists():
         print(f"File not found: {json_file}")
@@ -77,13 +73,11 @@ def load_and_index_file(json_file: Path, index_mgr: VectorIndexManager):
     chunks = [ChildChunk(**item) for item in raw_data]
 
     indexed_count = index_mgr.index_chunks(chunks)
-    print(f" Successfully indexed {indexed_count} child chunks from [{json_file.name}] into ChromaDB.")
+    print(f"Successfully indexed {indexed_count} child chunks from [{json_file.name}] into ChromaDB.")
 
 
 if __name__ == "__main__":
-    PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-    PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
-    CHUNKS_FILE = PROCESSED_DIR / "chunks_2026.json"
+    CHUNKS_FILE = settings.PROCESSED_DATA_DIR / "chunks_2026.json"
 
     manager = VectorIndexManager()
     load_and_index_file(CHUNKS_FILE, manager)
