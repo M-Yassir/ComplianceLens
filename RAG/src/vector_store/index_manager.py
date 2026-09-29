@@ -42,8 +42,14 @@ class VectorIndexManager:
         raw_meta = chunk.model_dump(exclude={"chunk_id", "text"})
         return {k: v for k, v in raw_meta.items() if v is not None}
 
-    def index_chunks(self, chunks: List[ChildChunk], batch_size: int = 30, delay_between_batches: float = 2.0) -> int:
-        """Upserts ChildChunk models in rate-limit-aware batches."""
+    def index_chunks(
+        self,
+        chunks: List[ChildChunk],
+        batch_size: int = 10,
+        delay_between_batches: float = 6.0,
+        max_retries: int = 5,
+    ) -> int:
+        """Upserts ChildChunk models into ChromaDB with rate limit backoff retries."""
         if not chunks:
             print("No chunks provided for indexing.")
             return 0
@@ -51,7 +57,7 @@ class VectorIndexManager:
         total_chunks = len(chunks)
         total_indexed = 0
 
-        print(f"Indexing {total_chunks} chunks in batches of {batch_size}...")
+        print(f"Indexing {total_chunks} chunks (batch size: {batch_size}, delay: {delay_between_batches}s)...")
 
         for i in range(0, total_chunks, batch_size):
             batch = chunks[i : i + batch_size]
@@ -59,16 +65,29 @@ class VectorIndexManager:
             documents = [c.text for c in batch]
             metadatas = [self._sanitize_metadata(c) for c in batch]
 
-            self.collection.upsert(
-                ids=ids,
-                documents=documents,
-                metadatas=metadatas,
-            )
-            
-            total_indexed += len(batch)
-            print(f" Progress: [{total_indexed}/{total_chunks}] chunks indexed into ChromaDB.")
+            # Retry loop for rate-limit protection
+            for attempt in range(1, max_retries + 1):
+                try:
+                    self.collection.upsert(
+                        ids=ids,
+                        documents=documents,
+                        metadatas=metadatas,
+                    )
+                    total_indexed += len(batch)
+                    print(f" Progress: [{total_indexed}/{total_chunks}] chunks indexed into ChromaDB.")
+                    break
+                except Exception as e:
+                    err_msg = str(e)
+                    if "429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg:
+                        wait_time = 45
+                        print(f" ⚠️ Quota hit (429) on attempt {attempt}/{max_retries}. Pausing for {wait_time}s to reset Google API quota...")
+                        time.sleep(wait_time)
+                    else:
+                        raise e
+            else:
+                raise RuntimeError(f"Failed to index batch starting at index {i} after {max_retries} attempts.")
 
-            # Pause between batches to respect free tier RPM limits
+            # Sleep between batches to stay under the 100 RPM limit (10 items / 6s = ~100 RPM)
             if i + batch_size < total_chunks and delay_between_batches > 0:
                 time.sleep(delay_between_batches)
 
