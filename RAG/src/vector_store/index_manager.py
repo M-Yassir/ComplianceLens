@@ -1,11 +1,12 @@
 import json
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import chromadb
 from chromadb.config import Settings as ChromaSettings
-from typing import Optional
+
 from src.config import settings
 from src.schemas.chunks import ChildChunk
+from src.vector_store.embeddings import get_embedding_function
 
 
 class VectorIndexManager:
@@ -27,8 +28,13 @@ class VectorIndexManager:
             port=self.port,
             settings=ChromaSettings(anonymized_telemetry=False),
         )
+
+        # Resolve configured cloud or local embedding provider
+        self.embedding_fn = get_embedding_function()
+
         self.collection = self.client.get_or_create_collection(
             name=self.collection_name,
+            embedding_function=self.embedding_fn,
             metadata={"hnsw:space": "cosine"},
         )
 
