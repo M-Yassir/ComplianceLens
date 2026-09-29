@@ -1,4 +1,5 @@
 import json
+import time
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 import chromadb
@@ -16,7 +17,6 @@ class VectorIndexManager:
         port: Optional[int] = None,
         collection_name: Optional[str] = None,
     ):
-        # Resolve parameters dynamically at runtime
         self.host = host or settings.CHROMA_HOST
         self.port = port or settings.CHROMA_PORT
         self.collection_name = collection_name or settings.CHROMA_COLLECTION_NAME
@@ -29,7 +29,6 @@ class VectorIndexManager:
             settings=ChromaSettings(anonymized_telemetry=False),
         )
 
-        # Resolve configured cloud or local embedding provider
         self.embedding_fn = get_embedding_function()
 
         self.collection = self.client.get_or_create_collection(
@@ -40,32 +39,40 @@ class VectorIndexManager:
 
     def _sanitize_metadata(self, chunk: ChildChunk) -> Dict[str, Any]:
         """Flattens ChildChunk fields into primitive types allowed by ChromaDB."""
-        raw_meta = chunk.model_dump(
-            exclude={"chunk_id", "text"}
-        )
-        clean_meta = {}
-        for k, v in raw_meta.items():
-            if v is None:
-                continue
-            clean_meta[k] = v
-        return clean_meta
+        raw_meta = chunk.model_dump(exclude={"chunk_id", "text"})
+        return {k: v for k, v in raw_meta.items() if v is not None}
 
-    def index_chunks(self, chunks: List[ChildChunk]) -> int:
-        """Upserts a list of ChildChunk models into ChromaDB."""
+    def index_chunks(self, chunks: List[ChildChunk], batch_size: int = 30, delay_between_batches: float = 2.0) -> int:
+        """Upserts ChildChunk models in rate-limit-aware batches."""
         if not chunks:
             print("No chunks provided for indexing.")
             return 0
 
-        ids = [c.chunk_id for c in chunks]
-        documents = [c.text for c in chunks]
-        metadatas = [self._sanitize_metadata(c) for c in chunks]
+        total_chunks = len(chunks)
+        total_indexed = 0
 
-        self.collection.upsert(
-            ids=ids,
-            documents=documents,
-            metadatas=metadatas,
-        )
-        return len(ids)
+        print(f"Indexing {total_chunks} chunks in batches of {batch_size}...")
+
+        for i in range(0, total_chunks, batch_size):
+            batch = chunks[i : i + batch_size]
+            ids = [c.chunk_id for c in batch]
+            documents = [c.text for c in batch]
+            metadatas = [self._sanitize_metadata(c) for c in batch]
+
+            self.collection.upsert(
+                ids=ids,
+                documents=documents,
+                metadatas=metadatas,
+            )
+            
+            total_indexed += len(batch)
+            print(f" Progress: [{total_indexed}/{total_chunks}] chunks indexed into ChromaDB.")
+
+            # Pause between batches to respect free tier RPM limits
+            if i + batch_size < total_chunks and delay_between_batches > 0:
+                time.sleep(delay_between_batches)
+
+        return total_indexed
 
     def delete_version(self, version_tag: str) -> None:
         """Purges all chunks associated with a specific regulatory version."""
@@ -85,7 +92,7 @@ def load_and_index_file(json_file: Path, index_mgr: VectorIndexManager):
     chunks = [ChildChunk(**item) for item in raw_data]
 
     indexed_count = index_mgr.index_chunks(chunks)
-    print(f"Successfully indexed {indexed_count} child chunks from [{json_file.name}] into ChromaDB.")
+    print(f"\nSuccessfully indexed {indexed_count} child chunks from [{json_file.name}] into ChromaDB.")
 
 
 if __name__ == "__main__":
