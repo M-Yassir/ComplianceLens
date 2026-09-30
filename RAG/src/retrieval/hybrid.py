@@ -188,7 +188,7 @@ class HybridRetriever:
 
 if __name__ == "__main__":
     hybrid = HybridRetriever()
-    query = "What are the requirements under § 7002 for opt-out links?"
+    query = "What are the requirements under § 7060 for opt-out links?"
 
     print(f"\n[Hybrid Retriever Test] Query: '{query}'")
     print("=" * 85)
