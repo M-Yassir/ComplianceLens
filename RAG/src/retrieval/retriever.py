@@ -2,49 +2,61 @@ import json
 import time
 from pathlib import Path
 from typing import List, Dict, Any, Optional
+import chromadb
+from chromadb.config import Settings as ChromaSettings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 from src.config import settings
-from src.schemas.chunks import ParentChunk
 from src.vector_store.embeddings import get_embedding_function
 
 
 class ParentChildRetriever:
-    """Retrieves full parent legal sections based on child chunk vector similarity."""
+    """Retrieves full parent legal sections based on child chunk vector similarity across regulatory versions."""
 
     def __init__(
         self,
-        parent_file_path: Optional[Path] = None,
+        processed_data_dir: Optional[Path] = None,
         top_k_children: int = 5,
     ):
-        self.parent_file_path = parent_file_path or (
-            settings.PROCESSED_DATA_DIR / "parents_2026.json"
-        )
+        self.processed_data_dir = processed_data_dir or settings.PROCESSED_DATA_DIR
         self.top_k_children = top_k_children
 
-        # Fast lookup in memory for parent documents {parent_id: dict}
-        self.parents_db: Dict[str, Dict[str, Any]] = self._load_parents()
+        # Fast in-memory lookup for parent documents across ALL version files {parent_id: dict}
+        self.parents_db: Dict[str, Dict[str, Any]] = self._load_all_parents()
 
-        # Persistent ChromaDB connection via vector adapter
-        chroma_ef = get_embedding_function()
-        self.vector_store = Chroma(
-            client_settings=None,
-            collection_name=settings.CHROMA_COLLECTION_NAME,
-            embedding_function=chroma_ef,
+        # Connect to ChromaDB via HttpClient
+        chroma_client = chromadb.HttpClient(
             host=settings.CHROMA_HOST,
             port=settings.CHROMA_PORT,
+            settings=ChromaSettings(anonymized_telemetry=False),
+        )
+        chroma_ef = get_embedding_function()
+
+        self.vector_store = Chroma(
+            client=chroma_client,
+            collection_name=settings.CHROMA_COLLECTION_NAME,
+            embedding_function=chroma_ef,
         )
 
-    def _load_parents(self) -> Dict[str, Dict[str, Any]]:
-        """Loads processed parent sections into memory for immediate resolution."""
-        if not self.parent_file_path.exists():
-            raise FileNotFoundError(
-                f"Parent documents payload not found at: {self.parent_file_path}"
-            )
+    def _load_all_parents(self) -> Dict[str, Dict[str, Any]]:
+        """Loads all processed parent files (parents_*.json) in data/processed/ into memory."""
+        parents_map: Dict[str, Dict[str, Any]] = {}
+        parent_files = list(self.processed_data_dir.glob("parents_*.json"))
 
-        raw_data = json.loads(self.parent_file_path.read_text(encoding="utf-8"))
-        return {doc["parent_id"]: doc for doc in raw_data}
+        if not parent_files:
+            print(f"⚠️ Warning: No parent files found matching 'parents_*.json' in {self.processed_data_dir}")
+            return parents_map
+
+        for p_file in parent_files:
+            try:
+                raw_data = json.loads(p_file.read_text(encoding="utf-8"))
+                for doc in raw_data:
+                    parents_map[doc["parent_id"]] = doc
+            except Exception as e:
+                print(f"⚠️ Error loading parent file {p_file.name}: {e}")
+
+        return parents_map
 
     def get_relevant_documents(
         self, query: str, version_filter: Optional[str] = None, max_retries: int = 3
@@ -67,7 +79,7 @@ class ParentChildRetriever:
             except Exception as e:
                 err_msg = str(e)
                 if ("429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg) and attempt < max_retries:
-                    wait_time = 45
+                    wait_time = 10 * attempt
                     print(f"\n Rate limit hit (429). Waiting {wait_time}s for Google API quota reset (Attempt {attempt}/{max_retries})...")
                     time.sleep(wait_time)
                 else:
@@ -83,7 +95,7 @@ class ParentChildRetriever:
             if pid and pid not in parent_ids:
                 parent_ids.append(pid)
 
-        # 3. Resolve parent chunks using standard BaseLegalChunk schema keys
+        # 3. Resolve parent chunks using standard schema keys
         resolved_parents: List[Document] = []
         for pid in parent_ids:
             parent_data = self.parents_db.get(pid)
@@ -96,7 +108,7 @@ class ParentChildRetriever:
                             "section": parent_data.get("section", "N/A"),
                             "section_title": parent_data.get("section_title", ""),
                             "sub_item": parent_data.get("sub_item"),
-                            "version": parent_data.get("version", "2026"),
+                            "version": parent_data.get("version", "N/A"),
                             "provisional_lineage_id": parent_data.get("provisional_lineage_id", ""),
                             "canonical_lineage_id": parent_data.get("canonical_lineage_id", ""),
                         },
@@ -116,8 +128,9 @@ if __name__ == "__main__":
     results = retriever.get_relevant_documents(query)
     for idx, doc in enumerate(results, 1):
         print(f"\n[{idx}] Parent ID    : {doc.metadata['parent_id']}")
+        print(f"    Version      : {doc.metadata['version']}")
         print(f"    Section      : § {doc.metadata['section']}")
         print(f"    Sub-item     : {doc.metadata['sub_item'] or 'N/A'}")
         print(f"    Title        : {doc.metadata['section_title']}")
-        print(f"    Lineage ID   : {doc.metadata['provisional_lineage_id']}")
+        print(f"    Lineage ID   : {doc.metadata['canonical_lineage_id'] or doc.metadata['provisional_lineage_id']}")
         print(f"    Snippet      :\n    {doc.page_content[:200]}...\n")

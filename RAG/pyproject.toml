@@ -7,7 +7,9 @@ authors = [
     { name = "M", email = "m.abouchiba0@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "rank-bm25>=0.2.2",
+]
 
 [project.scripts]
 rag = "rag:main"
