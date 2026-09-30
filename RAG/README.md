@@ -121,7 +121,7 @@ Regulatory text is sourced from the California Privacy Protection Agency (cppa.c
 ## Status
 
 - [x] PDF redline parsing (strikethrough/underline separation via vector-line detection)
-- [ ] Structure-aware chunking (in progress)
+- [x] Structure-aware chunking
 - [ ] Hybrid retrieval + reranking
 - [ ] Citation verification + confidence-gated abstention
 - [ ] Cross-version alignment + changelog generation

@@ -4,7 +4,9 @@ import sys
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 from chromadb.errors import NotFoundError
+
 from src.config import settings
+from src.vector_store.embeddings import get_embedding_function
 
 
 def get_collection():
@@ -13,6 +15,7 @@ def get_collection():
         port=settings.CHROMA_PORT,
         settings=ChromaSettings(anonymized_telemetry=False),
     )
+
     try:
         return client.get_collection(name=settings.CHROMA_COLLECTION_NAME)
     except (NotFoundError, ValueError):
@@ -25,7 +28,6 @@ def get_collection():
 def peek_records(limit: int = 3, full_vectors: bool = False):
     col = get_collection()
     
-    # Explicitly include embeddings in the query payload
     data = col.get(
         limit=limit,
         include=["documents", "metadatas", "embeddings"]
@@ -48,7 +50,6 @@ def peek_records(limit: int = 3, full_vectors: bool = False):
             if full_vectors:
                 print(f"   {emb}")
             else:
-                # Show first 5 and last 3 float values for clean terminal output
                 preview = [f"{x:.6f}" for x in emb[:5]]
                 end_preview = [f"{x:.6f}" for x in emb[-3:]]
                 print(f"   [{', '.join(preview)}, ... {', '.join(end_preview)}]")
@@ -82,8 +83,14 @@ def get_by_id(chunk_id: str):
 
 def query_vector_db(query_text: str, top_k: int = 3):
     col = get_collection()
+    embedding_fn = get_embedding_function()
+    
+    # Generate explicit 1D embedding vector using LangChain interface
+    query_embedding = embedding_fn.embed_query(query_text)
+
+    # Pass pre-computed embeddings directly to ChromaDB
     res = col.query(
-        query_texts=[query_text],
+        query_embeddings=[query_embedding],
         n_results=top_k,
         include=["documents", "metadatas", "distances"],
     )
@@ -98,7 +105,8 @@ def query_vector_db(query_text: str, top_k: int = 3):
         meta = res["metadatas"][0][idx]
 
         print(f"\n[{idx + 1}] Distance (Cosine): {dist:.4f} | ID: {cid}")
-        print(f"    Section : {meta.get('section_number', 'N/A')}")
+        print(f"    Section : § {meta.get('section', 'N/A')}")
+        print(f"    Title   : {meta.get('section_title', 'N/A')}")
         print(f"    Parent  : {meta.get('parent_id', 'N/A')}")
         print(f"    Text    : {doc[:200]}...")
 
