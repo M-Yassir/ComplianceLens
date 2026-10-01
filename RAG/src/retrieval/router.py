@@ -118,7 +118,7 @@ class QueryRouter:
 
 
 if __name__ == "__main__":
-    router = QueryRouter()
+    from src.generation.llm_service import get_llm
 
     test_queries = [
         "What are the requirements for consumer opt-out links under § 7013?",
@@ -127,14 +127,35 @@ if __name__ == "__main__":
         "How should a business display Do Not Sell or Share links?",
     ]
 
-    print("\n[Query Router Test]")
+    print("\n" + "=" * 85)
+    print("1. RUNNING HEURISTIC QUERY ROUTER TEST (No LLM)")
     print("=" * 85)
 
+    heuristic_router = QueryRouter(llm=None)
     for q in test_queries:
-        decision = router.route_query(q)
+        decision = heuristic_router.route_query(q)
         print(f"\nQuery          : '{q}'")
         print(f"Route          : {decision.route.value}")
         print(f"Confidence     : {decision.confidence}")
         print(f"Version Filter : {decision.version_filter}")
         print(f"Sections       : {decision.extracted_sections}")
         print(f"Reasoning      : {decision.reasoning}")
+
+    print("\n" + "=" * 85)
+    print("2. RUNNING LLM-POWERED QUERY ROUTER TEST (Gemini / Configured LLM)")
+    print("=" * 85)
+
+    try:
+        llm = get_llm()
+        llm_router = QueryRouter(llm=llm)
+
+        for q in test_queries:
+            decision = llm_router.route_query(q)
+            print(f"\nQuery          : '{q}'")
+            print(f"Route          : {decision.route.value}")
+            print(f"Confidence     : {decision.confidence}")
+            print(f"Version Filter : {decision.version_filter}")
+            print(f"Sections       : {decision.extracted_sections}")
+            print(f"Reasoning      : {decision.reasoning}")
+    except Exception as e:
+        print(f"\nLLM Router execution failed: {e}")
