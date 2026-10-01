@@ -1,10 +1,14 @@
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+MODULE_BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class Settings(BaseSettings):
+    # Paths
+    BASE_DIR: Path = MODULE_BASE_DIR
+    DATA_DIR: Path = BASE_DIR / "data"
+
     # Database
     CHROMA_HOST: str = "127.0.0.1"
     CHROMA_PORT: int = 8000
@@ -21,15 +25,12 @@ class Settings(BaseSettings):
     LLM_MODEL: str = "gemini-2.5-flash"
     LLM_API_KEY: str = ""
 
-    # Paths
-    DATA_DIR: Path = BASE_DIR / "data"
-
     @property
     def PROCESSED_DATA_DIR(self) -> Path:
         return self.DATA_DIR / "processed"
 
     model_config = SettingsConfigDict(
-        env_file=str(BASE_DIR / ".env"),
+        env_file=str(MODULE_BASE_DIR / ".env"),
         env_file_encoding="utf-8",
         extra="ignore",
     )

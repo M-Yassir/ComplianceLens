@@ -11,10 +11,9 @@ class CrossEncoderReranker:
 
     def __init__(
         self,
-        model_name: str = "ms-marco-MiniLM-L-6-v2",
+        model_name: str = "ms-marco-MiniLM-L-12-v2",  # <-- Update this line
         cache_dir: Optional[str] = None,
     ):
-        # FlashRank uses lightweight ONNX execution on CPU
         self.ranker = Ranker(
             model_name=model_name,
             cache_dir=cache_dir or str(settings.BASE_DIR / ".cache"),
@@ -57,7 +56,7 @@ if __name__ == "__main__":
     hybrid = HybridRetriever()
     reranker = CrossEncoderReranker()
 
-    query = "What are the requirements under § 7002 for opt-out links?"
+    query = "What is the § 7002 saying"
 
     print(f"\n[Reranker Test] Query: '{query}'")
     print("=" * 85)
