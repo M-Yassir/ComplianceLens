@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
-from typing import Union
+from typing import Union, Any
 from langchain_core.prompts import ChatPromptTemplate
 
 # ---------------------------------------------------------------------------
