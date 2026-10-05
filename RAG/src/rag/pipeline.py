@@ -34,8 +34,8 @@ class RAGPipeline:
         router: Optional[QueryRouter] = None,  # Injectable router instance
         use_llm_router: bool = False,         # Flag if creating router dynamically
         min_rerank_score: float = 0.35,
-        top_k_candidates: int = 10,
-        top_k_reranked: int = 4,
+        top_k_candidates: int = 15,
+        top_k_reranked: int = 10,
     ):
         """
         Args:
@@ -86,10 +86,15 @@ class RAGPipeline:
         # Step 1: Intent Routing
         routing_decision = self.router.route_query(user_query)
 
+        # Check section presence early so both retrieval and abstention can use it
+        has_sections = len(routing_decision.extracted_sections) > 0
+        effective_threshold = 0.35 if has_sections else 0.22
+
         # Step 2: Candidate Retrieval
+        top_k = self.top_k_candidates if has_sections else 25
         candidates = self.hybrid_retriever.get_relevant_documents(
             query=user_query,
-            top_k=self.top_k_candidates,
+            top_k=top_k,
         )
 
         # Step 3: Cross-Encoder Reranking
@@ -103,6 +108,7 @@ class RAGPipeline:
         abstention = self.abstention_guard.evaluate_retrieval(
             query=user_query,
             retrieved_docs=reranked_docs,
+            threshold=effective_threshold
         )
 
         if abstention.should_abstain:
@@ -161,16 +167,20 @@ class RAGPipeline:
 
 
 if __name__ == "__main__":
-    test_query = "What specific cooperation duties does a service provider owe to a business during a cybersecurity audit under Article 9 or a risk assessment under Article 10?"
-
+    test_query_1 = "Can an email marketing service provider analyze customer engagement with a company's emails to refine its delivery algorithms, and then apply those algorithmic improvements when serving another company?"
+    test_query_2 = "If a social media company accepts a list of customer email addresses from a business to identify and target those specific users with ads on its platform, does the social media company qualify as a service provider under § 7050?"
+    test_query_3 = "What must a contractor do if a consumer submits a CCPA deletion request directly to the contractor rather than to the business?"
+    test_query_4 = "What are the regulatory implications for a business if it transfers personal information to a service vendor without a contract that complies with section 7051(a)?"
+    test_query_5 = "What specific cooperation duties does a service provider owe to a business during a cybersecurity audit under Article 9 or a risk assessment under Article 10?"
+    test_query_6 = "Within how many calendar days must a service provider forward a direct consumer deletion request to the primary business under § 7050?"
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    print(f"Query: '{test_query}'\n")
+    print(f"Query: '{test_query_1}'\n")
 
     # Mode 1: Default Heuristic Router (0 extra API calls)
     print("--- MODE 1: Heuristic Router (Default) ---")
     pipeline_default = RAGPipeline(use_llm_router=False)
-    res_default = pipeline_default.query(test_query)
+    res_default = pipeline_default.query(test_query_1)
 
     print(f"Route      : {res_default.routing_decision.route.value}")
     print(f"Reasoning  : {res_default.routing_decision.reasoning}")
@@ -184,9 +194,10 @@ if __name__ == "__main__":
 
     # Mode 2: Explicit Router Injection (Passing custom router instance)
     print("--- MODE 2: Custom Injected Router ---")
-    custom_heuristic_router = QueryRouter(llm=None)
+    llm = get_llm()
+    custom_heuristic_router = QueryRouter(llm)
     pipeline_injected = RAGPipeline(router=custom_heuristic_router)
-    res_injected = pipeline_injected.query(test_query)
+    res_injected = pipeline_injected.query(test_query_1)
 
     print(f"Route      : {res_injected.routing_decision.route.value}")
     print(f"Reasoning  : {res_injected.routing_decision.reasoning}\n")

@@ -51,7 +51,8 @@ class AbstentionGuard:
         self,
         query: str,
         retrieved_docs: List[Document],
-        fallback_override: Optional[str] = None
+        fallback_override: Optional[str] = None,
+        threshold: Optional[float] = None,
     ) -> AbstentionDecision:
         """
         Evaluates retrieved documents against relevance and threshold metrics.
@@ -62,6 +63,9 @@ class AbstentionGuard:
             fallback_override: Custom refusal message if abstention is triggered.
         """
         fallback_text = fallback_override or self.DEFAULT_FALLBACK_MESSAGE
+        
+        # Determine whether to use dynamic override or default threshold
+        effective_threshold = threshold if threshold is not None else self.min_rerank_score
 
         # Case 1: Zero documents retrieved
         if not retrieved_docs:
@@ -72,27 +76,27 @@ class AbstentionGuard:
                 fallback_response=fallback_text,
             )
 
-        # Extract reranker score from metadata if present, else default to 1.0 (unscored)
+        # Extract reranker score
         top_doc = retrieved_docs[0]
         top_score = float(top_doc.metadata.get("rerank_score", 1.0))
 
-        # Case 2: Top reranker score falls below required confidence floor
-        if top_score < self.min_rerank_score:
+        # Case 2: Compare against effective_threshold
+        if top_score < effective_threshold:
             return AbstentionDecision(
                 should_abstain=True,
                 confidence_score=round(top_score, 4),
                 reason=(
                     f"Top retrieval relevance score ({top_score:.4f}) is below the required "
-                    f"confidence threshold ({self.min_rerank_score:.2f})."
+                    f"confidence threshold ({effective_threshold:.2f})."
                 ),
                 fallback_response=fallback_text,
             )
 
-        # Case 3: Sufficient confidence to proceed
+        # Case 3: Meets threshold
         return AbstentionDecision(
             should_abstain=False,
             confidence_score=round(top_score, 4),
-            reason=f"Retrieval confidence ({top_score:.4f}) meets threshold ({self.min_rerank_score:.2f}).",
+            reason=f"Retrieval confidence ({top_score:.4f}) meets threshold ({effective_threshold:.2f}).",
             fallback_response=None,
         )
 
