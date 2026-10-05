@@ -49,8 +49,13 @@ def get_llm(
         if not key:
             raise ValueError("LLM_API_KEY is required for Gemini provider.")
 
-        # Omit temperature for Gemini if not explicitly provided to avoid sampling warnings
-        gemini_kwargs = {"model": model_name, "google_api_key": key, **kwargs}
+        gemini_kwargs = {
+            "model": model_name,
+            "google_api_key": key,
+            "max_retries": kwargs.get("max_retries", 6),
+            "request_timeout": kwargs.get("request_timeout", 60),
+            **kwargs,
+        }
         if temperature is not None:
             gemini_kwargs["temperature"] = temperature
 
