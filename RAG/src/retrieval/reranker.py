@@ -11,7 +11,7 @@ class CrossEncoderReranker:
 
     def __init__(
         self,
-        model_name: str = "ms-marco-MiniLM-L-12-v2",  # <-- Update this line
+        model_name: str = "ms-marco-MiniLM-L-12-v2",
         cache_dir: Optional[str] = None,
     ):
         self.ranker = Ranker(
@@ -51,26 +51,70 @@ class CrossEncoderReranker:
 
         return reranked_docs
 
+    def rerank_with_diversity(
+        self,
+        query: str,
+        documents: List[Document],
+        top_k: int = 5,
+        max_per_section: int = 2,
+        fetch_k: int = 15,
+    ) -> List[Document]:
+        """
+        Reranks a wider candidate pool first, then filters candidates to ensure
+        that no single regulatory section monopolizes the context window.
+        """
+        if not documents:
+            return []
+
+        # 1. Rerank a wider initial window of candidates
+        raw_reranked = self.rerank(
+            query=query,
+            documents=documents,
+            top_k=fetch_k,
+        )
+
+        # 2. Filter for section diversity
+        selected_docs: List[Document] = []
+        section_counts: dict = {}
+
+        for doc in raw_reranked:
+            sec = doc.metadata.get("section", "unknown")
+            count = section_counts.get(sec, 0)
+
+            if count < max_per_section:
+                selected_docs.append(doc)
+                section_counts[sec] = count + 1
+
+            if len(selected_docs) == top_k:
+                break
+
+        return selected_docs
+
 
 if __name__ == "__main__":
     hybrid = HybridRetriever()
     reranker = CrossEncoderReranker()
 
-    query = "What is the § 7002 saying"
+    query = "What must a contractor do if a consumer submits a CCPA deletion request directly to the contractor?"
 
     print(f"\n[Reranker Test] Query: '{query}'")
     print("=" * 85)
 
-    # 1. Retrieve 10 candidates from Hybrid Retriever
-    candidates = hybrid.get_relevant_documents(query, top_k=10)
+    candidates = hybrid.get_relevant_documents(query, top_k=20)
     print(f"Retrieved {len(candidates)} candidates from Hybrid Search.")
 
-    # 2. Rerank candidates down to top 4
-    reranked = reranker.rerank(query=query, documents=candidates, top_k=4)
+    # Test Section Diversity Reranking
+    reranked = reranker.rerank_with_diversity(
+        query=query,
+        documents=candidates,
+        top_k=5,
+        max_per_section=2,
+        fetch_k=15,
+    )
 
     for idx, doc in enumerate(reranked, 1):
         print(f"\n[{idx}] Parent ID    : {doc.metadata['parent_id']}")
         print(f"    Section      : § {doc.metadata['section']}")
         print(f"    Score        : {doc.metadata.get('rerank_score', 0.0):.4f}")
         print(f"    Title        : {doc.metadata['section_title']}")
-        print(f"    Snippet      :\n    {doc.page_content[:200]}...\n")
+        print(f"    Snippet      :\n    {doc.page_content[:150]}...\n")

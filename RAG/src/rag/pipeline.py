@@ -34,8 +34,9 @@ class RAGPipeline:
         router: Optional[QueryRouter] = None,  # Injectable router instance
         use_llm_router: bool = False,         # Flag if creating router dynamically
         min_rerank_score: float = 0.35,
-        top_k_candidates: int = 15,
-        top_k_reranked: int = 10,
+        top_k_candidates: int = 20,
+        top_k_reranked: int = 8,
+        max_per_section: int = 2,
     ):
         """
         Args:
@@ -63,6 +64,7 @@ class RAGPipeline:
 
         self.top_k_candidates = top_k_candidates
         self.top_k_reranked = top_k_reranked
+        self.max_per_section = max_per_section
 
     def _format_context(self, docs: List[Document]) -> str:
         """Formats retrieved documents into a clean text block for prompt injection."""
@@ -98,10 +100,12 @@ class RAGPipeline:
         )
 
         # Step 3: Cross-Encoder Reranking
-        reranked_docs = self.reranker.rerank(
+        reranked_docs = self.reranker.rerank_with_diversity(
             query=user_query,
             documents=candidates,
             top_k=self.top_k_reranked,
+            max_per_section=self.max_per_section,
+            fetch_k=15,
         )
 
         # Step 4: Guardrail #1 — Abstention / Confidence Evaluation
@@ -175,12 +179,12 @@ if __name__ == "__main__":
     test_query_6 = "Within how many calendar days must a service provider forward a direct consumer deletion request to the primary business under § 7050?"
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    print(f"Query: '{test_query_1}'\n")
+    print(f"Query: '{test_query_3}'\n")
 
     # Mode 1: Default Heuristic Router (0 extra API calls)
     print("--- MODE 1: Heuristic Router (Default) ---")
     pipeline_default = RAGPipeline(use_llm_router=False)
-    res_default = pipeline_default.query(test_query_1)
+    res_default = pipeline_default.query(test_query_3)
 
     print(f"Route      : {res_default.routing_decision.route.value}")
     print(f"Reasoning  : {res_default.routing_decision.reasoning}")
@@ -197,7 +201,7 @@ if __name__ == "__main__":
     llm = get_llm()
     custom_heuristic_router = QueryRouter(llm)
     pipeline_injected = RAGPipeline(router=custom_heuristic_router)
-    res_injected = pipeline_injected.query(test_query_1)
+    res_injected = pipeline_injected.query(test_query_3)
 
     print(f"Route      : {res_injected.routing_decision.route.value}")
     print(f"Reasoning  : {res_injected.routing_decision.reasoning}\n")
