@@ -177,14 +177,23 @@ if __name__ == "__main__":
     test_query_4 = "What are the regulatory implications for a business if it transfers personal information to a service vendor without a contract that complies with section 7051(a)?"
     test_query_5 = "What specific cooperation duties does a service provider owe to a business during a cybersecurity audit under Article 9 or a risk assessment under Article 10?"
     test_query_6 = "Within how many calendar days must a service provider forward a direct consumer deletion request to the primary business under § 7050?"
+    
+    test_query_7 = "If a company enforces standard SMS-based Multi-Factor Authentication (MFA) across all staff, does this fulfill the mandatory authentication controls for internal personnel and external contractors?"
+    test_query_8 = "An auditor receives a signed statement from the Chief Information Security Officer (CISO) asserting that all database backups are encrypted and verified monthly. Can the auditor use this attestation as the primary basis for certifying compliance in the final report?"
+    test_query_9 = "A distributed denial-of-service (DDoS) attack takes down a business's customer portal for 48 hours, preventing users from accessing their account details, but no data is exfiltrated or modified. Does this incident fall within the required scope of the cybersecurity audit assessment?"
+    test_query_10 = "If an enterprise completes an audit using the National Institute of Standards and Technology (NIST) Cybersecurity Framework 2.0, can it satisfy state audit obligations, and what must be added if the NIST report lacks executive oversight titles or testing sampling details?"
+    test_query_11 = "What legal and technical conditions must be satisfied before granting a contractor or service provider access to personal information?"
+    test_query_12 = "A company decommissions an old database server by running standard operating system file deletion commands and reallocating the unformatted drive internally. Does this meet the required standard for data disposal?"
+    test_query_13 = "How do reporting requirements differ between security incident notifications sent to impacted consumers versus those sent to regulatory agencies?"
+
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    print(f"Query: '{test_query_3}'\n")
+    print(f"Query: '{test_query_13}'\n")
 
     # Mode 1: Default Heuristic Router (0 extra API calls)
     print("--- MODE 1: Heuristic Router (Default) ---")
     pipeline_default = RAGPipeline(use_llm_router=False)
-    res_default = pipeline_default.query(test_query_3)
+    res_default = pipeline_default.query(test_query_13)
 
     print(f"Route      : {res_default.routing_decision.route.value}")
     print(f"Reasoning  : {res_default.routing_decision.reasoning}")
@@ -201,7 +210,7 @@ if __name__ == "__main__":
     llm = get_llm()
     custom_heuristic_router = QueryRouter(llm)
     pipeline_injected = RAGPipeline(router=custom_heuristic_router)
-    res_injected = pipeline_injected.query(test_query_3)
+    res_injected = pipeline_injected.query(test_query_13)
 
     print(f"Route      : {res_injected.routing_decision.route.value}")
     print(f"Reasoning  : {res_injected.routing_decision.reasoning}\n")
