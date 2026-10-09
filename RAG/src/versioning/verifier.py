@@ -9,9 +9,18 @@ class VerificationError(Exception):
     pass
 
 
+# Modal verbs that carry legal obligation strength. These must NOT be treated
+# as stopwords: "businesses shall conduct audits" and "businesses may conduct
+# audits" share every other content word, but mean opposite things. Stripping
+# these before scoring (as the previous version did) made an obligation-
+# direction flip invisible to the grounding check.
+MANDATORY_MODALS = {"shall", "must"}
+PERMISSIVE_MODALS = {"may"}
+
+
 class CardVerificationGate:
     """
-    Verifies that claims in LLM-generated ChangelogCards (executive summary and 
+    Verifies that claims in LLM-generated ChangelogCards (executive summary and
     substantive changes) are strictly grounded in the deterministic raw_diff_summary.
     """
 
@@ -82,15 +91,18 @@ class CardVerificationGate:
         self, claim: str, diff_context: str
     ) -> Tuple[bool, float]:
         """
-        Evaluates token and entity grounding of a single claim against the raw diff text.
-        Returns (is_grounded, overlap_score).
+        Evaluates token, modal-verb, and entity grounding of a single claim
+        against the raw diff text. Returns (is_grounded, overlap_score).
         """
-        # Normalize and tokenize, ignoring common legal/grammatical stopwords
+        # Normalize and tokenize, ignoring common legal/grammatical stopwords.
+        # Modal verbs are deliberately NOT included here (see MANDATORY_MODALS /
+        # PERMISSIVE_MODALS above) so they contribute to the overlap score and
+        # are available for the dedicated obligation-direction check below.
         stopwords = {
             "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for",
             "of", "with", "by", "from", "up", "about", "into", "over", "after",
             "is", "are", "was", "were", "be", "been", "being", "have", "has",
-            "had", "do", "does", "did", "shall", "must", "may", "will", "this",
+            "had", "do", "does", "did", "this",
             "that", "these", "those", "section", "subsection", "paragraph", "clause"
         }
 
@@ -113,13 +125,48 @@ class CardVerificationGate:
         intersection = claim_tokens.intersection(diff_tokens)
         overlap_score = len(intersection) / len(claim_tokens)
 
+        # Obligation-direction check: a claim that asserts a different
+        # modal strength than the diff supports is a hallucination risk even
+        # when every surrounding content word overlaps. This is checked as
+        # an explicit hard-fail rather than folded into the general token
+        # overlap ratio, because one flipped word ("must" -> "may") can
+        # completely invert the legal meaning of an otherwise well-grounded
+        # sentence.
+        claim_lower = claim.lower()
+        diff_lower = diff_context.lower()
+
+        claim_is_mandatory = bool(re.search(r"\b(shall|must)\b", claim_lower))
+        claim_is_permissive = bool(re.search(r"\bmay\b", claim_lower))
+        diff_is_mandatory = bool(re.search(r"\b(shall|must)\b", diff_lower))
+        diff_is_permissive = bool(re.search(r"\bmay\b", diff_lower))
+
+        if claim_is_mandatory and not diff_is_mandatory:
+            # Claim asserts an obligation the diff never states as mandatory.
+            return False, overlap_score
+
+        if claim_is_permissive and not claim_is_mandatory and diff_is_mandatory and not diff_is_permissive:
+            # Diff only supports a mandatory reading, but the claim frames
+            # the same provision as merely permissive.
+            return False, overlap_score
+
         # Check key numeric/citation/entity matches (e.g., "15 days", "7002(b)")
         claim_entities = set(re.findall(r"\b\d+\b|§\s*\d+", claim))
         diff_entities = set(re.findall(r"\b\d+\b|§\s*\d+", diff_context))
 
         unsupported_entities = claim_entities - diff_entities
         if unsupported_entities:
-            # Explicit failure if LLM invented numbers/section references not in raw diff
+            # Explicit failure if LLM invented numbers/section references not in raw diff.
+            #
+            # Known limitation (not fixed by this check): this only verifies
+            # that each number APPEARS in the diff text, not that it's
+            # correctly PAIRED with the right role. A claim saying "the
+            # deadline increased from 15 to 45 days" would still pass
+            # against a diff that actually shows a decrease from 45 to 15,
+            # because both numbers are present in diff_entities regardless
+            # of which direction the real change went. Catching that would
+            # need structured (value, unit, direction) extraction rather
+            # than set membership - treat this as a documented gap, not a
+            # guarantee that directional numeric claims are verified.
             return False, overlap_score
 
         is_grounded = overlap_score >= self.min_token_overlap_ratio

@@ -1,4 +1,5 @@
 import difflib
+import re
 import uuid
 from typing import Dict, Any, Optional, List
 from pydantic import BaseModel, Field
@@ -37,10 +38,33 @@ def build_citation(chunk: Optional[Dict[str, Any]]) -> Optional[str]:
     return None
 
 
+def _normalize_for_diff(text: str) -> str:
+    """Collapses PDF-extraction line-wrap artifacts before diffing.
+
+    PyMuPDF text extraction wraps lines at arbitrary points that don't
+    track sentence or clause boundaries, so a raw line-based diff flags
+    every shifted wrap point as a "change" even when the wording is
+    identical - burying the handful of lines that actually matter under
+    reflow noise. This collapses runs of whitespace (including the
+    newlines PDF extraction inserts mid-sentence) down to single spaces,
+    while still treating a real blank-line paragraph break as a
+    boundary, so the resulting "lines" fed to difflib are logical
+    paragraphs rather than arbitrary PDF wrap lines.
+    """
+    if not text:
+        return ""
+    paragraphs = re.split(r"\n\s*\n", text)
+    normalized_paragraphs = [re.sub(r"\s+", " ", p).strip() for p in paragraphs]
+    return "\n".join(p for p in normalized_paragraphs if p)
+
+
 def compute_raw_diff(source_text: Optional[str], target_text: Optional[str]) -> str:
     """Computes a human-readable, deterministic unified diff string between source and target text."""
-    src_lines = (source_text or "").splitlines(keepends=True)
-    tgt_lines = (target_text or "").splitlines(keepends=True)
+    src_normalized = _normalize_for_diff(source_text or "")
+    tgt_normalized = _normalize_for_diff(target_text or "")
+
+    src_lines = [line + "\n" for line in src_normalized.splitlines()]
+    tgt_lines = [line + "\n" for line in tgt_normalized.splitlines()]
 
     diff_lines = list(
         difflib.unified_diff(
@@ -147,10 +171,19 @@ class ChangelogCardGenerator:
 
             except VerificationError as ve:
                 last_error = ve
+            except Exception as e:
+                # Previously only VerificationError was caught here, so a
+                # transient failure (rate limit, a structured-output
+                # validation error from with_structured_output, a flaky
+                # network call) propagated immediately and killed the whole
+                # batch run instead of getting the same retry budget as a
+                # grounding failure. Those now retry too; only a persistent
+                # failure across every attempt reaches the RuntimeError below.
+                last_error = e
 
         raise RuntimeError(
             f"Failed to generate verified ChangelogCard for lineage {record.canonical_lineage_id} "
-            f"after {self.max_retries + 1} attempts. Verification Error: {last_error}"
+            f"after {self.max_retries + 1} attempts. Last error: {last_error}"
         )
 
     def _llm_summarize_diff(
@@ -177,6 +210,8 @@ Metadata:
 RAW TEXT DIFF (Ground Truth):
 ```diff
 {raw_diff}
+```
+
 SOURCE TEXT (N-1):
 {source_text[:1500]}
 
