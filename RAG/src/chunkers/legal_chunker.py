@@ -413,6 +413,8 @@ if __name__ == "__main__":
 
     # Execution on processed version files
     file_2026 = PROCESSED_DIR / "version_2026.txt"
+    file_2023 = PROCESSED_DIR / "version_2023.txt"
 
-    if file_2026.exists():
+    if file_2026.exists() and file_2023.exists():
         run_chunker_pipeline(file_2026, PROCESSED_DIR, version_tag="2026")
+        run_chunker_pipeline(file_2023, PROCESSED_DIR, version_tag="2023")

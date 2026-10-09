@@ -1,0 +1,357 @@
+[
+  {
+    "version": "2023",
+    "term": "agency",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(a)",
+    "definition_text": "(a) \u201cAgency\u201d means the California Privacy Protection Agency established by Civil\nCode section 1798.199.10 et seq.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2023_sec7001_child_a"
+  },
+  {
+    "version": "2023",
+    "term": "alternative opt-out link",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(b)",
+    "definition_text": "(b) \u201cAlternative Opt-out Link\u201d means the alternative opt-out link that a business\nmay provide instead of posting the two separate \u201cDo Not Sell or Share My\nPersonal Information\u201d and \u201cLimit the Use of My Sensitive Personal Information\u201d\nlinks as set forth in Civil Code section 1798.135, subdivision (a)(3), and\nspecified in section 7015.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_b"
+  },
+  {
+    "version": "2023",
+    "term": "attorney general",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(c)",
+    "definition_text": "(c)\n\u201cAttorney General\u201d means the California Attorney General or any officer or\nemployee of the California Department of Justice acting under the authority of\nthe California Attorney General.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_c"
+  },
+  {
+    "version": "2023",
+    "term": "authorized agent",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(d)",
+    "definition_text": "(d) \u201cAuthorized agent\u201d means a natural person or a business entity that a\nconsumer has authorized to act on their behalf subject to the requirements set\nforth in section 7063.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_d"
+  },
+  {
+    "version": "2023",
+    "term": "categories of sources",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(e)",
+    "definition_text": "(e) \u201cCategories of sources\u201d means types or groupings of persons or entities\nfrom which a business collects personal information about consumers,\ndescribed with enough particularity to provide consumers with a meaningful\nunderstanding of the type of person or entity. They may include the consumer\ndirectly, advertising networks, internet service providers, data analytics\nproviders, government entities, operating systems and platforms, social\nnetworks, and data brokers.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_e"
+  },
+  {
+    "version": "2023",
+    "term": "categories of third parties",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(f)",
+    "definition_text": "(f) \u201cCategories of third parties\u201d means types or groupings of third parties with\nwhom the business shares personal information, described with enough\nparticularity to provide consumers with a meaningful understanding of the\ntype of third party. They may include advertising networks, internet service\nproviders, data analytics providers, government entities, operating systems\nand platforms, social networks, and data brokers.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_f"
+  },
+  {
+    "version": "2023",
+    "term": "ccpa",
+    "aliases": [
+      "CCPA"
+    ],
+    "section_citation": "\u00a7 7001(g)",
+    "definition_text": "(g) \u201cCCPA\u201d means the California Consumer Privacy Act of 2018, Civil Code\nsection 1798.100 et seq.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_g"
+  },
+  {
+    "version": "2023",
+    "term": "coppa",
+    "aliases": [
+      "COPPA"
+    ],
+    "section_citation": "\u00a7 7001(h)",
+    "definition_text": "(h) \u201cCOPPA\u201d means the Children\u2019s Online Privacy Protection Act, 15 U.S.C.\nsections 6501 to 6506 and 16 Code of Federal Regulations part 312.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_h"
+  },
+  {
+    "version": "2023",
+    "term": "disproportionate effort",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(i)",
+    "definition_text": "(i) \u201cDisproportionate effort\u201d within the context of a business, service provider,\ncontractor, or third party responding to a consumer request means the time\nand/or resources expended by the business, service provider, contractor, or\nthird party to respond to the individualized request significantly outweighs the\nreasonably foreseeable impact to the consumer by not responding, taking into\naccount applicable circumstances, such as the size of the business, service\nprovider, contractor, or third party, the nature of the request, and the technical\nlimitations impacting their ability to respond. For example, responding to a\nconsumer request to know may require disproportionate effort when the\npersonal information that is the subject of the request is not in a searchable or\nreadily-accessible format, is maintained only for legal or compliance purposes,\nis not sold or used for any commercial purpose, and there is no reasonably\nforeseeable material impact to the consumer by not responding. By contrast,\nthe impact to the consumer of denying a request to correct inaccurate\ninformation that the business uses and/or sells may outweigh the burden on\nthe business, service provider, contractor, or third party in honoring the\nrequest when the reasonably foreseeable consequence of denying the request\nwould be the denial of services or opportunities to the consumer. A business,\nservice provider, contractor, or third party that has failed to put in place\nadequate processes and procedures to receive and process consumer\nrequests in accordance with the CCPA and these regulations cannot claim that\nresponding to a consumer\u2019s request requires disproportionate effort.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_i"
+  },
+  {
+    "version": "2023",
+    "term": "employment benefits",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(j)",
+    "definition_text": "(j) \u201cEmployment benefits\u201d means retirement, health, and other benefit\nprograms, services, or products to which consumers and their dependents or\ntheir beneficiaries receive access through the consumer\u2019s employer.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_j"
+  },
+  {
+    "version": "2023",
+    "term": "employment-related information",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(k)",
+    "definition_text": "(k) \u201cEmployment-related information\u201d means personal information that is\ncollected by the business about a natural person for the reasons identified in\nCivil Code section 1798.145, subdivision (m)(1). The collection of employment-\nrelated information, including for the purpose of administering employment\nbenefits, shall be considered a business purpose.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_k"
+  },
+  {
+    "version": "2023",
+    "term": "financial incentive",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(l)",
+    "definition_text": "(l) \u201cFinancial incentive\u201d means a program, benefit, or other offering, including\npayments to consumers, for the collection, retention, sale, or sharing of\npersonal information. Price or service differences are types of financial\nincentives.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_l"
+  },
+  {
+    "version": "2023",
+    "term": "first party",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(m)",
+    "definition_text": "(m) \u201cFirst party\u201d means a consumer-facing business with which the consumer\nintends and expects to interact.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_m"
+  },
+  {
+    "version": "2023",
+    "term": "frictionless manner",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(n)",
+    "definition_text": "(n) \u201cFrictionless manner\u201d means a business\u2019s processing of an opt-out\npreference signal that complies with the requirements set forth in section\n7025, subsection (f).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_n"
+  },
+  {
+    "version": "2023",
+    "term": "information practices",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(o)",
+    "definition_text": "(o) \u201cInformation practices\u201d means practices regarding the collection, use,\ndisclosure, sale, sharing, and retention of personal information.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_o"
+  },
+  {
+    "version": "2023",
+    "term": "nonbusiness",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(p)",
+    "definition_text": "(p) \u201cNonbusiness\u201d means a person or entity that does not meet the definition of\na \u201cbusiness\u201d as defined in Civil Code section 1798.140, subdivision (d). For\nexample, non profits and government entities are\nnonbusinesses because \u201cbusiness\u201d is defined, among other things, to include\nonly entities \u201corganized or operated for the profit or financial\nbenefit of its shareholders or other owners.\u201d",
+    "is_distinctive": false,
+    "source_chunk_id": "v2023_sec7001_child_p"
+  },
+  {
+    "version": "2023",
+    "term": "notice at collection",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(q)",
+    "definition_text": "(q) \u201cNotice at Collection\u201d means the notice given by a business to a consumer\nat or before the point at which a business collects personal information from\nthe consumer as required by Civil Code section 1798.100, subdivisions (a) and\n(b), and specified in these regulations.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_q"
+  },
+  {
+    "version": "2023",
+    "term": "notice of right to limit",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(r)",
+    "definition_text": "(r) \u201cNotice of Right to Limit\u201d means the notice given by a business informing\nconsumers of their right to limit the use or disclosure of the consumer\u2019s\nsensitive personal information as required by Civil Code sections 1798.121 and\n1798.135 and specified in these regulations.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_r"
+  },
+  {
+    "version": "2023",
+    "term": "notice of right to opt-out of sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(s)",
+    "definition_text": "(s) \u201cNotice of Right to Opt-out of Sale/Sharing\u201d means the notice given by a\nbusiness informing consumers of their right to opt-out of the sale or sharing of\ntheir personal information as required by Civil Code sections 1798.120 and\n1798.135 and specified in these regulations.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_s"
+  },
+  {
+    "version": "2023",
+    "term": "notice of financial incentive",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(t)",
+    "definition_text": "(t) \u201cNotice of Financial Incentive\u201d means the notice given by a business\nexplaining each financial incentive or price or service difference as required by\nCivil Code section 1798.125, subdivision (b), and specified in these regulations.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_t"
+  },
+  {
+    "version": "2023",
+    "term": "opt-out preference signal",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(u)",
+    "definition_text": "(u) \u201cOpt-out preference signal\u201d means a signal that is sent by a platform,\ntechnology, or mechanism, on behalf of the consumer, that communicates the\nconsumer choice to opt-out of the sale and sharing of personal information and\nthat complies with the requirements set forth in section 7025, subsection (b).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_u"
+  },
+  {
+    "version": "2023",
+    "term": "price or service difference",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(v)",
+    "definition_text": "(v) \u201cPrice or service difference\u201d means (1) any difference in the price or rate\ncharged for any goods or services to any consumer related to the collection,\nretention, sale, or sharing of personal information, or (2) any difference in the\nlevel or quality of any goods or services offered to any consumer related to the\ncollection, retention, sale, or sharing of personal information, including the\ndenial of goods or services to the consumer.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_v"
+  },
+  {
+    "version": "2023",
+    "term": "privacy policy,",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(w)",
+    "definition_text": "(w) \u201cPrivacy policy,\u201d as referred to in Civil Code sections 1798.130, subdivision\n(a)(5), and 1798.135, subdivision (c)(2), means the statement that a business\nshall make available to consumers describing the business\u2019s online and offline\ninformation practices, and the rights of consumers regarding their own\npersonal information.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_w"
+  },
+  {
+    "version": "2023",
+    "term": "request to correct",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(x)",
+    "definition_text": "(x) \u201cRequest to correct\u201d means a consumer request that a business correct\ninaccurate personal information that it maintains about the consumer,\npursuant to Civil Code section 1798.106.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_x"
+  },
+  {
+    "version": "2023",
+    "term": "request to delete",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(y)",
+    "definition_text": "(y) \u201cRequest to delete\u201d means a consumer request that a business delete\npersonal information about the consumer that the business has collected from\nthe consumer, pursuant to Civil Code section 1798.105.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_y"
+  },
+  {
+    "version": "2023",
+    "term": "request to know",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(z)",
+    "definition_text": "(z) \u201cRequest to know\u201d means a consumer request that a business disclose\npersonal information that it has collected about the consumer pursuant to Civil\nCode sections 1798.110 or 1798.115. It includes a request for any or all of the\nfollowing:\n(1) Specific pieces of personal information that a business has collected\nabout the consumer;\n(2) Categories of personal information it has collected about the consumer;\n(3) Categories of sources from which the personal information is collected;\n(4) Categories of personal information that the business sold, or\ndisclosed for a business purpose about the consumer;\n(5) Categories of third parties to whom the personal information was sold,\nor disclosed for a business purpose; and\n(6) The business or commercial purpose for collecting, or selling,\npersonal information.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_z"
+  },
+  {
+    "version": "2023",
+    "term": "request to limit",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(aa)",
+    "definition_text": "(aa) \u201cRequest to limit\u201d means a consumer request that a business limit the use\nand disclosure of the consumer\u2019s sensitive personal information, pursuant to\nCivil Code section 1798.121, subdivision (a).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_aa"
+  },
+  {
+    "version": "2023",
+    "term": "request to opt-in to sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(bb)",
+    "definition_text": "(bb) \u201cRequest to opt-in to sale/sharing\u201d means an action demonstrating that\nthe consumer has consented to the business\u2019s sale or sharing of personal\ninformation about the consumer by a parent or guardian of a consumer less\nthan 13 years of age or by a consumer at least 13 years of age.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_bb"
+  },
+  {
+    "version": "2023",
+    "term": "request to opt-out of sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(cc)",
+    "definition_text": "(cc) \u201cRequest to opt-out of sale/sharing\u201d means a consumer request that a\nbusiness neither sell nor share the consumer\u2019s personal information to third\nparties, pursuant to Civil Code section 1798.120, subdivision (a).",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_cc"
+  },
+  {
+    "version": "2023",
+    "term": "right to correct",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(dd)",
+    "definition_text": "(dd) \u201cRight to correct\u201d means the consumer\u2019s right to request that a business\ncorrect inaccurate personal information that it maintains about the consumer\nas set forth in Civil Code section 1798.106.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_dd"
+  },
+  {
+    "version": "2023",
+    "term": "right to delete",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ee)",
+    "definition_text": "(ee) \u201cRight to delete\u201d means the consumer\u2019s right to request that a business\ndelete any personal information about the consumer that the business has\ncollected from the consumer as set forth in Civil Code section 1798.105.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_ee"
+  },
+  {
+    "version": "2023",
+    "term": "right to know",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ff)",
+    "definition_text": "(ff) \u201cRight to know\u201d means the consumer\u2019s right to request that a business\ndisclose personal information that it has collected, sold, or shared about the\nconsumer as set forth in Civil Code sections 1798.110 and 1798.115.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_ff"
+  },
+  {
+    "version": "2023",
+    "term": "right to limit",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(gg)",
+    "definition_text": "(gg) \u201cRight to limit\u201d means the consumer\u2019s right to request that a business\nlimit the use and disclosure of a consumer\u2019s sensitive personal information as\nset forth in Civil Code section 1798.121.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_gg"
+  },
+  {
+    "version": "2023",
+    "term": "right to opt-out of sale/sharing",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(hh)",
+    "definition_text": "(hh) \u201cRight to opt-out of sale/sharing\u201d means the consumer\u2019s right to direct a\nbusiness that sells or shares personal information about the consumer to third\nparties to stop doing so as set forth in Civil Code section 1798.120.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_hh"
+  },
+  {
+    "version": "2023",
+    "term": "signed",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ii)",
+    "definition_text": "(ii) \u201cSigned\u201d means that the written attestation, declaration, or permission\nhas either been physically signed or provided electronically in accordance with\nthe Uniform Electronic Transactions Act, Civil Code section 1633.1 et seq.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2023_sec7001_child_ii"
+  },
+  {
+    "version": "2023",
+    "term": "third-party identity verification service",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(jj)",
+    "definition_text": "(jj) \u201cThird-party identity verification service\u201d means a security process offered\nby an independent third party that verifies the identity of the consumer making\na request to the business. Third-party identity verification services are subject\nto the requirements set forth in Article 5 regarding requests to delete,\nrequests to correct, or requests to know.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_jj"
+  },
+  {
+    "version": "2023",
+    "term": "unstructured",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(kk)",
+    "definition_text": "(kk) \u201cUnstructured\u201d as it relates to personal information means personal\ninformation that is not organized in a pre-defined manner and could not be\nretrieved or organized in a pre-defined manner without disproportionate effort\non behalf of the business, service provider, contractor, or third party.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2023_sec7001_child_kk"
+  },
+  {
+    "version": "2023",
+    "term": "value of the consumer",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(ll)",
+    "definition_text": "(ll) \u201cValue of the consumer\u2019s data\u201d means the value provided to the business\nby the consumer\u2019s data as calculated under section 7081.",
+    "is_distinctive": true,
+    "source_chunk_id": "v2023_sec7001_child_ll"
+  },
+  {
+    "version": "2023",
+    "term": "verify",
+    "aliases": [],
+    "section_citation": "\u00a7 7001(mm)",
+    "definition_text": "(mm) \u201cVerify\u201d means to determine that the consumer making a request to\ndelete, request to correct, or request to know, is\nthe consumer about whom the business has collected information, or if that\nconsumer is less than 13 years of age, the consumer\u2019s parent or legal guardian.\nNote: Authority cited: Sections 1798.175 and 1798.185, Civil Code. Reference: Sections\n1798.100, 1798.105, 1798.106, 1798.110, 1798.115, 1798.120, 1798.121, 1798.125,\n1798.130, 1798.135, 1798.140, 1798.145, 1798.150, 1798.155, 1798.175, 1798.185,\n1798.199.40, 1798.199.45, 1798.199.50, 1798.199.55 and 1798.199.65, Civil Code.",
+    "is_distinctive": false,
+    "source_chunk_id": "v2023_sec7001_child_mm"
+  }
+]
