@@ -1,3 +1,5 @@
+# src/retrieval/router.py
+
 import re
 from enum import Enum
 from typing import Any, List, Optional
@@ -43,15 +45,18 @@ class QueryRouter:
         "change", "changed", "changes", "diff", "difference", "different",
         "amend", "amended", "amendment", "update", "updated", "updates",
         "versus", "vs", "compare", "compared", "comparison", "new rule",
-        "previous", "prior", "2023", "historical", "redline", "strikethrough"
+        "previous", "prior", "2023", "historical", "redline", "strikethrough",
+        "modify", "modified", "modification", "repeal", "repealed",
+        "delete", "deleted", "deletion", "add", "added", "addition",
+        "revise", "revised", "revision", "renumber", "renumbered", "reletter"
     }
 
     def __init__(self, llm: Optional[Any] = None):
         self.llm = llm
 
     def _extract_sections(self, query: str) -> List[str]:
-        """Extracts section references (e.g. '7002' from '§ 7002' or 'Section 7002')."""
-        matches = re.findall(r"(?:§|section)\s*(\d+[a-z]?)", query, re.IGNORECASE)
+        """Extracts section references (e.g. '7002' from '§ 7002', 'sec. 7002', or 'Section 7002')."""
+        matches = re.findall(r"(?:§|section|sec\.?)\s*(\d+[a-z]?)", query, re.IGNORECASE)
         return sorted(list(set(m.lower() for m in matches)))
 
     def _heuristic_route(self, query: str) -> QueryRoutingDecision:
@@ -125,6 +130,7 @@ if __name__ == "__main__":
         "What changed in section 7025 between the 2023 regulations and the 2026 updates?",
         "Did the CPPA update the rules for Automated Decisionmaking Technology (ADMT)?",
         "How should a business display Do Not Sell or Share links?",
+        "What is the definition of alternative opt-out link under sec. 7001?",
     ]
 
     print("\n" + "=" * 85)
