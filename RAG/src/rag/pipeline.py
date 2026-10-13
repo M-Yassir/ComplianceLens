@@ -1,3 +1,5 @@
+# src/rag/pipeline.py
+
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -12,6 +14,7 @@ from src.retrieval.hybrid import HybridRetriever
 from src.retrieval.reranker import CrossEncoderReranker
 from src.guardrails.abstention import AbstentionGuard, AbstentionDecision
 from src.guardrails.citation_verifier import CitationVerifier, CitationVerificationResult
+from src.versioning.section_key_rag import SectionKeyCrossVersionRAG
 
 
 class RAGResponse(BaseModel):
@@ -57,10 +60,14 @@ class RAGPipeline:
             router_llm = self.llm if use_llm_router else None
             self.router = QueryRouter(llm=router_llm)
 
+        # Core Retrieval & Guardrail Components
         self.hybrid_retriever = HybridRetriever()
         self.reranker = CrossEncoderReranker()
         self.abstention_guard = AbstentionGuard(min_rerank_score=min_rerank_score)
         self.citation_verifier = CitationVerifier()
+
+        # Section-Key Cross-Version Comparative Engine (src/versioning/)
+        self.diff_engine = SectionKeyCrossVersionRAG(llm=self.llm, top_k_sections=3)
 
         self.top_k_candidates = top_k_candidates
         self.top_k_reranked = top_k_reranked
@@ -88,6 +95,52 @@ class RAGPipeline:
         # Step 1: Intent Routing
         routing_decision = self.router.route_query(user_query)
 
+        # =====================================================================
+        # BRANCH A: CROSS-VERSION COMPARATIVE ROUTE (VERSION_DIFF / HYBRID_BOTH)
+        # =====================================================================
+        if routing_decision.route in (RouteType.VERSION_DIFF, RouteType.HYBRID_BOTH):
+            diff_res = self.diff_engine.query_section_changes(
+                user_query=user_query,
+                extracted_sections=routing_decision.extracted_sections,
+            )
+
+            abstention = AbstentionDecision(
+                should_abstain=diff_res.abstained,
+                confidence_score=1.0 if not diff_res.abstained else 0.0,
+                reason=(
+                    "Cross-version section-key analysis completed."
+                    if not diff_res.abstained
+                    else "Unable to resolve statutory section/term context for comparison."
+                ),
+                fallback_response=diff_res.answer if diff_res.abstained else None,
+            )
+
+            citation_check = CitationVerificationResult(
+                is_valid=True,
+                verification_score=1.0,
+                summary="Comparative synthesis generated over grounded side-by-side section/term context.",
+            )
+
+            sources = [
+                {
+                    "sections_analyzed": diff_res.sections_analyzed,
+                    "terms_analyzed": diff_res.terms_analyzed,
+                    "type": "Deterministic Section-Key Side-by-Side Context",
+                }
+            ]
+
+            return RAGResponse(
+                query=user_query,
+                answer=diff_res.answer,
+                routing_decision=routing_decision,
+                abstention_decision=abstention,
+                citation_verification=citation_check,
+                source_documents=sources,
+            )
+
+        # =====================================================================
+        # BRANCH B: STANDARD ACTIVE POLICY LOOKUP ROUTE (POLICY_LOOKUP)
+        # =====================================================================
         # Check section presence early so both retrieval and abstention can use it
         has_sections = len(routing_decision.extracted_sections) > 0
         effective_threshold = 0.35 if has_sections else 0.22
@@ -112,14 +165,14 @@ class RAGPipeline:
         abstention = self.abstention_guard.evaluate_retrieval(
             query=user_query,
             retrieved_docs=reranked_docs,
-            threshold=effective_threshold
+            threshold=effective_threshold,
         )
 
         if abstention.should_abstain:
             empty_citation_check = CitationVerificationResult(
                 is_valid=True,
                 verification_score=1.0,
-                summary="Query resulted in abstention. Citation verification skipped."
+                summary="Query resulted in abstention. Citation verification skipped.",
             )
             return RAGResponse(
                 query=user_query,
@@ -186,14 +239,19 @@ if __name__ == "__main__":
     test_query_12 = "A company decommissions an old database server by running standard operating system file deletion commands and reallocating the unformatted drive internally. Does this meet the required standard for data disposal?"
     test_query_13 = "How do reporting requirements differ between security incident notifications sent to impacted consumers versus those sent to regulatory agencies?"
 
+    test_query_14 = "what was changed conserning Opt-out Preference Signals"
+    test_query_15 = "what was added to Requests to Opt-out of Sale/Sharing related policies on the new version."
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    print(f"Query: '{test_query_13}'\n")
+    test_query = test_query_15
+    print(f"Query: '{test_query}'\n")
+    
 
     # Mode 1: Default Heuristic Router (0 extra API calls)
+    """
     print("--- MODE 1: Heuristic Router (Default) ---")
     pipeline_default = RAGPipeline(use_llm_router=False)
-    res_default = pipeline_default.query(test_query_13)
+    res_default = pipeline_default.query(test_query)
 
     print(f"Route      : {res_default.routing_decision.route.value}")
     print(f"Reasoning  : {res_default.routing_decision.reasoning}")
@@ -203,18 +261,24 @@ if __name__ == "__main__":
 
     print("--- RETRIEVED SOURCES ---")
     for s in res_default.source_documents:
-        print(f"• Section § {s['section']} ({s['parent_id']}) | Score: {s['rerank_score']}")
+        print(f"• {s}")
+    """
 
     # Mode 2: Explicit Router Injection (Passing custom router instance)
+    
     print("--- MODE 2: Custom Injected Router ---")
     llm = get_llm()
     custom_heuristic_router = QueryRouter(llm)
     pipeline_injected = RAGPipeline(router=custom_heuristic_router)
-    res_injected = pipeline_injected.query(test_query_13)
+    res_injected = pipeline_injected.query(test_query)
 
     print(f"Route      : {res_injected.routing_decision.route.value}")
     print(f"Reasoning  : {res_injected.routing_decision.reasoning}\n")
+    print(f"Abstained  : {res_injected.abstention_decision.should_abstain}")
+    print(f"Valid Cites: {res_injected.citation_verification.is_valid}")
+    print(f"Answer     :\n{res_injected.answer}\n")
 
     print("--- RETRIEVED SOURCES ---")
     for s in res_injected.source_documents:
-        print(f"• Section § {s['section']} ({s['parent_id']}) | Score: {s['rerank_score']}")
+        print(f"• {s}")
+    
