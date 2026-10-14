@@ -143,8 +143,11 @@ if __name__ == "__main__":
     query8 = "If a large digital enterprise processing data for 12 million individuals compiles its annual privacy metrics using global request totals rather than isolating California consumer requests, does this satisfy state reporting requirements?"
     query9 = "A distributed denial-of-service (DDoS) attack takes down a business's customer portal for 48 hours, preventing users from accessing their account details, but no data is exfiltrated or modified. Does this incident fall within the required scope of the cybersecurity audit assessment?"
     query10 = "By what calendar date must high-volume consumer data platforms publish their annual metric disclosures, and what specific automated decision-making technology (ADMT) metrics must be included?"
-    
-    query = query10
+    query11 = "A gaming studio launches an augmented reality mobile app that captures precise geolocation and eye-tracking sensitive data during gameplay. How and when must the studio inform players of their right to restrict sensitive data usage?"
+    query12 = "A business chooses to merge its separate opt-out links on its website footer into a single combined link. What exact title must be used for this combined link, and what rules govern the styling of the accompanying icon?"
+    query13 = "An IT team executes a customer deletion request across active databases, but leaves customer data intact inside cold tape backup archives. Under what circumstances is this backup delay permitted, and when must the data actually be deleted?"
+
+    query = query13
     print(f"\n[Reranker Test] Query: '{query}'")
     print("=" * 85)
 

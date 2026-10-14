@@ -1,5 +1,3 @@
-# src/rag/pipeline.py
-
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -14,7 +12,6 @@ from src.retrieval.hybrid import HybridRetriever
 from src.retrieval.reranker import CrossEncoderReranker
 from src.guardrails.abstention import AbstentionGuard, AbstentionDecision
 from src.guardrails.citation_verifier import CitationVerifier, CitationVerificationResult
-from src.versioning.section_key_rag import SectionKeyCrossVersionRAG
 
 
 class RAGResponse(BaseModel):
@@ -60,14 +57,10 @@ class RAGPipeline:
             router_llm = self.llm if use_llm_router else None
             self.router = QueryRouter(llm=router_llm)
 
-        # Core Retrieval & Guardrail Components
         self.hybrid_retriever = HybridRetriever()
         self.reranker = CrossEncoderReranker()
         self.abstention_guard = AbstentionGuard(min_rerank_score=min_rerank_score)
         self.citation_verifier = CitationVerifier()
-
-        # Section-Key Cross-Version Comparative Engine (src/versioning/)
-        self.diff_engine = SectionKeyCrossVersionRAG(llm=self.llm, top_k_sections=3)
 
         self.top_k_candidates = top_k_candidates
         self.top_k_reranked = top_k_reranked
@@ -95,52 +88,6 @@ class RAGPipeline:
         # Step 1: Intent Routing
         routing_decision = self.router.route_query(user_query)
 
-        # =====================================================================
-        # BRANCH A: CROSS-VERSION COMPARATIVE ROUTE (VERSION_DIFF / HYBRID_BOTH)
-        # =====================================================================
-        if routing_decision.route in (RouteType.VERSION_DIFF, RouteType.HYBRID_BOTH):
-            diff_res = self.diff_engine.query_section_changes(
-                user_query=user_query,
-                extracted_sections=routing_decision.extracted_sections,
-            )
-
-            abstention = AbstentionDecision(
-                should_abstain=diff_res.abstained,
-                confidence_score=1.0 if not diff_res.abstained else 0.0,
-                reason=(
-                    "Cross-version section-key analysis completed."
-                    if not diff_res.abstained
-                    else "Unable to resolve statutory section/term context for comparison."
-                ),
-                fallback_response=diff_res.answer if diff_res.abstained else None,
-            )
-
-            citation_check = CitationVerificationResult(
-                is_valid=True,
-                verification_score=1.0,
-                summary="Comparative synthesis generated over grounded side-by-side section/term context.",
-            )
-
-            sources = [
-                {
-                    "sections_analyzed": diff_res.sections_analyzed,
-                    "terms_analyzed": diff_res.terms_analyzed,
-                    "type": "Deterministic Section-Key Side-by-Side Context",
-                }
-            ]
-
-            return RAGResponse(
-                query=user_query,
-                answer=diff_res.answer,
-                routing_decision=routing_decision,
-                abstention_decision=abstention,
-                citation_verification=citation_check,
-                source_documents=sources,
-            )
-
-        # =====================================================================
-        # BRANCH B: STANDARD ACTIVE POLICY LOOKUP ROUTE (POLICY_LOOKUP)
-        # =====================================================================
         # Check section presence early so both retrieval and abstention can use it
         has_sections = len(routing_decision.extracted_sections) > 0
         effective_threshold = 0.35 if has_sections else 0.22
@@ -165,14 +112,14 @@ class RAGPipeline:
         abstention = self.abstention_guard.evaluate_retrieval(
             query=user_query,
             retrieved_docs=reranked_docs,
-            threshold=effective_threshold,
+            threshold=effective_threshold
         )
 
         if abstention.should_abstain:
             empty_citation_check = CitationVerificationResult(
                 is_valid=True,
                 verification_score=1.0,
-                summary="Query resulted in abstention. Citation verification skipped.",
+                summary="Query resulted in abstention. Citation verification skipped."
             )
             return RAGResponse(
                 query=user_query,
@@ -183,9 +130,15 @@ class RAGPipeline:
                 source_documents=[],
             )
 
+        # Step 4b: Context selection. Which chunks reach the LLM is decided
+        # relative to the top score (not an absolute cutoff), so a correct
+        # top chunk with a compressed raw score still goes through while the
+        # low-scoring noise tail is dropped.
+        context_docs = self.abstention_guard.select_context(reranked_docs)
+
         # Step 5: Prompt Selection & LLM Answer Generation
         prompt_template = get_prompt_template(routing_decision.route)
-        context_str = self._format_context(reranked_docs)
+        context_str = self._format_context(context_docs)
 
         formatted_messages = prompt_template.format_messages(
             context=context_str,
@@ -198,7 +151,7 @@ class RAGPipeline:
         # Step 6: Guardrail #2 — Citation Verification Audit
         citation_check = self.citation_verifier.verify(
             generated_answer=generated_answer,
-            context_documents=reranked_docs,
+            context_documents=context_docs,
         )
 
         # Step 7: Serialize Source Metadata
@@ -210,7 +163,7 @@ class RAGPipeline:
                 "rerank_score": round(doc.metadata.get("rerank_score", 0.0), 4),
                 "snippet": doc.page_content[:180] + "...",
             }
-            for doc in reranked_docs
+            for doc in context_docs
         ]
 
         return RAGResponse(
@@ -240,12 +193,15 @@ if __name__ == "__main__":
     test_query_13 = "How do reporting requirements differ between security incident notifications sent to impacted consumers versus those sent to regulatory agencies?"
 
     test_query_16 = "If a business never audits or checks if its vendor is following privacy rules, can the business defend itself by claiming it had no reason to believe the vendor was violating the law?"
-
+    test_query_17 = "If a large digital enterprise processing data for 12 million individuals compiles its annual privacy metrics using global request totals rather than isolating California consumer requests, does this satisfy state reporting requirements?"
+    test_query_18 = "A gaming studio launches an augmented reality mobile app that captures precise geolocation and eye-tracking sensitive data during gameplay. How and when must the studio inform players of their right to restrict sensitive data usage?"
+    
     test_query_14 = "what was changed conserning Opt-out Preference Signals"
     test_query_15 = "what was added to Requests to Opt-out of Sale/Sharing related policies on the new version."
+    
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    test_query = test_query_16
+    test_query = test_query_18
     print(f"Query: '{test_query}'\n")
     
 
