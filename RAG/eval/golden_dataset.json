@@ -1,0 +1,202 @@
+[
+  {
+    "id": "eval_7001_001",
+    "query": "If a company uses an automated tool to screen job applicants, what specific conditions must a human reviewer meet for the process to NOT be considered as 'substantially replacing human decisionmaking'?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "A human reviewer must meet three cumulative conditions: (1) Know how to interpret and use the technology's output to make the decision; (2) Review and analyze the output of the technology and any other relevant information; and (3) Have the actual authority to make or change the decision based on their analysis.",
+    "section": "7001",
+    "subsection": "§ 7001(e)(1)(A)–(C)",
+    "target_term": "Automated decisionmaking technology",
+    "key_terms": ["ADMT", "substantially replace human decisionmaking", "human involvement", "screening applicants", "authority to change decision"]
+  },
+  {
+    "id": "eval_7001_002",
+    "query": "Are standard IT infrastructure tools like firewalls, website loading software, spreadsheets, and anti-spam filters classified as Automated Decisionmaking Technology (ADMT) under active CCPA regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. ADMT explicitly excludes web hosting, domain registration, networking, caching, website-loading, data storage, firewalls, anti-virus, anti-malware, spam- and robocall-filtering, spellchecking, calculators, databases, and spreadsheets, provided that they do not replace human decisionmaking.",
+    "section": "7001",
+    "subsection": "§ 7001(e)(3)",
+    "target_term": "Automated decisionmaking technology",
+    "key_terms": ["ADMT exclusions", "firewalls", "spreadsheets", "databases", "web hosting", "calculators"]
+  },
+  {
+    "id": "eval_7001_003",
+    "query": "What changed regarding the definition of automated decisionmaking technology (ADMT) and profiling in section 7001 between the 2023 baseline regulations and the 2026 updates?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In the 2026 updates, § 7001 expanded significantly to define ADMT and profiling in detail. It introduced explicit sub-criteria defining 'substantially replacing human decisionmaking' (§ 7001(e)(1)), listed specific technology exclusions like spreadsheets and firewalls (§ 7001(e)(3)), and added a standalone definition for 'profiling' (§ 7001(ii)). These detailed framework components were not present in the 2023 baseline definitions.",
+    "section": "7001",
+    "subsection": "§ 7001(e), § 7001(ii)",
+    "target_term": "Automated decisionmaking technology",
+    "key_terms": ["ADMT comparison", "2023 vs 2026 definitions", "profiling definition", "substantially replace human decisionmaking"]
+  },
+  {
+    "id": "eval_7001_004",
+    "query": "How is 'alternative opt-out link' defined under section 7001, and did the requirements or references for this link change between 2023 and 2026?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under active rules, an 'Alternative Opt-out Link' refers to the single combined link a business may post instead of separate opt-out and sensitive data limit links under Civil Code § 1798.135(a)(3) and section 7015. Between 2023 and 2026, the core definition remained grounded in section 7015, but the context updated to align with expanded opt-out preference signal compliance and revised 'Your Privacy Choices' formatting requirements.",
+    "section": "7001",
+    "subsection": "§ 7001(b)",
+    "target_term": "Alternative opt-out link",
+    "key_terms": ["alternative opt-out link", "Your Privacy Choices", "section 7015", "combined opt-out link"]
+  },
+  {
+    "id": "eval_7001_005",
+    "query": "Can an employer monitor an employee's personal social media activity or off-duty location tracking and classify it as evaluating 'performance at work'?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7001(cc), 'performance at work' explicitly excludes a consumer's location when off-duty or on breaks, as well as their use of a personal account (e.g., email, text messages, or social media). Personal account monitoring is only permitted if conducted solely to prevent/limit account use on company systems or to prevent confidential information disclosures.",
+    "section": "7001",
+    "subsection": "§ 7001(cc)",
+    "target_term": "Performance at work",
+    "key_terms": ["performance at work", "off-duty location", "personal account", "union membership", "social media monitoring"]
+  },
+  {
+    "id": "eval_7001_006",
+    "query": "What combination of authentication factors is required to satisfy the CCPA definition of Multi-Factor Authentication (MFA)?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Multi-factor authentication requires verification through at least two of the following three authentication factors: (1) Knowledge factors (e.g., a password); (2) Possession factors (e.g., a token); or (3) Inherence factors (e.g., a biometric characteristic).",
+    "section": "7001",
+    "subsection": "§ 7001(s)",
+    "target_term": "Multi-factor authentication",
+    "key_terms": ["multi-factor authentication", "MFA", "knowledge factors", "possession factors", "inherence factors", "biometrics"]
+  },
+  {
+    "id": "eval_7001_007",
+    "query": "Can a business claim that responding to a consumer deletion or access request requires 'disproportionate effort' if its data is hard to find because the company failed to implement proper data management procedures?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. A business, service provider, contractor, or third party that has failed to put in place adequate processes and procedures to receive and process consumer requests in accordance with the CCPA cannot claim that responding to a request requires disproportionate effort.",
+    "section": "7001",
+    "subsection": "§ 7001(i)",
+    "target_term": "Disproportionate effort",
+    "key_terms": ["disproportionate effort", "adequate processes", "searchable format", "consumer impact", "data request compliance"]
+  },
+  {
+    "id": "eval_7001_008",
+    "query": "Does analyzing a customer's vocal intonation or facial expressions during a customer service interaction constitute physical or biological identification or profiling?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Physical or biological identification or profiling includes identifying or profiling a consumer using automated measurements or analysis of physical/biological characteristics, body metrics, biometric information, vocal intonation, facial expression, and gesture (e.g., to infer emotion).",
+    "section": "7001",
+    "subsection": "§ 7001(ee)",
+    "target_term": "Physical or biological identification or profiling",
+    "key_terms": ["physical or biological profiling", "vocal intonation", "facial expression", "gesture", "infer emotion", "biometric information"]
+  },
+  {
+    "id": "eval_7001_009",
+    "query": "What added definitions were introduced for cybersecurity audits in section 7001 between the 2023 and 2026 CCPA regulations?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "The 2026 regulations introduced formal definitions supporting Article 9 cybersecurity audits, including 'Cybersecurity audit' (§ 7001(j)), 'Cybersecurity program' (§ 7001(k)), 'Cybersecurity audit report' (§ 7001(l)), 'Information system' (§ 7001(q)), 'Penetration testing' (§ 7001(bb)), and 'Privileged account' (§ 7001(hh)). These terms were added to establish statutory grounding for annual mandatory audit obligations.",
+    "section": "7001",
+    "subsection": "§ 7001(j)–(l), § 7001(hh)",
+    "target_term": "Cybersecurity audit",
+    "key_terms": ["cybersecurity audit", "cybersecurity program", "privileged account", "penetration testing", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7001_010",
+    "query": "When a consumer submits a 'request to know', what six specific categories of information can they request from a business under active regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "A request to know includes any or all of the following: (1) Specific pieces of personal information collected; (2) Categories of personal information collected; (3) Categories of sources from which data is collected; (4) Categories of personal information sold, shared, or disclosed for a business purpose; (5) Categories of third parties to whom data was sold, shared, or disclosed; and (6) The business or commercial purpose for collecting, selling, or sharing data.",
+    "section": "7001",
+    "subsection": "§ 7001(nn)(1)–(6)",
+    "target_term": "Request to know",
+    "key_terms": ["request to know", "categories of sources", "categories of third parties", "specific pieces", "commercial purpose"]
+  },
+  {
+    "id": "eval_7001_011",
+    "query": "Is a consumer's neural data (such as brain wave activity measured by a neurotech headset) considered sensitive personal information under California regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7001(bbb)(1)(G), sensitive personal information explicitly includes a consumer's neural data, defined as information generated by measuring the activity of a consumer's central or peripheral nervous system that is not inferred from nonneural information.",
+    "section": "7001",
+    "subsection": "§ 7001(bbb)(1)(G)",
+    "target_term": "Sensitive personal information",
+    "key_terms": ["neural data", "sensitive personal information", "central nervous system", "peripheral nervous system", "biometric data"]
+  },
+  {
+    "id": "eval_7001_012",
+    "query": "Does personal information of a 15-year-old consumer automatically qualify as 'sensitive personal information', and what legal standard applies if a business claims it did not know their age?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7001(bbb)(4), personal information of consumers that the business has actual knowledge are less than 16 years of age is classified as sensitive personal information. Furthermore, a business that willfully disregards the consumer's age is legally deemed to have had actual knowledge of their age.",
+    "section": "7001",
+    "subsection": "§ 7001(bbb)(4)",
+    "target_term": "Sensitive personal information",
+    "key_terms": ["sensitive personal information", "minors under 16", "actual knowledge", "willful disregard", "age threshold"]
+  },
+  {
+    "id": "eval_7001_013",
+    "query": "Does using Automated Decisionmaking Technology (ADMT) to serve targeted advertisements to a consumer constitute making a 'significant decision' under CCPA regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7001(ddd)(6), a 'significant decision' explicitly does not include advertising to a consumer. Significant decisions are strictly limited to decisions resulting in the provision or denial of financial or lending services, housing, education enrollment or opportunities, employment/contracting opportunities or compensation, or healthcare services.",
+    "section": "7001",
+    "subsection": "§ 7001(ddd)(6)",
+    "target_term": "Significant decision",
+    "key_terms": ["significant decision", "advertising exclusion", "ADMT", "financial services", "employment opportunities"]
+  },
+  {
+    "id": "eval_7001_014",
+    "query": "If an automated property management portal denies a housing application solely because the applicant failed to submit required payment or the unit is no longer vacant, is that automated action considered a 'significant decision'?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7001(ddd)(2), the use of ADMT that provides or denies housing to a consumer based solely on the availability or vacancy of the housing or the successful receipt of payment for housing from the consumer is explicitly excluded from being a significant decision.",
+    "section": "7001",
+    "subsection": "§ 7001(ddd)(2)",
+    "target_term": "Significant decision",
+    "key_terms": ["significant decision", "housing exception", "payment receipt", "vacancy", "ADMT housing"]
+  },
+  {
+    "id": "eval_7001_015",
+    "query": "What physical locations are legally designated as 'sensitive locations' under section 7001?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(aaa), 'sensitive location' includes healthcare facilities (hospitals, doctors' offices, urgent care, community health clinics), pharmacies, domestic violence shelters, food pantries, housing/emergency shelters, educational institutions, political party offices, legal services offices, union offices, and places of worship.",
+    "section": "7001",
+    "subsection": "§ 7001(aaa)",
+    "target_term": "Sensitive location",
+    "key_terms": ["sensitive location", "healthcare facilities", "pharmacies", "domestic violence shelters", "places of worship", "union offices"]
+  },
+  {
+    "id": "eval_7001_016",
+    "query": "What specific definitions and consumer rights regarding Automated Decisionmaking Technology (ADMT) were added in section 7001 of the 2026 regulations that were absent in 2023?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "The 2026 regulations introduced formal definitions establishing distinct consumer rights and request types for ADMT: 'Request to opt-out of ADMT' (§ 7001(qq)), 'Right to access ADMT' (§ 7001(ss)), 'Right to opt-out of ADMT' (§ 7001(xx)), and 'Request to access ADMT' (§ 7001(jj)). These standalone statutory rights and request mechanisms for ADMT did not exist in the 2023 baseline regulations.",
+    "section": "7001",
+    "subsection": "§ 7001(qq), § 7001(ss), § 7001(xx)",
+    "target_term": "Right to opt-out of ADMT",
+    "key_terms": ["ADMT consumer rights", "2023 vs 2026 updates", "Right to access ADMT", "Request to opt-out of ADMT"]
+  },
+  {
+    "id": "eval_7001_017",
+    "query": "What technologies and surveillance methods are classified as 'systematic observation' under CCPA regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(eee), 'systematic observation' means methodical and regular or continuous observation. Examples include Wi-Fi or Bluetooth tracking, radio frequency identification (RFID), drones, video or audio recording or live-streaming, physical or biological identification/profiling technologies, geofencing, location trackers, and license-plate recognition (LPR).",
+    "section": "7001",
+    "subsection": "§ 7001(eee)",
+    "target_term": "Systematic observation",
+    "key_terms": ["systematic observation", "geofencing", "license-plate recognition", "drones", "Wi-Fi tracking", "Bluetooth tracking"]
+  },
+  {
+    "id": "eval_7001_018",
+    "query": "How is the term 'train' legally defined with respect to machine-learning models and Automated Decisionmaking Technology (ADMT)?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(fff), 'train' means the process through which a technology discovers underlying patterns, learns a series of actions, or is taught to generate a desired output. This includes adjusting algorithmic parameters for ADMT, improving how a machine-learning model learns, and iterating datasets fed into ADMT.",
+    "section": "7001",
+    "subsection": "§ 7001(fff)",
+    "target_term": "Train",
+    "key_terms": ["train", "machine-learning model", "ADMT parameters", "iterating datasets", "underlying patterns"]
+  },
+  {
+    "id": "eval_7001_019",
+    "query": "Are the contents of a customer's emails or text messages always classified as sensitive personal information when processed by a business?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "No. Under § 7001(bbb)(1)(E), the contents of a consumer's mail, email, and text messages are classified as sensitive personal information UNLESS the business is the intended recipient of the communication. When a consumer directly emails or texts a business, those contents are not classified as sensitive personal information under this subsection.",
+    "section": "7001",
+    "subsection": "§ 7001(bbb)(1)(E)",
+    "target_term": "Sensitive personal information",
+    "key_terms": ["sensitive personal information", "contents of mail", "intended recipient", "email communications", "text messages"]
+  },
+  {
+    "id": "eval_7001_020",
+    "query": "What constitutes a 'risk assessment report' under section 7001, and which specific section governs its required contents?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(zz), a 'risk assessment report' is the document that every business required to conduct a risk assessment must create as part of its assessment. Its specific required contents are set forth in section 7152, subsections (a)(1)–(3) and (6)–(9).",
+    "section": "7001",
+    "subsection": "§ 7001(zz)",
+    "target_term": "Risk assessment report",
+    "key_terms": ["risk assessment report", "section 7152", "mandatory risk assessment", "compliance documentation"]
+  }
+]
