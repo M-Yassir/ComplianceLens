@@ -239,11 +239,13 @@ if __name__ == "__main__":
     test_query_12 = "A company decommissions an old database server by running standard operating system file deletion commands and reallocating the unformatted drive internally. Does this meet the required standard for data disposal?"
     test_query_13 = "How do reporting requirements differ between security incident notifications sent to impacted consumers versus those sent to regulatory agencies?"
 
+    test_query_16 = "If a business never audits or checks if its vendor is following privacy rules, can the business defend itself by claiming it had no reason to believe the vendor was violating the law?"
+
     test_query_14 = "what was changed conserning Opt-out Preference Signals"
     test_query_15 = "what was added to Requests to Opt-out of Sale/Sharing related policies on the new version."
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    test_query = test_query_15
+    test_query = test_query_16
     print(f"Query: '{test_query}'\n")
     
 
