@@ -471,6 +471,7 @@ def main():
         top_k_candidates=args.top_k_candidates,
         top_k_reranked=args.top_k_reranked,
         max_per_section=args.max_per_section,
+        use_llm_router=True,
         abs_floor=args.abs_floor,
         min_margin=args.min_margin,
         keep_ratio=args.keep_ratio,
