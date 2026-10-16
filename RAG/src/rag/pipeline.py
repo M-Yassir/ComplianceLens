@@ -195,13 +195,14 @@ if __name__ == "__main__":
     test_query_16 = "If a business never audits or checks if its vendor is following privacy rules, can the business defend itself by claiming it had no reason to believe the vendor was violating the law?"
     test_query_17 = "If a large digital enterprise processing data for 12 million individuals compiles its annual privacy metrics using global request totals rather than isolating California consumer requests, does this satisfy state reporting requirements?"
     test_query_18 = "A gaming studio launches an augmented reality mobile app that captures precise geolocation and eye-tracking sensitive data during gameplay. How and when must the studio inform players of their right to restrict sensitive data usage?"
+    test_query_19 = "If a company uses an automated tool to screen job applicants, what specific conditions must a human reviewer meet for the process to NOT be considered as 'substantially replacing human decisionmaking'?"
     
     test_query_14 = "what was changed conserning Opt-out Preference Signals"
     test_query_15 = "what was added to Requests to Opt-out of Sale/Sharing related policies on the new version."
     
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    test_query = test_query_18
+    test_query = test_query_19
     print(f"Query: '{test_query}'\n")
     
 
