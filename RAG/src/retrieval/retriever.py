@@ -6,12 +6,11 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 from src.config import settings
-from src.schemas.chunks import ParentChunk
 from src.vector_store.embeddings import get_embedding_function
 
 
 class ParentChildRetriever:
-    """Retrieves full parent legal sections based on child chunk vector similarity."""
+    """Retrieves full parent legal sections and glossary entries based on child chunk vector similarity."""
 
     def __init__(
         self,
@@ -23,7 +22,7 @@ class ParentChildRetriever:
         )
         self.top_k_children = top_k_children
 
-        # Fast lookup in memory for parent documents {parent_id: dict}
+        # Fast lookup in memory for parent documents & § 7001 glossary entries {parent_id: dict}
         self.parents_db: Dict[str, Dict[str, Any]] = self._load_parents()
 
         # Persistent ChromaDB connection via vector adapter
@@ -37,14 +36,54 @@ class ParentChildRetriever:
         )
 
     def _load_parents(self) -> Dict[str, Dict[str, Any]]:
-        """Loads processed parent sections into memory for immediate resolution."""
-        if not self.parent_file_path.exists():
-            raise FileNotFoundError(
-                f"Parent documents payload not found at: {self.parent_file_path}"
-            )
+        """Loads processed parent sections and maps § 7001 glossary definitions into memory."""
+        parents_db: Dict[str, Dict[str, Any]] = {}
 
-        raw_data = json.loads(self.parent_file_path.read_text(encoding="utf-8"))
-        return {doc["parent_id"]: doc for doc in raw_data}
+        # 1. Load standard parent sections (e.g., parents_2026.json)
+        if self.parent_file_path.exists():
+            try:
+                raw_data = json.loads(self.parent_file_path.read_text(encoding="utf-8"))
+                for doc in raw_data:
+                    parents_db[doc["parent_id"]] = doc
+            except Exception as e:
+                print(f"⚠️ Error loading parent file {self.parent_file_path.name}: {e}")
+
+        # Load parents_2023.json if present
+        parents_2023_path = self.parent_file_path.parent / "parents_2023.json"
+        if parents_2023_path.exists() and parents_2023_path != self.parent_file_path:
+            try:
+                raw_2023 = json.loads(parents_2023_path.read_text(encoding="utf-8"))
+                for doc in raw_2023:
+                    if doc["parent_id"] not in parents_db:
+                        parents_db[doc["parent_id"]] = doc
+            except Exception as e:
+                pass
+
+        # 2. Map Section 7001 Glossary entries (glossary_2026.json & glossary_2023.json)
+        for g_file in ["glossary_2026.json", "glossary_2023.json"]:
+            g_path = self.parent_file_path.parent / g_file
+            if g_path.exists():
+                try:
+                    g_data = json.loads(g_path.read_text(encoding="utf-8"))
+                    for item in g_data:
+                        chunk_id = item.get("source_chunk_id")
+                        if chunk_id and chunk_id not in parents_db:
+                            version = item.get("version", "2026")
+                            term_title = item.get("term", "").title()
+                            parents_db[chunk_id] = {
+                                "parent_id": chunk_id,
+                                "section": "7001",
+                                "section_title": f"Definitions ({term_title})" if term_title else "Definitions.",
+                                "sub_item": item.get("section_citation"),
+                                "version": version,
+                                "text": f"§ 7001. Definitions.\n{item.get('definition_text', '')}",
+                                "provisional_lineage_id": f"v{version}_sec7001_{item.get('term', '')}",
+                                "canonical_lineage_id": None,
+                            }
+                except Exception as e:
+                    print(f"⚠️ Error loading glossary file {g_file}: {e}")
+
+        return parents_db
 
     def get_relevant_documents(
         self,
@@ -53,23 +92,13 @@ class ParentChildRetriever:
         max_retries: int = 3,
         k: Optional[int] = None,
     ) -> List[Document]:
-        """Queries child vectors in ChromaDB and returns full parent section Documents.
-
-        `k` overrides how many child chunks are searched for this call
-        (falls back to `self.top_k_children` when omitted). This exists
-        so callers that want a wider dense candidate pool - notably
-        HybridRetriever, which otherwise ends up fusing a ~5-chunk dense
-        result against an 80-chunk BM25 result for the same query - can
-        ask for one without constructing a second ParentChildRetriever
-        instance just to change this number.
-        """
+        """Queries child vectors in ChromaDB and returns resolved parent/glossary Documents."""
         effective_k = k if k is not None else self.top_k_children
 
         search_kwargs: Dict[str, Any] = {}
         if version_filter:
             search_kwargs["filter"] = {"version": version_filter}
 
-        # 1. Similarity search on fine-grained child chunks with 429 resilience
         child_docs = []
         for attempt in range(1, max_retries + 1):
             try:
@@ -91,20 +120,6 @@ class ParentChildRetriever:
         if not child_docs:
             return []
 
-        # 2. Collect unique parent IDs while maintaining relevance order, and
-        # keep each parent's BEST-matching child chunk text alongside it.
-        # This is carried through to the reranker (see reranker.py's
-        # `_build_passage_text`): the cross-encoder it uses truncates each
-        # (query, passage) pair to 512 tokens total, truncating whichever
-        # side is longer - almost always the ~1000-1200 token parent text,
-        # keeping only its opening ~480 tokens. A full parent passed to
-        # reranking risks having its actually-relevant content silently cut
-        # off before scoring; this ~250-token child excerpt (the specific
-        # text that matched the query) stays well under that limit and is
-        # already the relevant slice, so it's a strictly better rerank
-        # input than the full parent body. The full parent text is still
-        # what's returned as `page_content` - this only adds an extra,
-        # shorter field alongside it.
         parent_ids: List[str] = []
         best_child_text_by_parent: Dict[str, str] = {}
         for doc in child_docs:
@@ -116,7 +131,6 @@ class ParentChildRetriever:
             if pid not in best_child_text_by_parent:
                 best_child_text_by_parent[pid] = doc.page_content
 
-        # 3. Resolve parent chunks using standard BaseLegalChunk schema keys
         resolved_parents: List[Document] = []
         for pid in parent_ids:
             parent_data = self.parents_db.get(pid)
@@ -126,13 +140,31 @@ class ParentChildRetriever:
                         page_content=parent_data["text"],
                         metadata={
                             "parent_id": parent_data["parent_id"],
-                            "section": parent_data.get("section", "N/A"),
+                            "section": str(parent_data.get("section", "N/A")),
                             "section_title": parent_data.get("section_title", ""),
                             "sub_item": parent_data.get("sub_item"),
                             "version": parent_data.get("version", "2026"),
                             "provisional_lineage_id": parent_data.get("provisional_lineage_id", ""),
                             "canonical_lineage_id": parent_data.get("canonical_lineage_id", ""),
                             "matched_excerpt": best_child_text_by_parent.get(pid, ""),
+                        },
+                    )
+                )
+            elif "sec7001" in pid or "7001" in pid:
+                # Direct § 7001 fallback directly from child chunk if unmapped
+                excerpt = best_child_text_by_parent.get(pid, "")
+                resolved_parents.append(
+                    Document(
+                        page_content=excerpt or "§ 7001. Definitions.",
+                        metadata={
+                            "parent_id": pid,
+                            "section": "7001",
+                            "section_title": "Definitions.",
+                            "sub_item": None,
+                            "version": "2026" if "v2026" in pid else "2023",
+                            "provisional_lineage_id": pid,
+                            "canonical_lineage_id": None,
+                            "matched_excerpt": excerpt,
                         },
                     )
                 )

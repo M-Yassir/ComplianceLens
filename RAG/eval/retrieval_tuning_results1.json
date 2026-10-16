@@ -12,15 +12,15 @@
       "samples_evaluated": 20
     },
     "metrics": {
-      "section_hit_rate": 0.8,
-      "top_1_hit_rate": 0.75,
+      "section_hit_rate": 0.95,
+      "top_1_hit_rate": 0.9,
       "routing_accuracy": 0.85,
-      "abstention_rate": 0.05,
-      "hit_in_reranked_rate": 0.85,
-      "false_abstention_rate": 0.05,
+      "abstention_rate": 0.0,
+      "hit_in_reranked_rate": 1.0,
+      "false_abstention_rate": 0.0,
       "out_of_scope_count": 0,
       "out_of_scope_correct_abstention_rate": 0.0,
-      "avg_context_docs": 4.47
+      "avg_context_docs": 4.4
     }
   },
   "results": [
@@ -46,58 +46,58 @@
         },
         {
           "rank": 2,
-          "parent_id": "v2026_sec7062_p1",
-          "section": "7062",
-          "section_title": "Verification for Non-Accountholders.",
-          "rerank_score": 0.9892,
-          "snippet": "\u00a7 7062. Verification for Non-Accountholders.\n\u00a7 7062. Verification for Non-Accountholders.\n\n(a)\nIf a consumer does not have or cannot access a password-protected account\nwith a business, the business s..."
+          "parent_id": "v2023_sec7060_p1",
+          "section": "7060",
+          "section_title": "General Rules Regarding Verification.",
+          "rerank_score": 0.9997,
+          "snippet": "\u00a7 7060. General Rules Regarding Verification.\n\u00a7 7060. General Rules Regarding Verification.\n\n(a)\nA business shall establish, document, and comply with a reasonable method\nfor verifying that the person..."
         },
         {
           "rank": 3,
-          "parent_id": "v2026_sec7063_parent_all",
-          "section": "7063",
-          "section_title": "Authorized Agents.",
-          "rerank_score": 0.9696,
-          "snippet": "\u00a7 7063. Authorized Agents.\n(a)\nWhen a consumer uses an authorized agent to submit a request to delete,\nrequest to correct, or a request to know, a business may require the authorized\nagent to provide ..."
+          "parent_id": "v2026_sec7062_p1",
+          "section": "7062",
+          "section_title": "Verification for Non-Accountholders.",
+          "rerank_score": 0.9895,
+          "snippet": "\u00a7 7062. Verification for Non-Accountholders.\n\u00a7 7062. Verification for Non-Accountholders.\n\n(a)\nIf a consumer does not have or cannot access a password-protected account\nwith a business, the business s..."
         },
         {
           "rank": 4,
-          "parent_id": "v2026_sec7021_parent_all",
-          "section": "7021",
-          "section_title": "Timelines for Responding to Requests to Delete, Requests to Correct,",
-          "rerank_score": 0.596,
-          "snippet": "\u00a7 7021. Timelines for Responding to Requests to Delete, Requests to Correct,\nRequests to Know, Requests to Access ADMT, and Requests to Appeal ADMT.\n(a)\nNo later than 10 business days after receiving ..."
+          "parent_id": "v2023_sec7062_p1",
+          "section": "7062",
+          "section_title": "Verification for Non-Accountholders.",
+          "rerank_score": 0.9895,
+          "snippet": "\u00a7 7062. Verification for Non-Accountholders.\n\u00a7 7062. Verification for Non-Accountholders.\n\n(a)\nIf a consumer does not have or cannot access a password-protected account\nwith a business, the business s..."
         },
         {
           "rank": 5,
-          "parent_id": "v2026_sec7022_p1",
-          "section": "7022",
-          "section_title": "Requests to Delete.",
-          "rerank_score": 0.5161,
-          "snippet": "\u00a7 7022. Requests to Delete.\n\u00a7 7022. Requests to Delete.\n\n(a)\nFor requests to delete, if a business cannot verify the identity of the requestor\npursuant to the regulations set forth in Article 5, the b..."
+          "parent_id": "v2026_sec7063_parent_all",
+          "section": "7063",
+          "section_title": "Authorized Agents.",
+          "rerank_score": 0.9761,
+          "snippet": "\u00a7 7063. Authorized Agents.\n(a)\nWhen a consumer uses an authorized agent to submit a request to delete,\nrequest to correct, or a request to know, a business may require the authorized\nagent to provide ..."
         },
         {
           "rank": 6,
-          "parent_id": "v2026_sec7022_p2",
-          "section": "7022",
-          "section_title": "Requests to Delete.",
-          "rerank_score": 0.4464,
-          "snippet": "\u00a7 7022. Requests to Delete.\n(h) In responding to a request to delete, a business may present the consumer\nwith the choice to delete select portions of their personal information as long\nas a single op..."
+          "parent_id": "v2023_sec7063_parent_all",
+          "section": "7063",
+          "section_title": "Authorized Agents.",
+          "rerank_score": 0.9556,
+          "snippet": "\u00a7 7063. Authorized Agents.\n(a)\nWhen a consumer uses an authorized agent to submit a request to delete,\nrequest to correct, or a request to know, a business may require the authorized\nagent to provide ..."
         }
       ],
-      "execution_time_sec": 7.162,
+      "execution_time_sec": 8.495,
       "answerable": true,
       "hit_in_reranked": true,
       "top_score": 0.9998,
-      "score_margin": 1.011,
+      "score_margin": 1.0,
       "context_size": 6,
       "reranked_sections": [
         "7060",
+        "7060",
+        "7062",
         "7062",
         "7063",
-        "7021",
-        "7022",
-        "7022"
+        "7063"
       ]
     },
     {
@@ -117,7 +117,7 @@
           "parent_id": "v2026_sec7012_p1",
           "section": "7012",
           "section_title": "Notice at Collection of Personal Information.",
-          "rerank_score": 0.9969,
+          "rerank_score": 0.9966,
           "snippet": "\u00a7 7012. Notice at Collection of Personal Information.\n\u00a7 7012. Notice at Collection of Personal Information.\n\n(a)\nThe purpose of the Notice at Collection is to provide consumers with timely\nnotice, at ..."
         },
         {
@@ -125,7 +125,7 @@
           "parent_id": "v2026_sec7002_p2",
           "section": "7002",
           "section_title": "Restrictions on the Collection and Use of Personal Information.",
-          "rerank_score": 0.9922,
+          "rerank_score": 0.9927,
           "snippet": "\u00a7 7002. Restrictions on the Collection and Use of Personal Information.\n(d) For each purpose identified in compliance with subsection (a)(1) or (a)(2), the\ncollection, use, retention, and/or sharing o..."
         },
         {
@@ -133,7 +133,7 @@
           "parent_id": "v2026_sec7010_parent_all",
           "section": "7010",
           "section_title": "Overview of Required Disclosures.",
-          "rerank_score": 0.9785,
+          "rerank_score": 0.9794,
           "snippet": "\u00a7 7010. Overview of Required Disclosures.\n(a) Every business that must comply with the CCPA and these regulations shall\nprovide a privacy policy in accordance with the CCPA and section 7011.\n(b) A bus..."
         },
         {
@@ -141,39 +141,39 @@
           "parent_id": "v2026_sec7012_p2",
           "section": "7012",
           "section_title": "Notice at Collection of Personal Information.",
-          "rerank_score": 0.9689,
+          "rerank_score": 0.9699,
           "snippet": "\u00a7 7012. Notice at Collection of Personal Information.\n(g) Third Parties that Control the Collection of Personal Information. This\nsubsection shall not affect the first party\u2019s obligations under the CC..."
         },
         {
           "rank": 5,
-          "parent_id": "v2026_sec7023_p2",
-          "section": "7023",
-          "section_title": "Requests to Correct.",
-          "rerank_score": 0.9516,
-          "snippet": "\u00a7 7023. Requests to Correct.\n(f)\nIn responding to a request to correct, a business shall inform the consumer\nwhether it has complied with the consumer\u2019s request. If the business denies a\nconsumer\u2019s re..."
-        },
-        {
-          "rank": 6,
           "parent_id": "v2026_sec7024_p1",
           "section": "7024",
           "section_title": "Requests to Know.",
-          "rerank_score": 0.9495,
+          "rerank_score": 0.9514,
           "snippet": "\u00a7 7024. Requests to Know.\n\u00a7 7024. Requests to Know.\n\n(a)\nFor requests that seek the disclosure of specific pieces of information about\nthe consumer, if a business cannot verify the identity of the per..."
+        },
+        {
+          "rank": 6,
+          "parent_id": "v2026_sec7023_p2",
+          "section": "7023",
+          "section_title": "Requests to Correct.",
+          "rerank_score": 0.9501,
+          "snippet": "\u00a7 7023. Requests to Correct.\n(f)\nIn responding to a request to correct, a business shall inform the consumer\nwhether it has complied with the consumer\u2019s request. If the business denies a\nconsumer\u2019s re..."
         }
       ],
-      "execution_time_sec": 6.292,
+      "execution_time_sec": 7.614,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9969,
-      "score_margin": 1.005,
+      "top_score": 0.9966,
+      "score_margin": 1.004,
       "context_size": 6,
       "reranked_sections": [
         "7012",
         "7002",
         "7010",
         "7012",
-        "7023",
-        "7024"
+        "7024",
+        "7023"
       ]
     },
     {
@@ -195,7 +195,7 @@
           "parent_id": "v2026_sec7122_p1",
           "section": "7122",
           "section_title": "Thoroughness and Independence of Cybersecurity Audits.",
-          "rerank_score": 0.9963,
+          "rerank_score": 0.9965,
           "snippet": "\u00a7 7122. Thoroughness and Independence of Cybersecurity Audits.\n\u00a7 7122. Thoroughness and Independence of Cybersecurity Audits.\n\n(a)\nEvery business required to complete a cybersecurity audit pursuant to..."
         },
         {
@@ -203,7 +203,7 @@
           "parent_id": "v2026_sec7123_p2",
           "section": "7123",
           "section_title": "Scope of Cybersecurity Audit and Audit Report.",
-          "rerank_score": 0.7241,
+          "rerank_score": 0.7376,
           "snippet": "\u00a7 7123. Scope of Cybersecurity Audit and Audit Report.\n(i) If the person is an employee, independent contractor, or any\nother personnel, restricting their privileges and access to\npersonal information..."
         },
         {
@@ -211,7 +211,7 @@
           "parent_id": "v2026_sec7123_p3",
           "section": "7123",
           "section_title": "Scope of Cybersecurity Audit and Audit Report.",
-          "rerank_score": 0.5162,
+          "rerank_score": 0.5396,
           "snippet": "\u00a7 7123. Scope of Cybersecurity Audit and Audit Report.\n(i) The business\u2019s documentation of predetermined instructions or\nprocedures to detect, respond to, limit the consequences of, and\nrecover from m..."
         },
         {
@@ -219,15 +219,15 @@
           "parent_id": "v2026_sec7120_parent_all",
           "section": "7120",
           "section_title": "Requirement to Complete a Cybersecurity Audit.",
-          "rerank_score": 0.305,
+          "rerank_score": 0.2699,
           "snippet": "\u00a7 7120. Requirement to Complete a Cybersecurity Audit.\n(a)\nEvery business whose processing of consumers\u2019 personal information presents\nsignificant risk to consumers\u2019 security as set forth in subsectio..."
         }
       ],
-      "execution_time_sec": 5.333,
+      "execution_time_sec": 6.423,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9963,
-      "score_margin": 1.376,
+      "top_score": 0.9965,
+      "score_margin": 1.351,
       "context_size": 4,
       "reranked_sections": [
         "7122",
@@ -255,7 +255,7 @@
           "parent_id": "v2026_sec7302_parent_all",
           "section": "7302",
           "section_title": "Probable Cause Proceedings.",
-          "rerank_score": 0.9857,
+          "rerank_score": 0.984,
           "snippet": "\u00a7 7302. Probable Cause Proceedings.\n(a) Probable Cause. Under Civil Code section 1798.199.50, probable cause exists\nwhen the evidence supports a reasonable belief that the CCPA has been\nviolated.\n(b) ..."
         },
         {
@@ -263,23 +263,23 @@
           "parent_id": "v2026_sec7300_parent_all",
           "section": "7300",
           "section_title": "Sworn Complaints Filed with the Agency.",
-          "rerank_score": 0.0872,
+          "rerank_score": 0.0793,
           "snippet": "\u00a7 7300. Sworn Complaints Filed with the Agency.\n(a) Requirements for filing a sworn complaint. Sworn complaints must be\nfiled with the Enforcement Division via the electronic complaint system\navailabl..."
         }
       ],
-      "execution_time_sec": 6.177,
+      "execution_time_sec": 8.101,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9857,
-      "score_margin": 11.31,
+      "top_score": 0.984,
+      "score_margin": 12.402,
       "context_size": 2,
       "reranked_sections": [
         "7302",
         "7300",
         "7011",
         "7004",
-        "7024",
-        "7080"
+        "7080",
+        "7024"
       ]
     },
     {
@@ -293,47 +293,35 @@
         "7001"
       ],
       "abstained": false,
-      "section_hit": false,
-      "hit_in_top_1": false,
+      "section_hit": true,
+      "hit_in_top_1": true,
       "retrieved_sources": [
         {
           "rank": 1,
-          "parent_id": "v2026_sec7027_p2",
-          "section": "7027",
-          "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
-          "rerank_score": 0.0668,
-          "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n(k) A business that responds to a request to limit by informing the consumer of a\ncharge for the use of any product or s..."
+          "parent_id": "v2026_sec7001_child_aaa",
+          "section": "7001",
+          "section_title": "Definitions (Sensitive Location)",
+          "rerank_score": 0.9997,
+          "snippet": "\u00a7 7001. Definitions.\n(aaa) \u201cSensitive location\u201d means any of the following physical places: healthcare\nfacilities including hospitals, doctors\u2019 offices, urgent care facilities, and\ncommunity health cl..."
         },
         {
           "rank": 2,
-          "parent_id": "v2026_sec7150_p1",
-          "section": "7150",
-          "section_title": "When a Business Must Conduct a Risk Assessment.",
-          "rerank_score": 0.0282,
-          "snippet": "\u00a7 7150. When a Business Must Conduct a Risk Assessment.\n\u00a7 7150. When a Business Must Conduct a Risk Assessment.\n\n(a)\nEvery business whose processing of consumers\u2019 personal information presents\nsignifi..."
-        },
-        {
-          "rank": 3,
-          "parent_id": "v2026_sec7011_p1",
-          "section": "7011",
-          "section_title": "Privacy Policy.",
-          "rerank_score": 0.0249,
-          "snippet": "\u00a7 7011. Privacy Policy.\n\u00a7 7011. Privacy Policy.\n\n(a)\nThe purpose of the privacy policy is to provide consumers with a\ncomprehensive description of a business\u2019s online and offline information\npractices..."
+          "parent_id": "v2026_sec7001_child_bbb",
+          "section": "7001",
+          "section_title": "Definitions (Sensitive Personal Information)",
+          "rerank_score": 0.4054,
+          "snippet": "\u00a7 7001. Definitions.\n(bbb) \u201cSensitive personal information\u201d means:\n(1)\nPersonal information that reveals:\n(A) A consumer\u2019s social security, driver\u2019s license, state identification\ncard, or passport num..."
         }
       ],
-      "execution_time_sec": 4.897,
+      "execution_time_sec": 3.431,
       "answerable": true,
-      "hit_in_reranked": false,
-      "top_score": 0.0668,
-      "score_margin": 2.37,
-      "context_size": 3,
+      "hit_in_reranked": true,
+      "top_score": 0.9997,
+      "score_margin": 2.466,
+      "context_size": 2,
       "reranked_sections": [
-        "7027",
-        "7150",
-        "7011",
-        "7123",
-        "7002",
-        "7014"
+        "7001",
+        "7001"
       ]
     },
     {
@@ -344,16 +332,33 @@
       "actual_route": "POLICY_LOOKUP",
       "route_reasoning": "Standard regulatory policy lookup targeting active 2026 regulations.",
       "extracted_sections": [],
-      "abstained": true,
+      "abstained": false,
       "section_hit": false,
       "hit_in_top_1": false,
-      "retrieved_sources": [],
-      "execution_time_sec": 6.314,
+      "retrieved_sources": [
+        {
+          "rank": 1,
+          "parent_id": "v2026_sec7027_p2",
+          "section": "7027",
+          "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
+          "rerank_score": 0.0134,
+          "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n(k) A business that responds to a request to limit by informing the consumer of a\ncharge for the use of any product or s..."
+        },
+        {
+          "rank": 2,
+          "parent_id": "v2026_sec7150_p1",
+          "section": "7150",
+          "section_title": "When a Business Must Conduct a Risk Assessment.",
+          "rerank_score": 0.0088,
+          "snippet": "\u00a7 7150. When a Business Must Conduct a Risk Assessment.\n\u00a7 7150. When a Business Must Conduct a Risk Assessment.\n\n(a)\nEvery business whose processing of consumers\u2019 personal information presents\nsignifi..."
+        }
+      ],
+      "execution_time_sec": 7.765,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.0132,
-      "score_margin": 1.205,
-      "context_size": 0,
+      "top_score": 0.0134,
+      "score_margin": 1.525,
+      "context_size": 2,
       "reranked_sections": [
         "7027",
         "7150",
@@ -390,11 +395,19 @@
           "parent_id": "v2026_sec7220_p2",
           "section": "7220",
           "section_title": "Pre-use Notice Requirements.",
-          "rerank_score": 0.991,
+          "rerank_score": 0.9905,
           "snippet": "\u00a7 7220. Pre-use Notice Requirements.\n(e) A business may provide a consolidated Pre-use Notice as set forth below,\nprovided that the consolidated Pre-use Notice includes the information\nrequired by thi..."
         },
         {
           "rank": 3,
+          "parent_id": "v2026_sec7200_parent_all",
+          "section": "7200",
+          "section_title": "When a Business\u2019s Use of Automated Decisionmaking Technology is",
+          "rerank_score": 0.99,
+          "snippet": "\u00a7 7200. When a Business\u2019s Use of Automated Decisionmaking Technology is\nSubject to the Requirements of This Article.\n(a)\nA business that uses ADMT to make a significant decision concerning a\nconsumer ..."
+        },
+        {
+          "rank": 4,
           "parent_id": "v2026_sec7222_p1",
           "section": "7222",
           "section_title": "Requests to Access ADMT.",
@@ -402,19 +415,11 @@
           "snippet": "\u00a7 7222. Requests to Access ADMT.\n\u00a7 7222. Requests to Access ADMT.\n\n(a)\nA business that uses ADMT to make a significant decision must provide a\nconsumer with information about this use when responding ..."
         },
         {
-          "rank": 4,
-          "parent_id": "v2026_sec7200_parent_all",
-          "section": "7200",
-          "section_title": "When a Business\u2019s Use of Automated Decisionmaking Technology is",
-          "rerank_score": 0.9895,
-          "snippet": "\u00a7 7200. When a Business\u2019s Use of Automated Decisionmaking Technology is\nSubject to the Requirements of This Article.\n(a)\nA business that uses ADMT to make a significant decision concerning a\nconsumer ..."
-        },
-        {
           "rank": 5,
           "parent_id": "v2026_sec7221_p1",
           "section": "7221",
           "section_title": "Requests to Opt-Out of ADMT.",
-          "rerank_score": 0.9842,
+          "rerank_score": 0.9867,
           "snippet": "\u00a7 7221. Requests to Opt-Out of ADMT.\n\u00a7 7221. Requests to Opt-Out of ADMT.\n\n(a)\nA business must provide consumers with the ability to opt-out of the use of\nADMT to make a significant decision concernin..."
         },
         {
@@ -422,21 +427,21 @@
           "parent_id": "v2026_sec7010_parent_all",
           "section": "7010",
           "section_title": "Overview of Required Disclosures.",
-          "rerank_score": 0.9818,
+          "rerank_score": 0.9835,
           "snippet": "\u00a7 7010. Overview of Required Disclosures.\n(a) Every business that must comply with the CCPA and these regulations shall\nprovide a privacy policy in accordance with the CCPA and section 7011.\n(b) A bus..."
         }
       ],
-      "execution_time_sec": 6.106,
+      "execution_time_sec": 5.072,
       "answerable": true,
       "hit_in_reranked": true,
       "top_score": 0.9992,
-      "score_margin": 1.008,
+      "score_margin": 1.009,
       "context_size": 6,
       "reranked_sections": [
         "7220",
         "7220",
-        "7222",
         "7200",
+        "7222",
         "7221",
         "7010"
       ]
@@ -470,7 +475,7 @@
           "snippet": "\u00a7 7060. General Rules Regarding Verification.\n\u00a7 7060. General Rules Regarding Verification.\n\n(a)\nA business shall establish, document, and comply with a reasonable method\nfor verifying that the person..."
         }
       ],
-      "execution_time_sec": 6.228,
+      "execution_time_sec": 6.754,
       "answerable": true,
       "hit_in_reranked": true,
       "top_score": 0.9126,
@@ -502,7 +507,7 @@
           "parent_id": "v2026_sec7080_p1",
           "section": "7080",
           "section_title": "Discriminatory Practices.",
-          "rerank_score": 0.9944,
+          "rerank_score": 0.9951,
           "snippet": "\u00a7 7080. Discriminatory Practices.\n\u00a7 7080. Discriminatory Practices.\n\n(a) A price or service difference is discriminatory, and therefore prohibited by Civil\nCode section 1798.125, if the business treat..."
         },
         {
@@ -510,7 +515,7 @@
           "parent_id": "v2026_sec7022_p1",
           "section": "7022",
           "section_title": "Requests to Delete.",
-          "rerank_score": 0.9836,
+          "rerank_score": 0.9846,
           "snippet": "\u00a7 7022. Requests to Delete.\n\u00a7 7022. Requests to Delete.\n\n(a)\nFor requests to delete, if a business cannot verify the identity of the requestor\npursuant to the regulations set forth in Article 5, the b..."
         },
         {
@@ -518,7 +523,7 @@
           "parent_id": "v2026_sec7023_p2",
           "section": "7023",
           "section_title": "Requests to Correct.",
-          "rerank_score": 0.9679,
+          "rerank_score": 0.972,
           "snippet": "\u00a7 7023. Requests to Correct.\n(f)\nIn responding to a request to correct, a business shall inform the consumer\nwhether it has complied with the consumer\u2019s request. If the business denies a\nconsumer\u2019s re..."
         },
         {
@@ -526,7 +531,7 @@
           "parent_id": "v2026_sec7024_p1",
           "section": "7024",
           "section_title": "Requests to Know.",
-          "rerank_score": 0.9586,
+          "rerank_score": 0.9451,
           "snippet": "\u00a7 7024. Requests to Know.\n\u00a7 7024. Requests to Know.\n\n(a)\nFor requests that seek the disclosure of specific pieces of information about\nthe consumer, if a business cannot verify the identity of the per..."
         },
         {
@@ -534,22 +539,22 @@
           "parent_id": "v2026_sec7022_p2",
           "section": "7022",
           "section_title": "Requests to Delete.",
-          "rerank_score": 0.9326,
+          "rerank_score": 0.9318,
           "snippet": "\u00a7 7022. Requests to Delete.\n(h) In responding to a request to delete, a business may present the consumer\nwith the choice to delete select portions of their personal information as long\nas a single op..."
         },
         {
           "rank": 6,
-          "parent_id": "v2026_sec7023_p1",
-          "section": "7023",
-          "section_title": "Requests to Correct.",
-          "rerank_score": 0.869,
-          "snippet": "\u00a7 7023. Requests to Correct.\n\u00a7 7023. Requests to Correct.\n\n(a)\nFor requests to correct, if a business cannot verify the identity of the requestor\npursuant to the regulations set forth in Article 5, th..."
+          "parent_id": "v2026_sec7222_p1",
+          "section": "7222",
+          "section_title": "Requests to Access ADMT.",
+          "rerank_score": 0.8751,
+          "snippet": "\u00a7 7222. Requests to Access ADMT.\n\u00a7 7222. Requests to Access ADMT.\n\n(a)\nA business that uses ADMT to make a significant decision must provide a\nconsumer with information about this use when responding ..."
         }
       ],
-      "execution_time_sec": 6.027,
+      "execution_time_sec": 7.88,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9944,
+      "top_score": 0.9951,
       "score_margin": 1.011,
       "context_size": 6,
       "reranked_sections": [
@@ -558,7 +563,7 @@
         "7023",
         "7024",
         "7022",
-        "7023"
+        "7222"
       ]
     },
     {
@@ -586,7 +591,7 @@
           "parent_id": "v2026_sec7026_p2",
           "section": "7026",
           "section_title": "Requests to Opt-out of Sale/Sharing.",
-          "rerank_score": 0.9954,
+          "rerank_score": 0.9947,
           "snippet": "\u00a7 7026. Requests to Opt-out of Sale/Sharing.\n(f)\nA business shall comply with a request to opt-out of sale/sharing by:\n(1)\nCeasing to sell to and/or share with third parties the consumer\u2019s personal\nin..."
         },
         {
@@ -594,7 +599,7 @@
           "parent_id": "v2026_sec7222_p2",
           "section": "7222",
           "section_title": "Requests to Access ADMT.",
-          "rerank_score": 0.9915,
+          "rerank_score": 0.9901,
           "snippet": "\u00a7 7222. Requests to Access ADMT.\n(j)\nA business that used an ADMT with respect to a consumer more than four\ntimes within a 12-month period may provide an aggregate-level response to\nthe consumer\u2019s req..."
         },
         {
@@ -602,27 +607,27 @@
           "parent_id": "v2026_sec7021_parent_all",
           "section": "7021",
           "section_title": "Timelines for Responding to Requests to Delete, Requests to Correct,",
-          "rerank_score": 0.9849,
+          "rerank_score": 0.9852,
           "snippet": "\u00a7 7021. Timelines for Responding to Requests to Delete, Requests to Correct,\nRequests to Know, Requests to Access ADMT, and Requests to Appeal ADMT.\n(a)\nNo later than 10 business days after receiving ..."
         },
         {
           "rank": 5,
-          "parent_id": "v2026_sec7221_p1",
-          "section": "7221",
-          "section_title": "Requests to Opt-Out of ADMT.",
-          "rerank_score": 0.8843,
-          "snippet": "\u00a7 7221. Requests to Opt-Out of ADMT.\n\u00a7 7221. Requests to Opt-Out of ADMT.\n\n(a)\nA business must provide consumers with the ability to opt-out of the use of\nADMT to make a significant decision concernin..."
-        },
-        {
-          "rank": 6,
           "parent_id": "v2026_sec7027_p2",
           "section": "7027",
           "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
-          "rerank_score": 0.8764,
+          "rerank_score": 0.8986,
           "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n(k) A business that responds to a request to limit by informing the consumer of a\ncharge for the use of any product or s..."
+        },
+        {
+          "rank": 6,
+          "parent_id": "v2026_sec7221_p1",
+          "section": "7221",
+          "section_title": "Requests to Opt-Out of ADMT.",
+          "rerank_score": 0.8415,
+          "snippet": "\u00a7 7221. Requests to Opt-Out of ADMT.\n\u00a7 7221. Requests to Opt-Out of ADMT.\n\n(a)\nA business must provide consumers with the ability to opt-out of the use of\nADMT to make a significant decision concernin..."
         }
       ],
-      "execution_time_sec": 8.183,
+      "execution_time_sec": 6.668,
       "answerable": true,
       "hit_in_reranked": true,
       "top_score": 0.9999,
@@ -633,8 +638,8 @@
         "7026",
         "7222",
         "7021",
-        "7221",
-        "7027"
+        "7027",
+        "7221"
       ]
     },
     {
@@ -646,47 +651,63 @@
       "route_reasoning": "Standard regulatory policy lookup targeting active 2026 regulations.",
       "extracted_sections": [],
       "abstained": false,
-      "section_hit": false,
-      "hit_in_top_1": false,
+      "section_hit": true,
+      "hit_in_top_1": true,
       "retrieved_sources": [
         {
           "rank": 1,
-          "parent_id": "v2026_sec7153_parent_all",
-          "section": "7153",
-          "section_title": "Additional Requirements for Businesses that Process Personal",
-          "rerank_score": 0.8769,
-          "snippet": "\u00a7 7153. Additional Requirements for Businesses that Process Personal\nInformation to Train Automated Decisionmaking Technology.\n(a)\nA business that makes ADMT available to another business (\u201crecipient-..."
+          "parent_id": "v2026_sec7001_child_fff",
+          "section": "7001",
+          "section_title": "Definitions (Train)",
+          "rerank_score": 0.9898,
+          "snippet": "\u00a7 7001. Definitions.\n(fff) \u201cTrain\u201d for the purposes of sections 7150, subsection (b)(6), and 7153 means\nthe process through which a technology discovers underlying patterns, learns\na series of actions..."
         },
         {
           "rank": 2,
-          "parent_id": "v2026_sec7200_parent_all",
-          "section": "7200",
-          "section_title": "When a Business\u2019s Use of Automated Decisionmaking Technology is",
-          "rerank_score": 0.4548,
-          "snippet": "\u00a7 7200. When a Business\u2019s Use of Automated Decisionmaking Technology is\nSubject to the Requirements of This Article.\n(a)\nA business that uses ADMT to make a significant decision concerning a\nconsumer ..."
+          "parent_id": "v2026_sec7001_child_e",
+          "section": "7001",
+          "section_title": "Definitions (Automated Decisionmaking Technology)",
+          "rerank_score": 0.9372,
+          "snippet": "\u00a7 7001. Definitions.\n(e)\n\u201cAutomated decisionmaking technology\u201d or \u201cADMT\u201d means any technology\nthat processes personal information and uses computation to replace human\ndecisionmaking or substantially ..."
         },
         {
           "rank": 3,
+          "parent_id": "v2026_sec7153_parent_all",
+          "section": "7153",
+          "section_title": "Additional Requirements for Businesses that Process Personal",
+          "rerank_score": 0.8619,
+          "snippet": "\u00a7 7153. Additional Requirements for Businesses that Process Personal\nInformation to Train Automated Decisionmaking Technology.\n(a)\nA business that makes ADMT available to another business (\u201crecipient-..."
+        },
+        {
+          "rank": 4,
+          "parent_id": "v2026_sec7200_parent_all",
+          "section": "7200",
+          "section_title": "When a Business\u2019s Use of Automated Decisionmaking Technology is",
+          "rerank_score": 0.4302,
+          "snippet": "\u00a7 7200. When a Business\u2019s Use of Automated Decisionmaking Technology is\nSubject to the Requirements of This Article.\n(a)\nA business that uses ADMT to make a significant decision concerning a\nconsumer ..."
+        },
+        {
+          "rank": 5,
           "parent_id": "v2026_sec7222_p1",
           "section": "7222",
           "section_title": "Requests to Access ADMT.",
-          "rerank_score": 0.3375,
+          "rerank_score": 0.329,
           "snippet": "\u00a7 7222. Requests to Access ADMT.\n\u00a7 7222. Requests to Access ADMT.\n\n(a)\nA business that uses ADMT to make a significant decision must provide a\nconsumer with information about this use when responding ..."
         }
       ],
-      "execution_time_sec": 6.146,
+      "execution_time_sec": 6.502,
       "answerable": true,
-      "hit_in_reranked": false,
-      "top_score": 0.8769,
-      "score_margin": 1.928,
-      "context_size": 3,
+      "hit_in_reranked": true,
+      "top_score": 0.9898,
+      "score_margin": 1.056,
+      "context_size": 5,
       "reranked_sections": [
+        "7001",
+        "7001",
         "7153",
         "7200",
         "7222",
-        "7220",
-        "7222",
-        "7152"
+        "7220"
       ]
     },
     {
@@ -708,7 +729,7 @@
           "parent_id": "v2026_sec7154_parent_all",
           "section": "7154",
           "section_title": "Goal of a Risk Assessment.",
-          "rerank_score": 0.9991,
+          "rerank_score": 0.9992,
           "snippet": "\u00a7 7154. Goal of a Risk Assessment.\n(a)\nThe goal of a risk assessment is restricting or prohibiting the processing of\npersonal information if the risks to privacy of the consumer outweigh the\nbenefits ..."
         },
         {
@@ -716,7 +737,7 @@
           "parent_id": "v2026_sec7156_parent_all",
           "section": "7156",
           "section_title": "Conducting Risk Assessments for a Comparable Set of Processing",
-          "rerank_score": 0.9855,
+          "rerank_score": 0.9844,
           "snippet": "\u00a7 7156. Conducting Risk Assessments for a Comparable Set of Processing\nActivities or in Compliance with Other Laws or Regulations.\n(a)\nA business may conduct a single risk assessment for a comparable ..."
         },
         {
@@ -724,7 +745,7 @@
           "parent_id": "v2026_sec7152_p1",
           "section": "7152",
           "section_title": "Risk Assessment Requirements.",
-          "rerank_score": 0.9848,
+          "rerank_score": 0.983,
           "snippet": "\u00a7 7152. Risk Assessment Requirements.\n\u00a7 7152. Risk Assessment Requirements.\n\n(a)\nA business must conduct a risk assessment to determine whether the risks to\nconsumers\u2019 privacy from the processing of p..."
         },
         {
@@ -732,7 +753,7 @@
           "parent_id": "v2026_sec7150_p1",
           "section": "7150",
           "section_title": "When a Business Must Conduct a Risk Assessment.",
-          "rerank_score": 0.9479,
+          "rerank_score": 0.9452,
           "snippet": "\u00a7 7150. When a Business Must Conduct a Risk Assessment.\n\u00a7 7150. When a Business Must Conduct a Risk Assessment.\n\n(a)\nEvery business whose processing of consumers\u2019 personal information presents\nsignifi..."
         },
         {
@@ -740,23 +761,23 @@
           "parent_id": "v2026_sec7151_parent_all",
           "section": "7151",
           "section_title": "Stakeholder Involvement for Risk Assessments.",
-          "rerank_score": 0.9215,
+          "rerank_score": 0.8993,
           "snippet": "\u00a7 7151. Stakeholder Involvement for Risk Assessments.\n(a)\nA business\u2019s employees whose job duties include participating in the\nprocessing of personal information that would be subject to a risk assess..."
         },
         {
           "rank": 6,
-          "parent_id": "v2026_sec7152_p2",
-          "section": "7152",
-          "section_title": "Risk Assessment Requirements.",
-          "rerank_score": 0.8387,
-          "snippet": "\u00a7 7152. Risk Assessment Requirements.\n(i)\nEncryption, segmentation of information systems, physical and\nlogical access controls, change management, network\nmonitoring and defenses, and data and integr..."
+          "parent_id": "v2026_sec7155_p1",
+          "section": "7155",
+          "section_title": "Timing and Retention Requirements for Risk Assessments.",
+          "rerank_score": 0.8003,
+          "snippet": "\u00a7 7155. Timing and Retention Requirements for Risk Assessments.\n\u00a7 7155. Timing and Retention Requirements for Risk Assessments.\n\n(a)\nA business must comply with the following timing requirements for c..."
         }
       ],
-      "execution_time_sec": 4.729,
+      "execution_time_sec": 6.177,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9991,
-      "score_margin": 1.014,
+      "top_score": 0.9992,
+      "score_margin": 1.015,
       "context_size": 6,
       "reranked_sections": [
         "7154",
@@ -764,7 +785,7 @@
         "7152",
         "7150",
         "7151",
-        "7152"
+        "7155"
       ]
     },
     {
@@ -783,66 +804,66 @@
       "retrieved_sources": [
         {
           "rank": 1,
-          "parent_id": "v2026_sec7025_p3",
+          "parent_id": "v2023_sec7025_p3",
           "section": "7025",
           "section_title": "Opt-out Preference Signals.",
-          "rerank_score": 0.9965,
+          "rerank_score": 0.9964,
           "snippet": "\u00a7 7025. Opt-out Preference Signals.\n(d) The business and the platform, technology, or mechanism that sends the opt-\nout preference signal shall not use, disclose, or retain any personal information\nco..."
         },
         {
           "rank": 2,
-          "parent_id": "v2026_sec7025_p2",
+          "parent_id": "v2026_sec7025_p3",
           "section": "7025",
           "section_title": "Opt-out Preference Signals.",
-          "rerank_score": 0.9936,
-          "snippet": "\u00a7 7025. Opt-out Preference Signals.\n(b):\n(1)\nThe business shall treat the opt-out preference signal as a valid request\nto opt-out of sale/sharing submitted pursuant to Civil Code section\n1798.120 for ..."
+          "rerank_score": 0.9963,
+          "snippet": "\u00a7 7025. Opt-out Preference Signals.\n(d) The business and the platform, technology, or mechanism that sends the opt-\nout preference signal shall not use, disclose, or retain any personal information\nco..."
         },
         {
           "rank": 3,
           "parent_id": "v2026_sec7013_p1",
           "section": "7013",
           "section_title": "Notice of Right to Opt-out of Sale/Sharing and the \u201cDo Not Sell or Share",
-          "rerank_score": 0.969,
+          "rerank_score": 0.9692,
           "snippet": "\u00a7 7013. Notice of Right to Opt-out of Sale/Sharing and the \u201cDo Not Sell or Share\n\u00a7 7013. Notice of Right to Opt-out of Sale/Sharing and the \u201cDo Not Sell or Share\nMy Personal Information\u201d Link.\n\n(a) Th..."
         },
         {
           "rank": 4,
-          "parent_id": "v2026_sec7011_p2",
-          "section": "7011",
-          "section_title": "Privacy Policy.",
-          "rerank_score": 0.9247,
-          "snippet": "\u00a7 7011. Privacy Policy.\n(a), the right to access ADMT.\n(H) The right not to be retaliated against\nfor exercising privacy\nrights conferred by the CCPA, including when a consumer is an\napplicant to an e..."
+          "parent_id": "v2026_sec7001_child_r",
+          "section": "7001",
+          "section_title": "Definitions (Frictionless Manner)",
+          "rerank_score": 0.9484,
+          "snippet": "\u00a7 7001. Definitions.\n(r)\n\u201cFrictionless manner\u201d means a business\u2019s processing of an opt-out\npreference signal that complies with the requirements set forth in section\n7025, subsection (f)...."
         },
         {
           "rank": 5,
-          "parent_id": "v2026_sec7026_p2",
-          "section": "7026",
-          "section_title": "Requests to Opt-out of Sale/Sharing.",
-          "rerank_score": 0.6016,
-          "snippet": "\u00a7 7026. Requests to Opt-out of Sale/Sharing.\n(f)\nA business shall comply with a request to opt-out of sale/sharing by:\n(1)\nCeasing to sell to and/or share with third parties the consumer\u2019s personal\nin..."
+          "parent_id": "v2026_sec7011_p2",
+          "section": "7011",
+          "section_title": "Privacy Policy.",
+          "rerank_score": 0.9189,
+          "snippet": "\u00a7 7011. Privacy Policy.\n(a), the right to access ADMT.\n(H) The right not to be retaliated against\nfor exercising privacy\nrights conferred by the CCPA, including when a consumer is an\napplicant to an e..."
         },
         {
           "rank": 6,
-          "parent_id": "v2026_sec7015_parent_all",
-          "section": "7015",
-          "section_title": "Alternative Opt-out Link.",
-          "rerank_score": 0.4136,
-          "snippet": "\u00a7 7015. Alternative Opt-out Link.\n(a)\nThe purpose of the Alternative Opt-out Link is to provide businesses the option\nof providing consumers with a single, clearly-labeled link that allows\nconsumers t..."
+          "parent_id": "v2026_sec7026_p2",
+          "section": "7026",
+          "section_title": "Requests to Opt-out of Sale/Sharing.",
+          "rerank_score": 0.6072,
+          "snippet": "\u00a7 7026. Requests to Opt-out of Sale/Sharing.\n(f)\nA business shall comply with a request to opt-out of sale/sharing by:\n(1)\nCeasing to sell to and/or share with third parties the consumer\u2019s personal\nin..."
         }
       ],
-      "execution_time_sec": 5.018,
+      "execution_time_sec": 5.182,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9965,
-      "score_margin": 1.003,
+      "top_score": 0.9964,
+      "score_margin": 1.0,
       "context_size": 6,
       "reranked_sections": [
         "7025",
         "7025",
         "7013",
+        "7001",
         "7011",
-        "7026",
-        "7015"
+        "7026"
       ]
     },
     {
@@ -854,71 +875,71 @@
       "route_reasoning": "Standard regulatory policy lookup targeting active 2026 regulations.",
       "extracted_sections": [],
       "abstained": false,
-      "section_hit": false,
-      "hit_in_top_1": false,
+      "section_hit": true,
+      "hit_in_top_1": true,
       "retrieved_sources": [
         {
           "rank": 1,
-          "parent_id": "v2026_sec7011_p1",
-          "section": "7011",
-          "section_title": "Privacy Policy.",
-          "rerank_score": 0.8931,
-          "snippet": "\u00a7 7011. Privacy Policy.\n\u00a7 7011. Privacy Policy.\n\n(a)\nThe purpose of the privacy policy is to provide consumers with a\ncomprehensive description of a business\u2019s online and offline information\npractices..."
+          "parent_id": "v2026_sec7001_child_bbb",
+          "section": "7001",
+          "section_title": "Definitions (Sensitive Personal Information)",
+          "rerank_score": 0.9688,
+          "snippet": "\u00a7 7001. Definitions.\n(bbb) \u201cSensitive personal information\u201d means:\n(1)\nPersonal information that reveals:\n(A) A consumer\u2019s social security, driver\u2019s license, state identification\ncard, or passport num..."
         },
         {
           "rank": 2,
-          "parent_id": "v2026_sec7027_p2",
-          "section": "7027",
-          "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
-          "rerank_score": 0.8242,
-          "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n(k) A business that responds to a request to limit by informing the consumer of a\ncharge for the use of any product or s..."
+          "parent_id": "v2026_sec7011_p1",
+          "section": "7011",
+          "section_title": "Privacy Policy.",
+          "rerank_score": 0.8707,
+          "snippet": "\u00a7 7011. Privacy Policy.\n\u00a7 7011. Privacy Policy.\n\n(a)\nThe purpose of the privacy policy is to provide consumers with a\ncomprehensive description of a business\u2019s online and offline information\npractices..."
         },
         {
           "rank": 3,
-          "parent_id": "v2026_sec7014_p1",
-          "section": "7014",
-          "section_title": "Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal",
-          "rerank_score": 0.7686,
-          "snippet": "\u00a7 7014. Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal\n\u00a7 7014. Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal\nInformation\u201d Link.\n\n(a)\nThe purpose of..."
+          "parent_id": "v2026_sec7027_p2",
+          "section": "7027",
+          "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
+          "rerank_score": 0.8108,
+          "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n(k) A business that responds to a request to limit by informing the consumer of a\ncharge for the use of any product or s..."
         },
         {
           "rank": 4,
-          "parent_id": "v2026_sec7027_p1",
-          "section": "7027",
-          "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
-          "rerank_score": 0.7214,
-          "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n\n(a)\nThe unauthorized use or disclosure ..."
+          "parent_id": "v2026_sec7014_p1",
+          "section": "7014",
+          "section_title": "Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal",
+          "rerank_score": 0.7895,
+          "snippet": "\u00a7 7014. Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal\n\u00a7 7014. Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal\nInformation\u201d Link.\n\n(a)\nThe purpose of..."
         },
         {
           "rank": 5,
-          "parent_id": "v2026_sec7014_p2",
-          "section": "7014",
-          "section_title": "Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal",
-          "rerank_score": 0.5954,
-          "snippet": "\u00a7 7014. Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal\n(h)\nA business shall not use or disclose sensitive personal information it collected\nduring the time the business did n..."
+          "parent_id": "v2026_sec7027_p1",
+          "section": "7027",
+          "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
+          "rerank_score": 0.7306,
+          "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n\n(a)\nThe unauthorized use or disclosure ..."
         },
         {
           "rank": 6,
-          "parent_id": "v2026_sec7028_parent_all",
-          "section": "7028",
-          "section_title": "Requests to Opt-in After Opting-out of the Sale or Sharing of Personal",
-          "rerank_score": 0.5606,
-          "snippet": "\u00a7 7028. Requests to Opt-in After Opting-out of the Sale or Sharing of Personal\nInformation or Limiting the Use and Disclosure of Sensitive Personal Information.\n(a) Requests to opt-in to sale or shari..."
+          "parent_id": "v2026_sec7014_p2",
+          "section": "7014",
+          "section_title": "Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal",
+          "rerank_score": 0.6984,
+          "snippet": "\u00a7 7014. Notice of Right to Limit and the \u201cLimit the Use of My Sensitive Personal\n(h)\nA business shall not use or disclose sensitive personal information it collected\nduring the time the business did n..."
         }
       ],
-      "execution_time_sec": 6.211,
+      "execution_time_sec": 6.83,
       "answerable": true,
-      "hit_in_reranked": false,
-      "top_score": 0.8931,
-      "score_margin": 1.084,
+      "hit_in_reranked": true,
+      "top_score": 0.9688,
+      "score_margin": 1.113,
       "context_size": 6,
       "reranked_sections": [
+        "7001",
         "7011",
         "7027",
         "7014",
         "7027",
-        "7014",
-        "7028"
+        "7014"
       ]
     },
     {
@@ -938,7 +959,7 @@
           "parent_id": "v2026_sec7002_p2",
           "section": "7002",
           "section_title": "Restrictions on the Collection and Use of Personal Information.",
-          "rerank_score": 0.9968,
+          "rerank_score": 0.9969,
           "snippet": "\u00a7 7002. Restrictions on the Collection and Use of Personal Information.\n(d) For each purpose identified in compliance with subsection (a)(1) or (a)(2), the\ncollection, use, retention, and/or sharing o..."
         },
         {
@@ -946,7 +967,7 @@
           "parent_id": "v2026_sec7012_p1",
           "section": "7012",
           "section_title": "Notice at Collection of Personal Information.",
-          "rerank_score": 0.9668,
+          "rerank_score": 0.9652,
           "snippet": "\u00a7 7012. Notice at Collection of Personal Information.\n\u00a7 7012. Notice at Collection of Personal Information.\n\n(a)\nThe purpose of the Notice at Collection is to provide consumers with timely\nnotice, at ..."
         },
         {
@@ -954,47 +975,47 @@
           "parent_id": "v2026_sec7012_p2",
           "section": "7012",
           "section_title": "Notice at Collection of Personal Information.",
-          "rerank_score": 0.8472,
+          "rerank_score": 0.8639,
           "snippet": "\u00a7 7012. Notice at Collection of Personal Information.\n(g) Third Parties that Control the Collection of Personal Information. This\nsubsection shall not affect the first party\u2019s obligations under the CC..."
         },
         {
           "rank": 4,
-          "parent_id": "v2026_sec7220_p1",
-          "section": "7220",
-          "section_title": "Pre-use Notice Requirements.",
-          "rerank_score": 0.7531,
-          "snippet": "\u00a7 7220. Pre-use Notice Requirements.\n\u00a7 7220. Pre-use Notice Requirements.\n\n(a)\nA business that uses ADMT as set forth in section 7200, subsection (a), must\nprovide consumers with a Pre-use Notice. The..."
-        },
-        {
-          "rank": 5,
-          "parent_id": "v2026_sec7011_p1",
-          "section": "7011",
-          "section_title": "Privacy Policy.",
-          "rerank_score": 0.6933,
-          "snippet": "\u00a7 7011. Privacy Policy.\n\u00a7 7011. Privacy Policy.\n\n(a)\nThe purpose of the privacy policy is to provide consumers with a\ncomprehensive description of a business\u2019s online and offline information\npractices..."
-        },
-        {
-          "rank": 6,
           "parent_id": "v2026_sec7013_p1",
           "section": "7013",
           "section_title": "Notice of Right to Opt-out of Sale/Sharing and the \u201cDo Not Sell or Share",
-          "rerank_score": 0.6931,
+          "rerank_score": 0.7412,
           "snippet": "\u00a7 7013. Notice of Right to Opt-out of Sale/Sharing and the \u201cDo Not Sell or Share\n\u00a7 7013. Notice of Right to Opt-out of Sale/Sharing and the \u201cDo Not Sell or Share\nMy Personal Information\u201d Link.\n\n(a) Th..."
+        },
+        {
+          "rank": 5,
+          "parent_id": "v2026_sec7220_p1",
+          "section": "7220",
+          "section_title": "Pre-use Notice Requirements.",
+          "rerank_score": 0.7395,
+          "snippet": "\u00a7 7220. Pre-use Notice Requirements.\n\u00a7 7220. Pre-use Notice Requirements.\n\n(a)\nA business that uses ADMT as set forth in section 7200, subsection (a), must\nprovide consumers with a Pre-use Notice. The..."
+        },
+        {
+          "rank": 6,
+          "parent_id": "v2026_sec7011_p1",
+          "section": "7011",
+          "section_title": "Privacy Policy.",
+          "rerank_score": 0.6525,
+          "snippet": "\u00a7 7011. Privacy Policy.\n\u00a7 7011. Privacy Policy.\n\n(a)\nThe purpose of the privacy policy is to provide consumers with a\ncomprehensive description of a business\u2019s online and offline information\npractices..."
         }
       ],
-      "execution_time_sec": 6.173,
+      "execution_time_sec": 7.594,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9968,
-      "score_margin": 1.031,
+      "top_score": 0.9969,
+      "score_margin": 1.033,
       "context_size": 6,
       "reranked_sections": [
         "7002",
         "7012",
         "7012",
+        "7013",
         "7220",
-        "7011",
-        "7013"
+        "7011"
       ]
     },
     {
@@ -1016,7 +1037,7 @@
           "parent_id": "v2026_sec7123_p2",
           "section": "7123",
           "section_title": "Scope of Cybersecurity Audit and Audit Report.",
-          "rerank_score": 0.8715,
+          "rerank_score": 0.8451,
           "snippet": "\u00a7 7123. Scope of Cybersecurity Audit and Audit Report.\n(i) If the person is an employee, independent contractor, or any\nother personnel, restricting their privileges and access to\npersonal information..."
         },
         {
@@ -1024,20 +1045,20 @@
           "parent_id": "v2026_sec7152_p2",
           "section": "7152",
           "section_title": "Risk Assessment Requirements.",
-          "rerank_score": 0.1352,
+          "rerank_score": 0.1152,
           "snippet": "\u00a7 7152. Risk Assessment Requirements.\n(i)\nEncryption, segmentation of information systems, physical and\nlogical access controls, change management, network\nmonitoring and defenses, and data and integr..."
         }
       ],
-      "execution_time_sec": 5.141,
+      "execution_time_sec": 5.266,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.8715,
-      "score_margin": 6.444,
+      "top_score": 0.8451,
+      "score_margin": 7.333,
       "context_size": 2,
       "reranked_sections": [
         "7123",
         "7152",
-        "7123",
+        "7027",
         "7027",
         "7060",
         "7220"
@@ -1060,7 +1081,7 @@
           "parent_id": "v2026_sec7124_parent_all",
           "section": "7124",
           "section_title": "Certification of Completion.",
-          "rerank_score": 0.917,
+          "rerank_score": 0.9203,
           "snippet": "\u00a7 7124. Certification of Completion.\n(a)\nEach calendar year that a business is required to complete a cybersecurity\naudit pursuant to this Article, it must submit to the Agency a written\ncertification..."
         },
         {
@@ -1068,7 +1089,7 @@
           "parent_id": "v2026_sec7123_p3",
           "section": "7123",
           "section_title": "Scope of Cybersecurity Audit and Audit Report.",
-          "rerank_score": 0.3409,
+          "rerank_score": 0.3211,
           "snippet": "\u00a7 7123. Scope of Cybersecurity Audit and Audit Report.\n(i) The business\u2019s documentation of predetermined instructions or\nprocedures to detect, respond to, limit the consequences of, and\nrecover from m..."
         },
         {
@@ -1076,7 +1097,7 @@
           "parent_id": "v2026_sec7123_p2",
           "section": "7123",
           "section_title": "Scope of Cybersecurity Audit and Audit Report.",
-          "rerank_score": 0.284,
+          "rerank_score": 0.3157,
           "snippet": "\u00a7 7123. Scope of Cybersecurity Audit and Audit Report.\n(i) If the person is an employee, independent contractor, or any\nother personnel, restricting their privileges and access to\npersonal information..."
         },
         {
@@ -1084,7 +1105,7 @@
           "parent_id": "v2026_sec7120_parent_all",
           "section": "7120",
           "section_title": "Requirement to Complete a Cybersecurity Audit.",
-          "rerank_score": 0.2574,
+          "rerank_score": 0.3,
           "snippet": "\u00a7 7120. Requirement to Complete a Cybersecurity Audit.\n(a)\nEvery business whose processing of consumers\u2019 personal information presents\nsignificant risk to consumers\u2019 security as set forth in subsectio..."
         },
         {
@@ -1092,15 +1113,15 @@
           "parent_id": "v2026_sec7121_parent_all",
           "section": "7121",
           "section_title": "Timing Requirements for Cybersecurity Audits and Audit Reports.",
-          "rerank_score": 0.2112,
+          "rerank_score": 0.2305,
           "snippet": "\u00a7 7121. Timing Requirements for Cybersecurity Audits and Audit Reports.\n(a)\nA business must complete its first cybersecurity audit report no later than:\n(1)\nApril 1, 2028, if the business\u2019s annual gro..."
         }
       ],
-      "execution_time_sec": 7.258,
+      "execution_time_sec": 6.132,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.917,
-      "score_margin": 2.69,
+      "top_score": 0.9203,
+      "score_margin": 2.866,
       "context_size": 5,
       "reranked_sections": [
         "7124",
@@ -1128,7 +1149,7 @@
           "parent_id": "v2026_sec7002_p1",
           "section": "7002",
           "section_title": "Restrictions on the Collection and Use of Personal Information.",
-          "rerank_score": 0.6288,
+          "rerank_score": 0.7266,
           "snippet": "\u00a7 7002. Restrictions on the Collection and Use of Personal Information.\n\u00a7 7002. Restrictions on the Collection and Use of Personal Information.\n\n(a)\nIn accordance with Civil Code section 1798.100, sub..."
         },
         {
@@ -1136,23 +1157,23 @@
           "parent_id": "v2026_sec7027_p2",
           "section": "7027",
           "section_title": "Requests to Limit Use and Disclosure of Sensitive Personal Information.",
-          "rerank_score": 0.097,
+          "rerank_score": 0.0697,
           "snippet": "\u00a7 7027. Requests to Limit Use and Disclosure of Sensitive Personal Information.\n(k) A business that responds to a request to limit by informing the consumer of a\ncharge for the use of any product or s..."
         }
       ],
-      "execution_time_sec": 6.966,
+      "execution_time_sec": 5.925,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.6288,
-      "score_margin": 6.48,
+      "top_score": 0.7266,
+      "score_margin": 10.419,
       "context_size": 2,
       "reranked_sections": [
         "7002",
         "7027",
-        "7011",
-        "7004",
         "7222",
-        "7003"
+        "7003",
+        "7004",
+        "7150"
       ]
     },
     {
@@ -1216,7 +1237,7 @@
           "snippet": "\u00a7 7026. Requests to Opt-out of Sale/Sharing.\n(f)\nA business shall comply with a request to opt-out of sale/sharing by:\n(1)\nCeasing to sell to and/or share with third parties the consumer\u2019s personal\nin..."
         }
       ],
-      "execution_time_sec": 6.079,
+      "execution_time_sec": 6.092,
       "answerable": true,
       "hit_in_reranked": true,
       "top_score": 0.9881,
@@ -1248,7 +1269,7 @@
           "parent_id": "v2026_sec7002_p1",
           "section": "7002",
           "section_title": "Restrictions on the Collection and Use of Personal Information.",
-          "rerank_score": 0.9718,
+          "rerank_score": 0.9743,
           "snippet": "\u00a7 7002. Restrictions on the Collection and Use of Personal Information.\n\u00a7 7002. Restrictions on the Collection and Use of Personal Information.\n\n(a)\nIn accordance with Civil Code section 1798.100, sub..."
         },
         {
@@ -1256,23 +1277,23 @@
           "parent_id": "v2026_sec7024_p1",
           "section": "7024",
           "section_title": "Requests to Know.",
-          "rerank_score": 0.0936,
+          "rerank_score": 0.0982,
           "snippet": "\u00a7 7024. Requests to Know.\n\u00a7 7024. Requests to Know.\n\n(a)\nFor requests that seek the disclosure of specific pieces of information about\nthe consumer, if a business cannot verify the identity of the per..."
         }
       ],
-      "execution_time_sec": 5.974,
+      "execution_time_sec": 7.315,
       "answerable": true,
       "hit_in_reranked": true,
-      "top_score": 0.9718,
-      "score_margin": 10.383,
+      "top_score": 0.9743,
+      "score_margin": 9.921,
       "context_size": 2,
       "reranked_sections": [
         "7002",
         "7024",
-        "7002",
         "7027",
-        "7060",
-        "7062"
+        "7150",
+        "7062",
+        "7060"
       ]
     }
   ]

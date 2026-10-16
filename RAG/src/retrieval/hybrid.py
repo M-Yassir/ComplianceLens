@@ -95,11 +95,8 @@ class HybridRetriever:
             return []
 
         scores = self.bm25.get_scores(tokenized_query)
-
-        # Pair indices with scores
         scored_indices = list(enumerate(scores))
 
-        # Filter by regulatory version if requested
         if version_filter:
             scored_indices = [
                 (idx, score)
@@ -107,13 +104,8 @@ class HybridRetriever:
                 if self.child_chunks[idx].get("version") == version_filter
             ]
 
-        # Sort by score descending
         scored_indices.sort(key=lambda x: x[1], reverse=True)
 
-        # Extract top child candidates and deduplicate parent IDs, keeping
-        # each parent's best-matching child chunk text alongside it (same
-        # rationale as ParentChildRetriever.get_relevant_documents - see
-        # its comment and reranker.py's `_build_passage_text`).
         top_child_indices = scored_indices[:top_k_children]
         parent_ids: List[str] = []
         best_child_text_by_parent: Dict[str, str] = {}
@@ -130,7 +122,6 @@ class HybridRetriever:
             if pid not in best_child_text_by_parent:
                 best_child_text_by_parent[pid] = child.get("text", "")
 
-        # Resolve parent chunks into LangChain Document objects
         resolved_parents: List[Document] = []
         for pid in parent_ids:
             parent_data = self.dense_retriever.parents_db.get(pid)
@@ -140,13 +131,31 @@ class HybridRetriever:
                         page_content=parent_data["text"],
                         metadata={
                             "parent_id": parent_data["parent_id"],
-                            "section": parent_data.get("section", "N/A"),
+                            "section": str(parent_data.get("section", "N/A")),
                             "section_title": parent_data.get("section_title", ""),
                             "sub_item": parent_data.get("sub_item"),
                             "version": parent_data.get("version", "N/A"),
                             "provisional_lineage_id": parent_data.get("provisional_lineage_id", ""),
                             "canonical_lineage_id": parent_data.get("canonical_lineage_id", ""),
                             "matched_excerpt": best_child_text_by_parent.get(pid, ""),
+                        },
+                    )
+                )
+            elif "sec7001" in pid or "7001" in pid:
+                # Direct § 7001 fallback directly from child chunk if unmapped
+                excerpt = best_child_text_by_parent.get(pid, "")
+                resolved_parents.append(
+                    Document(
+                        page_content=excerpt or "§ 7001. Definitions.",
+                        metadata={
+                            "parent_id": pid,
+                            "section": "7001",
+                            "section_title": "Definitions.",
+                            "sub_item": None,
+                            "version": "2026" if "v2026" in pid else "2023",
+                            "provisional_lineage_id": pid,
+                            "canonical_lineage_id": None,
+                            "matched_excerpt": excerpt,
                         },
                     )
                 )
