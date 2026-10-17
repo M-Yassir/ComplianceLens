@@ -1,26 +1,42 @@
 services:
   langfuse-server:
     image: ghcr.io/langfuse/langfuse:2
+    container_name: langfuse_server
     ports:
       - "3000:3000"
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/langfuse
-      - NEXTAUTH_SECRET=my-secret-key
-      - SALT=my-salt
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=my-secret-key-at-least-32-chars-long
+      - SALT=my-salt-secret-value
+      - ENCRYPTION_KEY=0000000000000000000000000000000000000000000000000000000000000000
     networks:
       - rag-network
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: postgres:15
+    container_name: langfuse_db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=langfuse
+    volumes:
+      - langfuse_db_data:/var/lib/postgresql/data
     networks:
       - rag-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d langfuse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 networks:
   rag-network:
     name: rag-network
+
+volumes:
+  langfuse_db_data:
+    driver: local

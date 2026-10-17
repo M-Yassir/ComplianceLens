@@ -1,3 +1,4 @@
+import os
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -12,7 +13,14 @@ from src.retrieval.hybrid import HybridRetriever
 from src.retrieval.reranker import CrossEncoderReranker
 from src.guardrails.abstention import AbstentionGuard, AbstentionDecision
 from src.guardrails.citation_verifier import CitationVerifier, CitationVerificationResult
+from langfuse.decorators import observe, langfuse_context
 
+from src.config import settings
+# Automatically export Langfuse settings to environment variables on import
+if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
+    os.environ["LANGFUSE_PUBLIC_KEY"] = settings.LANGFUSE_PUBLIC_KEY
+    os.environ["LANGFUSE_SECRET_KEY"] = settings.LANGFUSE_SECRET_KEY
+    os.environ["LANGFUSE_HOST"] = settings.LANGFUSE_HOST
 
 class RAGResponse(BaseModel):
     """End-to-end structured response payload from the RAG pipeline."""
@@ -35,7 +43,7 @@ class RAGPipeline:
         use_llm_router: bool = False,         # Flag if creating router dynamically
         min_rerank_score: float = 0.35,
         top_k_candidates: int = 20,
-        top_k_reranked: int = 8,
+        top_k_reranked: int = 6,
         max_per_section: int = 2,
     ):
         """
@@ -82,8 +90,31 @@ class RAGPipeline:
 
         return "\n----------------------------------------\n".join(formatted_blocks)
 
-    def query(self, user_query: str) -> RAGResponse:
+    @observe(name="ccpa_rag_pipeline")
+    def query(
+        self, 
+        user_query: str,
+        tags: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> RAGResponse:
         """Executes the full RAG workflow for an incoming compliance query."""
+
+        # Update trace metadata & tags in Langfuse UI
+        if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
+            langfuse_context.update_current_trace(
+                name="CCPA_RAG_Query",
+                input={"query": user_query},
+                tags=tags or ["production"],
+                metadata=metadata or {},
+            )
+
+        # Extract LangChain callback handler scoped to this trace
+        handler = (
+            langfuse_context.get_current_langchain_handler()
+            if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY
+            else None
+        )
+        callbacks = [handler] if handler else []
 
         # Step 1: Intent Routing
         routing_decision = self.router.route_query(user_query)
@@ -121,6 +152,13 @@ class RAGPipeline:
                 verification_score=1.0,
                 summary="Query resulted in abstention. Citation verification skipped."
             )
+
+            # Attach final output to the trace
+            if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
+                langfuse_context.update_current_trace(
+                output={"answer": None, "abstained": abstention.should_abstain}
+                )
+
             return RAGResponse(
                 query=user_query,
                 answer=abstention.fallback_response or "Unable to provide a confident answer.",
@@ -145,7 +183,7 @@ class RAGPipeline:
             query=user_query,
         )
 
-        llm_response = self.llm.invoke(formatted_messages)
+        llm_response = self.llm.invoke(formatted_messages, config={"callbacks": callbacks})
         generated_answer = _get_text_content(llm_response.content).strip()
 
         # Step 6: Guardrail #2 — Citation Verification Audit
@@ -165,6 +203,12 @@ class RAGPipeline:
             }
             for doc in context_docs
         ]
+
+        # 6. Attach final output to the trace
+        if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
+            langfuse_context.update_current_trace(
+                output={"answer": generated_answer, "abstained": abstention.should_abstain}
+            )
 
         return RAGResponse(
             query=user_query,

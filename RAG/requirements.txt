@@ -4,5 +4,6 @@ unstructured
 langchain-unstructured
 langchain-community
 langchain-google-genai
+langfuse
 pypdf
 pymupdf
