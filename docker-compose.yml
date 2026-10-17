@@ -5,18 +5,18 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - chroma_data:/chroma/chroma
+      - chroma_data:/data
     environment:
       - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/data
       - ANONYMIZED_TELEMETRY=FALSE
       - ALLOW_RESET=TRUE
+      - CHROMA_SERVER_CORS_ALLOW_ORIGINS='["*"]'
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "/bin/bash", "-c", "</dev/tcp/127.0.0.1/8000"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
+
+networks:
+  rag-network:
+    name: rag-network
 
 volumes:
   chroma_data:

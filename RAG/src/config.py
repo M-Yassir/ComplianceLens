@@ -16,7 +16,7 @@ class Settings(BaseSettings):
 
     # Embedding Provider Setup
     EMBEDDING_PROVIDER: str = "gemini"
-    EMBEDDING_MODEL: str = "models/text-embedding-004"
+    EMBEDDING_MODEL: str = "models/text-embedding-001"
     EMBEDDING_API_KEY: str = ""
     EMBEDDING_DIMENSION: int = 768
 
@@ -24,6 +24,12 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = "gemini"
     LLM_MODEL: str = "gemini-2.5-flash"
     LLM_API_KEY: str = ""
+
+    # Langfuse Observability & Tracing
+    LANGFUSE_PUBLIC_KEY: str = ""
+    LANGFUSE_SECRET_KEY: str = ""
+    LANGFUSE_HOST: str = "http://localhost:3000"
+    LANGFUSE_ENABLED: bool = True
 
     @property
     def PROCESSED_DATA_DIR(self) -> Path:

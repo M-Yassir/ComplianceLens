@@ -6,6 +6,25 @@ from src.config import settings
 from src.retrieval.hybrid import HybridRetriever
 
 
+# ms-marco-MiniLM-L-12-v2 (and FlashRank's cross-encoders generally) tokenize
+# `[query, passage]` as a PAIR and truncate the pair to 512 tokens total.
+# FlashRank's Ranker constructs its tokenizer via
+# `tokenizer.enable_truncation(max_length=512)` with no strategy/direction
+# override, so it inherits the `tokenizers` library's defaults:
+# strategy="longest_first" (truncates whichever of query/passage is longer -
+# in practice always the passage) and direction="right" (keeps the first
+# ~480 tokens, discards the rest). A parent chunk running ~1000-1200 tokens
+# therefore gets roughly its back half silently dropped BEFORE the
+# cross-encoder ever scores it - which can easily be exactly the part that
+# would have shown the passage was relevant. This is a model/tokenizer
+# limit, not something `max_length=` can raise past (the underlying
+# position embeddings are capped there too), so the fix is on our side:
+# don't hand it more passage than it can actually see.
+_RERANK_PASSAGE_CHAR_BUDGET = 1600  # ~400 tokens at ~4 chars/token - safety
+# margin under the ~480-token budget left after the query + special tokens,
+# used only as a fallback when no shorter matched excerpt is available.
+
+
 class CrossEncoderReranker:
     """Reranks retrieved candidate Documents using FlashRank cross-encoder model."""
 
@@ -18,6 +37,26 @@ class CrossEncoderReranker:
             model_name=model_name,
             cache_dir=cache_dir or str(settings.BASE_DIR / ".cache"),
         )
+
+    def _build_passage_text(self, doc: Document) -> str:
+        """Text actually handed to the cross-encoder for scoring - kept
+        short enough that FlashRank's own truncation can't silently drop
+        the substantive part of it (see module docstring above).
+
+        Prefers `matched_excerpt` - the specific ~250-token child chunk
+        that caused this parent to be retrieved in the first place
+        (populated by ParentChildRetriever / HybridRetriever's BM25 path) -
+        over the full parent `page_content`, since it's both short enough
+        to fit and already the query-relevant slice rather than the
+        section's full, mostly-boilerplate body. Falls back to a bounded
+        prefix of the parent text if no excerpt was carried through (e.g.
+        documents built some other way).
+        """
+        header = f"§ {doc.metadata.get('section', '')} {doc.metadata.get('section_title', '')}"
+        excerpt = doc.metadata.get("matched_excerpt") or ""
+        if not excerpt.strip():
+            excerpt = doc.page_content[:_RERANK_PASSAGE_CHAR_BUDGET]
+        return f"{header}\n{excerpt}"
 
     def rerank(
         self,
@@ -33,7 +72,7 @@ class CrossEncoderReranker:
         passages = [
             {
                 "id": doc.metadata.get("parent_id", str(idx)),
-                "text": f"§ {doc.metadata.get('section', '')} {doc.metadata.get('section_title', '')}\n{doc.page_content}",
+                "text": self._build_passage_text(doc),
                 "doc_ref": doc,
             }
             for idx, doc in enumerate(documents)
@@ -96,7 +135,19 @@ if __name__ == "__main__":
     reranker = CrossEncoderReranker()
 
     query = "What must a contractor do if a consumer submits a CCPA deletion request directly to the contractor?"
+    query3 = "If a business never audits or checks if its vendor is following privacy rules, can the business defend itself by claiming it had no reason to believe the vendor was violating the law?"
+    query4 = "Is a third-party analytics vendor allowed to take customer data obtained from one client and combine it with data collected from its own website visitors to update user profiles?"
+    query5 = "How frequently is a business allowed to conduct technical or operational testing on a contractor's systems to ensure compliance?"
+    query6 = "An e-commerce platform verifies a mother's identity to grant consent for her 10-year-old child by checking her driver's license against a state database. The company retains a copy of her driver's license in its secure legal archives for auditing purposes. Is this practice compliant?"
+    query7 = "A consumer who participates in a retail rewards program—earning coupons based on cumulative spending—submits a request to delete all personal information, but states they want to stay in the rewards program. Can the retailer refuse to delete their email address and purchase history?"
+    query8 = "If a large digital enterprise processing data for 12 million individuals compiles its annual privacy metrics using global request totals rather than isolating California consumer requests, does this satisfy state reporting requirements?"
+    query9 = "A distributed denial-of-service (DDoS) attack takes down a business's customer portal for 48 hours, preventing users from accessing their account details, but no data is exfiltrated or modified. Does this incident fall within the required scope of the cybersecurity audit assessment?"
+    query10 = "By what calendar date must high-volume consumer data platforms publish their annual metric disclosures, and what specific automated decision-making technology (ADMT) metrics must be included?"
+    query11 = "A gaming studio launches an augmented reality mobile app that captures precise geolocation and eye-tracking sensitive data during gameplay. How and when must the studio inform players of their right to restrict sensitive data usage?"
+    query12 = "A business chooses to merge its separate opt-out links on its website footer into a single combined link. What exact title must be used for this combined link, and what rules govern the styling of the accompanying icon?"
+    query13 = "An IT team executes a customer deletion request across active databases, but leaves customer data intact inside cold tape backup archives. Under what circumstances is this backup delay permitted, and when must the data actually be deleted?"
 
+    query = query13
     print(f"\n[Reranker Test] Query: '{query}'")
     print("=" * 85)
 

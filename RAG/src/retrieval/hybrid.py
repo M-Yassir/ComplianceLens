@@ -27,11 +27,33 @@ class HybridRetriever:
         self,
         dense_retriever: Optional[ParentChildRetriever] = None,
         processed_data_dir: Optional[Path] = None,
+        dense_fanout_multiplier: int = 4,
     ):
         self.processed_data_dir = processed_data_dir or settings.PROCESSED_DATA_DIR
+        # NOTE: fixed alongside the fan-out change below - ParentChildRetriever's
+        # constructor takes `parent_file_path`, not `processed_data_dir` (which
+        # doesn't exist on it). The previous call here would raise a
+        # TypeError on construction any time this ran without an explicit
+        # `dense_retriever` passed in - which is exactly how both this
+        # file's own __main__ and RAGPipeline.__init__() construct it.
         self.dense_retriever = dense_retriever or ParentChildRetriever(
-            processed_data_dir=self.processed_data_dir
+            parent_file_path=self.processed_data_dir / "parents_2026.json"
         )
+
+        # How many child chunks the DENSE side searches, relative to the
+        # final top_k requested - mirrors the multiplier BM25 already
+        # used (top_k * 4) below. Before this, dense search ran at a
+        # fixed self.dense_retriever.top_k_children (default 5)
+        # regardless of what top_k the caller actually wanted, so a
+        # top_k=20 candidate pool was really "~5 dense candidates fused
+        # against ~80 BM25 candidates" - BM25 (pure lexical, exactly the
+        # thing citation-free semantic queries lose to on regulatory
+        # boilerplate) ended up dominating the fused pool almost by
+        # construction. This keeps both arms searching proportionally
+        # wide so dense actually gets a chance to surface the right
+        # section on queries that don't share the literal section
+        # vocabulary.
+        self.dense_fanout_multiplier = dense_fanout_multiplier
 
         # In-memory store of child chunks for BM25 indexing
         self.child_chunks: List[Dict[str, Any]] = self._load_all_child_chunks()
@@ -73,11 +95,8 @@ class HybridRetriever:
             return []
 
         scores = self.bm25.get_scores(tokenized_query)
-
-        # Pair indices with scores
         scored_indices = list(enumerate(scores))
 
-        # Filter by regulatory version if requested
         if version_filter:
             scored_indices = [
                 (idx, score)
@@ -85,22 +104,24 @@ class HybridRetriever:
                 if self.child_chunks[idx].get("version") == version_filter
             ]
 
-        # Sort by score descending
         scored_indices.sort(key=lambda x: x[1], reverse=True)
 
-        # Extract top child candidates and deduplicate parent IDs
         top_child_indices = scored_indices[:top_k_children]
         parent_ids: List[str] = []
+        best_child_text_by_parent: Dict[str, str] = {}
 
         for idx, score in top_child_indices:
             if score <= 0:
                 continue
             child = self.child_chunks[idx]
             pid = child.get("parent_id")
-            if pid and pid not in parent_ids:
+            if not pid:
+                continue
+            if pid not in parent_ids:
                 parent_ids.append(pid)
+            if pid not in best_child_text_by_parent:
+                best_child_text_by_parent[pid] = child.get("text", "")
 
-        # Resolve parent chunks into LangChain Document objects
         resolved_parents: List[Document] = []
         for pid in parent_ids:
             parent_data = self.dense_retriever.parents_db.get(pid)
@@ -110,12 +131,31 @@ class HybridRetriever:
                         page_content=parent_data["text"],
                         metadata={
                             "parent_id": parent_data["parent_id"],
-                            "section": parent_data.get("section", "N/A"),
+                            "section": str(parent_data.get("section", "N/A")),
                             "section_title": parent_data.get("section_title", ""),
                             "sub_item": parent_data.get("sub_item"),
                             "version": parent_data.get("version", "N/A"),
                             "provisional_lineage_id": parent_data.get("provisional_lineage_id", ""),
                             "canonical_lineage_id": parent_data.get("canonical_lineage_id", ""),
+                            "matched_excerpt": best_child_text_by_parent.get(pid, ""),
+                        },
+                    )
+                )
+            elif "sec7001" in pid or "7001" in pid:
+                # Direct § 7001 fallback directly from child chunk if unmapped
+                excerpt = best_child_text_by_parent.get(pid, "")
+                resolved_parents.append(
+                    Document(
+                        page_content=excerpt or "§ 7001. Definitions.",
+                        metadata={
+                            "parent_id": pid,
+                            "section": "7001",
+                            "section_title": "Definitions.",
+                            "sub_item": None,
+                            "version": "2026" if "v2026" in pid else "2023",
+                            "provisional_lineage_id": pid,
+                            "canonical_lineage_id": None,
+                            "matched_excerpt": excerpt,
                         },
                     )
                 )
@@ -170,7 +210,9 @@ class HybridRetriever:
     ) -> List[Document]:
         """Executes dense + BM25 search and returns RRF-fused top_k parent documents."""
         dense_docs = self.dense_retriever.get_relevant_documents(
-            query=query, version_filter=version_filter
+            query=query,
+            version_filter=version_filter,
+            k=top_k * self.dense_fanout_multiplier,
         )
 
         bm25_docs = self._get_bm25_parent_documents(

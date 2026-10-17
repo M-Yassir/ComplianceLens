@@ -1,0 +1,2092 @@
+[
+  {
+    "id": "eval_oos_001",
+    "query": "Under Article 17 of the General Data Protection Regulation (GDPR), what is the maximum time limit allowed to respond to an EU Right to be Forgotten request?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query pertains to the European Union General Data Protection Regulation (GDPR), which is outside the scope of California CCPA/CPRA regulations.",
+    "target_term": "GDPR Right to be Forgotten",
+    "key_terms": ["GDPR", "Article 17", "Right to be Forgotten", "European Union"]
+  },
+  {
+    "id": "eval_oos_002",
+    "query": "What specific administrative and technical safeguards are required for handling electronic Protected Health Information (ePHI) under the HIPAA Security Rule?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query concerns federal HIPAA health data security regulations rather than CCPA/CPRA statutory provisions.",
+    "target_term": "HIPAA ePHI",
+    "key_terms": ["HIPAA", "ePHI", "Security Rule", "Protected Health Information"]
+  },
+  {
+    "id": "eval_oos_003",
+    "query": "What are the mandatory compliance timelines and legal penalties set forth under CCPA § 9999 for data breach notifications?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Section 9999 does not exist within the California Consumer Privacy Act regulations.",
+    "target_term": "Non-existent Section 9999",
+    "key_terms": ["Section 9999", "non-existent section", "data breach penalties"]
+  },
+  {
+    "id": "eval_oos_004",
+    "query": "What specific opt-in consent protocols must a business follow under the 'Quantum Cryptography Data Transfer Protocol' in § 7099?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Section 7099 and the referenced protocol are not part of the active or proposed CCPA regulatory text.",
+    "target_term": "Fake Protocol",
+    "key_terms": ["Section 7099", "Quantum Cryptography", "fake protocol"]
+  },
+  {
+    "id": "eval_oos_005",
+    "query": "How many consecutive business days in advance must a California employer provide final paycheck notice prior to an employee's voluntary resignation under state labor law?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Employment termination and paycheck timing fall under the California Labor Code, not CCPA privacy regulations.",
+    "target_term": "Labor Code",
+    "key_terms": ["Labor Code", "paycheck", "employee resignation", "employment law"]
+  },
+  {
+    "id": "eval_oos_006",
+    "query": "How do I configure an NGINX web server to redirect HTTP traffic to HTTPS using SSL certificates?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query is a general server configuration technical question unrelated to CCPA/CPRA privacy compliance.",
+    "target_term": "NGINX SSL",
+    "key_terms": ["NGINX", "HTTPS", "SSL certificate", "server configuration"]
+  },
+  {
+    "id": "eval_oos_007",
+    "query": "What verifiable parental consent methods are required for operators targeting children under 13 under the Federal Children's Online Privacy Protection Act (COPPA)?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query asks about federal COPPA statutory requirements rather than CCPA regulations.",
+    "target_term": "COPPA",
+    "key_terms": ["COPPA", "federal law", "parental consent", "under 13"]
+  },
+  {
+    "id": "eval_oos_008",
+    "query": "What is the average annual rainfall in Sacramento, California, and which months experience the highest precipitation?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query is general trivia unrelated to California privacy regulations.",
+    "target_term": "General Trivia",
+    "key_terms": ["rainfall", "weather", "Sacramento", "trivia"]
+  },
+  {
+    "id": "eval_7001_001",
+    "query": "If a company uses an automated tool to screen job applicants, what specific conditions must a human reviewer meet for the process to NOT be considered as 'substantially replacing human decisionmaking'?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "A human reviewer must meet three cumulative conditions: (1) Know how to interpret and use the technology's output to make the decision; (2) Review and analyze the output of the technology and any other relevant information; and (3) Have the actual authority to make or change the decision based on their analysis.",
+    "section": "7001",
+    "subsection": "§ 7001(e)(1)(A)–(C)",
+    "target_term": "Automated decisionmaking technology",
+    "key_terms": ["ADMT", "substantially replace human decisionmaking", "human involvement", "screening applicants", "authority to change decision"]
+  },
+  {
+    "id": "eval_7001_002",
+    "query": "Are standard IT infrastructure tools like firewalls, website loading software, spreadsheets, and anti-spam filters classified as Automated Decisionmaking Technology (ADMT) under active CCPA regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. ADMT explicitly excludes web hosting, domain registration, networking, caching, website-loading, data storage, firewalls, anti-virus, anti-malware, spam- and robocall-filtering, spellchecking, calculators, databases, and spreadsheets, provided that they do not replace human decisionmaking.",
+    "section": "7001",
+    "subsection": "§ 7001(e)(3)",
+    "target_term": "Automated decisionmaking technology",
+    "key_terms": ["ADMT exclusions", "firewalls", "spreadsheets", "databases", "web hosting", "calculators"]
+  },
+  {
+    "id": "eval_7001_003",
+    "query": "What changed regarding the definition of automated decisionmaking technology (ADMT) and profiling in section 7001 between the 2023 baseline regulations and the 2026 updates?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In the 2026 updates, § 7001 expanded significantly to define ADMT and profiling in detail. It introduced explicit sub-criteria defining 'substantially replacing human decisionmaking' (§ 7001(e)(1)), listed specific technology exclusions like spreadsheets and firewalls (§ 7001(e)(3)), and added a standalone definition for 'profiling' (§ 7001(ii)). These detailed framework components were not present in the 2023 baseline definitions.",
+    "section": "7001",
+    "subsection": "§ 7001(e), § 7001(ii)",
+    "target_term": "Automated decisionmaking technology",
+    "key_terms": ["ADMT comparison", "2023 vs 2026 definitions", "profiling definition", "substantially replace human decisionmaking"]
+  },
+  {
+    "id": "eval_7001_004",
+    "query": "How is 'alternative opt-out link' defined under section 7001, and did the requirements or references for this link change between 2023 and 2026?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under active rules, an 'Alternative Opt-out Link' refers to the single combined link a business may post instead of separate opt-out and sensitive data limit links under Civil Code § 1798.135(a)(3) and section 7015. Between 2023 and 2026, the core definition remained grounded in section 7015, but the context updated to align with expanded opt-out preference signal compliance and revised 'Your Privacy Choices' formatting requirements.",
+    "section": "7001",
+    "subsection": "§ 7001(b)",
+    "target_term": "Alternative opt-out link",
+    "key_terms": ["alternative opt-out link", "Your Privacy Choices", "section 7015", "combined opt-out link"]
+  },
+  {
+    "id": "eval_7001_005",
+    "query": "Can an employer monitor an employee's personal social media activity or off-duty location tracking and classify it as evaluating 'performance at work'?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7001(cc), 'performance at work' explicitly excludes a consumer's location when off-duty or on breaks, as well as their use of a personal account (e.g., email, text messages, or social media). Personal account monitoring is only permitted if conducted solely to prevent/limit account use on company systems or to prevent confidential information disclosures.",
+    "section": "7001",
+    "subsection": "§ 7001(cc)",
+    "target_term": "Performance at work",
+    "key_terms": ["performance at work", "off-duty location", "personal account", "union membership", "social media monitoring"]
+  },
+  {
+    "id": "eval_7001_006",
+    "query": "What combination of authentication factors is required to satisfy the CCPA definition of Multi-Factor Authentication (MFA)?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Multi-factor authentication requires verification through at least two of the following three authentication factors: (1) Knowledge factors (e.g., a password); (2) Possession factors (e.g., a token); or (3) Inherence factors (e.g., a biometric characteristic).",
+    "section": "7001",
+    "subsection": "§ 7001(s)",
+    "target_term": "Multi-factor authentication",
+    "key_terms": ["multi-factor authentication", "MFA", "knowledge factors", "possession factors", "inherence factors", "biometrics"]
+  },
+  {
+    "id": "eval_7001_007",
+    "query": "Can a business claim that responding to a consumer deletion or access request requires 'disproportionate effort' if its data is hard to find because the company failed to implement proper data management procedures?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. A business, service provider, contractor, or third party that has failed to put in place adequate processes and procedures to receive and process consumer requests in accordance with the CCPA cannot claim that responding to a request requires disproportionate effort.",
+    "section": "7001",
+    "subsection": "§ 7001(i)",
+    "target_term": "Disproportionate effort",
+    "key_terms": ["disproportionate effort", "adequate processes", "searchable format", "consumer impact", "data request compliance"]
+  },
+  {
+    "id": "eval_7001_008",
+    "query": "Does analyzing a customer's vocal intonation or facial expressions during a customer service interaction constitute physical or biological identification or profiling?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Physical or biological identification or profiling includes identifying or profiling a consumer using automated measurements or analysis of physical/biological characteristics, body metrics, biometric information, vocal intonation, facial expression, and gesture (e.g., to infer emotion).",
+    "section": "7001",
+    "subsection": "§ 7001(ee)",
+    "target_term": "Physical or biological identification or profiling",
+    "key_terms": ["physical or biological profiling", "vocal intonation", "facial expression", "gesture", "infer emotion", "biometric information"]
+  },
+  {
+    "id": "eval_7001_009",
+    "query": "What added definitions were introduced for cybersecurity audits in section 7001 between the 2023 and 2026 CCPA regulations?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "The 2026 regulations introduced formal definitions supporting Article 9 cybersecurity audits, including 'Cybersecurity audit' (§ 7001(j)), 'Cybersecurity program' (§ 7001(k)), 'Cybersecurity audit report' (§ 7001(l)), 'Information system' (§ 7001(q)), 'Penetration testing' (§ 7001(bb)), and 'Privileged account' (§ 7001(hh)). These terms were added to establish statutory grounding for annual mandatory audit obligations.",
+    "section": "7001",
+    "subsection": "§ 7001(j)–(l), § 7001(hh)",
+    "target_term": "Cybersecurity audit",
+    "key_terms": ["cybersecurity audit", "cybersecurity program", "privileged account", "penetration testing", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7001_010",
+    "query": "When a consumer submits a 'request to know', what six specific categories of information can they request from a business under active regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "A request to know includes any or all of the following: (1) Specific pieces of personal information collected; (2) Categories of personal information collected; (3) Categories of sources from which data is collected; (4) Categories of personal information sold, shared, or disclosed for a business purpose; (5) Categories of third parties to whom data was sold, shared, or disclosed; and (6) The business or commercial purpose for collecting, selling, or sharing data.",
+    "section": "7001",
+    "subsection": "§ 7001(nn)(1)–(6)",
+    "target_term": "Request to know",
+    "key_terms": ["request to know", "categories of sources", "categories of third parties", "specific pieces", "commercial purpose"]
+  },
+  {
+    "id": "eval_7001_011",
+    "query": "Is a consumer's neural data (such as brain wave activity measured by a neurotech headset) considered sensitive personal information under California regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7001(bbb)(1)(G), sensitive personal information explicitly includes a consumer's neural data, defined as information generated by measuring the activity of a consumer's central or peripheral nervous system that is not inferred from nonneural information.",
+    "section": "7001",
+    "subsection": "§ 7001(bbb)(1)(G)",
+    "target_term": "Sensitive personal information",
+    "key_terms": ["neural data", "sensitive personal information", "central nervous system", "peripheral nervous system", "biometric data"]
+  },
+  {
+    "id": "eval_7001_012",
+    "query": "Does personal information of a 15-year-old consumer automatically qualify as 'sensitive personal information', and what legal standard applies if a business claims it did not know their age?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7001(bbb)(4), personal information of consumers that the business has actual knowledge are less than 16 years of age is classified as sensitive personal information. Furthermore, a business that willfully disregards the consumer's age is legally deemed to have had actual knowledge of their age.",
+    "section": "7001",
+    "subsection": "§ 7001(bbb)(4)",
+    "target_term": "Sensitive personal information",
+    "key_terms": ["sensitive personal information", "minors under 16", "actual knowledge", "willful disregard", "age threshold"]
+  },
+  {
+    "id": "eval_7001_013",
+    "query": "Does using Automated Decisionmaking Technology (ADMT) to serve targeted advertisements to a consumer constitute making a 'significant decision' under CCPA regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7001(ddd)(6), a 'significant decision' explicitly does not include advertising to a consumer. Significant decisions are strictly limited to decisions resulting in the provision or denial of financial or lending services, housing, education enrollment or opportunities, employment/contracting opportunities or compensation, or healthcare services.",
+    "section": "7001",
+    "subsection": "§ 7001(ddd)(6)",
+    "target_term": "Significant decision",
+    "key_terms": ["significant decision", "advertising exclusion", "ADMT", "financial services", "employment opportunities"]
+  },
+  {
+    "id": "eval_7001_014",
+    "query": "If an automated property management portal denies a housing application solely because the applicant failed to submit required payment or the unit is no longer vacant, is that automated action considered a 'significant decision'?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7001(ddd)(2), the use of ADMT that provides or denies housing to a consumer based solely on the availability or vacancy of the housing or the successful receipt of payment for housing from the consumer is explicitly excluded from being a significant decision.",
+    "section": "7001",
+    "subsection": "§ 7001(ddd)(2)",
+    "target_term": "Significant decision",
+    "key_terms": ["significant decision", "housing exception", "payment receipt", "vacancy", "ADMT housing"]
+  },
+  {
+    "id": "eval_7001_015",
+    "query": "What physical locations are legally designated as 'sensitive locations' under section 7001?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(aaa), 'sensitive location' includes healthcare facilities (hospitals, doctors' offices, urgent care, community health clinics), pharmacies, domestic violence shelters, food pantries, housing/emergency shelters, educational institutions, political party offices, legal services offices, union offices, and places of worship.",
+    "section": "7001",
+    "subsection": "§ 7001(aaa)",
+    "target_term": "Sensitive location",
+    "key_terms": ["sensitive location", "healthcare facilities", "pharmacies", "domestic violence shelters", "places of worship", "union offices"]
+  },
+  {
+    "id": "eval_7001_016",
+    "query": "What specific definitions and consumer rights regarding Automated Decisionmaking Technology (ADMT) were added in section 7001 of the 2026 regulations that were absent in 2023?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "The 2026 regulations introduced formal definitions establishing distinct consumer rights and request types for ADMT: 'Request to opt-out of ADMT' (§ 7001(qq)), 'Right to access ADMT' (§ 7001(ss)), 'Right to opt-out of ADMT' (§ 7001(xx)), and 'Request to access ADMT' (§ 7001(jj)). These standalone statutory rights and request mechanisms for ADMT did not exist in the 2023 baseline regulations.",
+    "section": "7001",
+    "subsection": "§ 7001(qq), § 7001(ss), § 7001(xx)",
+    "target_term": "Right to opt-out of ADMT",
+    "key_terms": ["ADMT consumer rights", "2023 vs 2026 updates", "Right to access ADMT", "Request to opt-out of ADMT"]
+  },
+  {
+    "id": "eval_7001_017",
+    "query": "What technologies and surveillance methods are classified as 'systematic observation' under CCPA regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(eee), 'systematic observation' means methodical and regular or continuous observation. Examples include Wi-Fi or Bluetooth tracking, radio frequency identification (RFID), drones, video or audio recording or live-streaming, physical or biological identification/profiling technologies, geofencing, location trackers, and license-plate recognition (LPR).",
+    "section": "7001",
+    "subsection": "§ 7001(eee)",
+    "target_term": "Systematic observation",
+    "key_terms": ["systematic observation", "geofencing", "license-plate recognition", "drones", "Wi-Fi tracking", "Bluetooth tracking"]
+  },
+  {
+    "id": "eval_7001_018",
+    "query": "How is the term 'train' legally defined with respect to machine-learning models and Automated Decisionmaking Technology (ADMT)?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(fff), 'train' means the process through which a technology discovers underlying patterns, learns a series of actions, or is taught to generate a desired output. This includes adjusting algorithmic parameters for ADMT, improving how a machine-learning model learns, and iterating datasets fed into ADMT.",
+    "section": "7001",
+    "subsection": "§ 7001(fff)",
+    "target_term": "Train",
+    "key_terms": ["train", "machine-learning model", "ADMT parameters", "iterating datasets", "underlying patterns"]
+  },
+  {
+    "id": "eval_7001_019",
+    "query": "Are the contents of a customer's emails or text messages always classified as sensitive personal information when processed by a business?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "No. Under § 7001(bbb)(1)(E), the contents of a consumer's mail, email, and text messages are classified as sensitive personal information UNLESS the business is the intended recipient of the communication. When a consumer directly emails or texts a business, those contents are not classified as sensitive personal information under this subsection.",
+    "section": "7001",
+    "subsection": "§ 7001(bbb)(1)(E)",
+    "target_term": "Sensitive personal information",
+    "key_terms": ["sensitive personal information", "contents of mail", "intended recipient", "email communications", "text messages"]
+  },
+  {
+    "id": "eval_7001_020",
+    "query": "What constitutes a 'risk assessment report' under section 7001, and which specific section governs its required contents?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7001(zz), a 'risk assessment report' is the document that every business required to conduct a risk assessment must create as part of its assessment. Its specific required contents are set forth in section 7152, subsections (a)(1)–(3) and (6)–(9).",
+    "section": "7001",
+    "subsection": "§ 7001(zz)",
+    "target_term": "Risk assessment report",
+    "key_terms": ["risk assessment report", "section 7152", "mandatory risk assessment", "compliance documentation"]
+  },
+  {
+    "id": "eval_7002_001",
+    "query": "A mobile flashlight application requests access to a user's precise geolocation to provide its flashlight service. Does this collection comply with CCPA requirements on consumer expectations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7002(b)(1), consumer reasonable expectations depend on the relationship between the consumer and the business. The regulations explicitly state that a consumer using a mobile flashlight application would not expect the business to collect their geolocation information to provide the flashlight service, making such collection inconsistent with consumer expectations.",
+    "section": "7002",
+    "subsection": "§ 7002(b)(1)",
+    "target_term": "Reasonable expectations of the consumer",
+    "key_terms": ["flashlight app", "geolocation", "consumer expectations", "purpose consistency", "section 7002"]
+  },
+  {
+    "id": "eval_7002_002",
+    "query": "Can a cloud storage provider use personal files uploaded by consumers to train and research an unrelated facial recognition AI model without additional consent?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7002(c)(3), whether a secondary purpose is compatible depends on the strength of the link between the consumer's initial expectations and the secondary purpose. The regulation explicitly gives the example that a weak link exists between a consumer's expectation that data is collected to provide cloud storage and using that data to research or develop an unrelated facial recognition service. Therefore, consent is required under § 7002(e).",
+    "section": "7002",
+    "subsection": "§ 7002(c)(3), § 7002(e)",
+    "target_term": "Compatible secondary purpose",
+    "key_terms": ["cloud storage", "facial recognition", "weak link", "secondary purpose", "incompatible purpose", "consent"]
+  },
+  {
+    "id": "eval_7002_003",
+    "query": "What three factors must a business evaluate to determine whether its collection, use, retention, or sharing of personal information is 'reasonably necessary and proportionate' for a given purpose?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7002(d), a business must evaluate: (1) The minimum personal information that is necessary to achieve the purpose; (2) The possible negative impacts on consumers posed by collecting or processing the information (e.g., precise geolocation revealing sensitive health visits); and (3) The existence of additional safeguards specifically addressing those possible negative impacts (e.g., encryption or automatic deletion within a specific window).",
+    "section": "7002",
+    "subsection": "§ 7002(d)(1)–(3)",
+    "target_term": "Reasonably necessary and proportionate",
+    "key_terms": ["data minimization", "minimum personal information", "negative impacts", "safeguards", "proportionality"]
+  },
+  {
+    "id": "eval_7002_004",
+    "query": "What changed in section 7002 regarding restrictions on personal information collection and use between the 2023 baseline and 2026 regulations?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In section 7002, the core structural framework requiring collection and processing to be 'reasonably necessary and proportionate' remained anchored in subsections (a)–(f). The 2026 updates refined cross-references to statutory business purpose citations (e.g., updating § 7002(c)(2) to align with broader CCPA updates) and reinforced that any purpose failing subsections (a)–(c) requires opt-in consent under subsection (e), with a mandatory right to withdraw consent at any time.",
+    "section": "7002",
+    "subsection": "§ 7002(a)–(f)",
+    "target_term": "Restrictions on collection and use",
+    "key_terms": ["2023 vs 2026 updates", "section 7002 changes", "proportionate use", "cross-reference updates"]
+  },
+  {
+    "id": "eval_7002_005",
+    "query": "An online store collects a user's phone number during login via a pop-up notice stating it is for identity verification. Can the store later use this phone number for SMS marketing?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7002(b)(4), consumer expectations are established by the specificity, explicitness, and prominence of disclosures. A consumer who receives a pop-up notice that their phone number is collected to verify identity expects it to be used for verification, not marketing. Using it for SMS marketing is inconsistent with consumer expectations and requires explicit consent under § 7002(e).",
+    "section": "7002",
+    "subsection": "§ 7002(b)(4), § 7002(e)",
+    "target_term": "Prominence of disclosures",
+    "key_terms": ["pop-up notice", "identity verification", "SMS marketing", "incompatible purpose", "Notice at Collection"]
+  },
+  {
+    "id": "eval_7002_006",
+    "query": "When is a business allowed to disclose a consumer's personal information to a service provider without frustrating the consumer's reasonable expectations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7002(b)(5), consumer expectations depend on the degree to which the involvement of the service provider, contractor, or third party is apparent. For instance, sharing name and address with a delivery service provider for a purchased item is expected because the delivery role is apparent. Sharing data with service providers where the consumer does not directly interact and the role is non-apparent may not be expected unless explicitly disclosed.",
+    "section": "7002",
+    "subsection": "§ 7002(b)(5)",
+    "target_term": "Apparent involvement of service providers",
+    "key_terms": ["service providers", "apparent involvement", "delivery provider", "third parties", "reasonable expectations"]
+  },
+  {
+    "id": "eval_7002_007",
+    "query": "If a business decides to collect a new category of personal information that was not listed in its initial Notice at Collection, what step must it take before collecting that data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7002(f), a business shall not collect categories of personal information other than those disclosed in its Notice at Collection. If it intends to collect additional categories or use data for incompatible additional purposes, it must provide a new Notice at Collection before collecting the data, and comply with all necessity and proportionality rules in § 7002(a)–(e).",
+    "section": "7002",
+    "subsection": "§ 7002(f)",
+    "target_term": "Notice at Collection requirements",
+    "key_terms": ["additional categories", "new Notice at Collection", "incompatible purpose", "data collection limits"]
+  },
+  {
+    "id": "eval_7002_008",
+    "query": "How do consumer reasonable expectations apply when a business collects a fingerprint to unlock a smartphone versus using that fingerprint for secondary security profiling?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7002(b)(2), consumer expectations are driven by the type, nature, and amount of personal information collected. When a consumer provides a fingerprint to set up device unlocking, they expect it to be used exclusively for that device unlocking function. Using biometric data for secondary profiling is unexpected and fails § 7002(b)(2), requiring explicit prior consent under § 7002(e).",
+    "section": "7002",
+    "subsection": "§ 7002(b)(2), § 7002(e)",
+    "target_term": "Type and nature of personal information",
+    "key_terms": ["fingerprint", "biometrics", "device unlock", "secondary profiling", "type nature amount"]
+  },
+  {
+    "id": "eval_7002_009",
+    "query": "What rules govern a consumer's right to withdraw consent after granting a business permission to process data for an otherwise incompatible secondary purpose?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7002(e), if a business obtains consumer consent to process personal information for a purpose that is not otherwise reasonably necessary, proportionate, or compatible under subsection (a), the consumer must be able to withdraw that consent at any time, except as provided under Civil Code section 1798.145(r) or as prohibited by the CCPA.",
+    "section": "7002",
+    "subsection": "§ 7002(e)",
+    "target_term": "Withdrawal of consent",
+    "key_terms": ["withdraw consent", "incompatible purpose", "opt-in consent", "at any time"]
+  },
+  {
+    "id": "eval_7002_010",
+    "query": "How does § 7002 address negative impacts and potential safeguards when a mobile app collects precise geolocation data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7002(d)(2)–(3), collecting precise geolocation poses a possible negative impact because it can indirectly reveal other sensitive data (such as health information from visits to medical providers). To satisfy proportionality, a business must implement specific safeguards addressing these risks, such as data encryption or automatic deletion within a specific window of time.",
+    "section": "7002",
+    "subsection": "§ 7002(d)(2), § 7002(d)(3)",
+    "target_term": "Negative impacts and safeguards",
+    "key_terms": ["precise geolocation", "negative impacts", "health information", "safeguards", "encryption", "automatic deletion"]
+  },
+  {
+    "id": "eval_7003_001",
+    "query": "What specific web accessibility standard must a business follow under CCPA regulations to ensure online disclosures are accessible to consumers with disabilities?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7003(b)(3), online disclosures must follow generally recognized industry standards, specifically the Web Content Accessibility Guidelines (WCAG), version 2.1 of June 5, 2018, from the World Wide Web Consortium. For non-online contexts, the business must provide instructions on how a consumer with a disability may access the policy in an alternative format.",
+    "section": "7003",
+    "subsection": "§ 7003(b)(3)",
+    "target_term": "Accessibility standards",
+    "key_terms": ["accessibility", "disabilities", "WCAG 2.1", "World Wide Web Consortium", "alternative format"]
+  },
+  {
+    "id": "eval_7003_002",
+    "query": "Where must a mobile application provide a conspicuous link to its privacy choices under the updated rules in section 7003?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7003(d), a mobile application must include a conspicuous link in its privacy policy accessible through the platform or download page, AND it must also be accessible through a link directly within the application itself, such as through the application's settings menu.",
+    "section": "7003",
+    "subsection": "§ 7003(d)",
+    "target_term": "Mobile application disclosures",
+    "key_terms": ["mobile application", "conspicuous link", "settings menu", "download page", "platform page"]
+  },
+  {
+    "id": "eval_7004_001",
+    "query": "A website displays a cookie banner with only two choices: 'Accept All' and 'Preferences'. Does this banner satisfy CCPA consent principles regarding symmetry in choice?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7004(a)(2)(C), a website banner offering only 'Accept All' and 'Preferences' or 'More Information' is not equal or symmetrical. It allows a consumer to accept all tracking in a single step, but requires additional steps to exercise privacy rights. An acceptable symmetrical choice would be between 'Accept All' and 'Decline All'.",
+    "section": "7004",
+    "subsection": "§ 7004(a)(2)(C)",
+    "target_term": "Symmetry in choice",
+    "key_terms": ["Accept All", "Preferences", "cookie banner", "symmetry in choice", "dark patterns"]
+  },
+  {
+    "id": "eval_7004_002",
+    "query": "If a business unintentionally designs a user interface that impairs consumer choice, can it still be classified as a dark pattern, and what is the legal effect on any consent obtained?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7004(c), a business's intent is not determinative; if the interface substantially subverts or impairs user autonomy, decisionmaking, or choice, and the business knows of and does not remedy it, it may still be a dark pattern. Under § 7004(b), any agreement obtained through a dark pattern does not constitute valid consumer consent (the business is in the position of never having obtained consent).",
+    "section": "7004",
+    "subsection": "§ 7004(b), § 7004(c)",
+    "target_term": "Dark patterns",
+    "key_terms": ["dark patterns", "user autonomy", "intent not determinative", "invalid consent", "subvert choice"]
+  },
+  {
+    "id": "eval_7004_003",
+    "query": "Can a navigation app require a user to consent to selling their location data to third-party data brokers in order to use the app's basic GPS mapping features?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7004(a)(4)(B), bundling choices so that a consumer must consent to incompatible secondary uses (e.g., selling geolocation to data brokers) together with necessary operational uses (e.g., providing location-based navigation) is a prohibited choice architecture. The business must provide a separate, unbundled option for consent to incompatible secondary uses.",
+    "section": "7004",
+    "subsection": "§ 7004(a)(4)(B)",
+    "target_term": "Bundled choice architecture",
+    "key_terms": ["bundling choices", "choice architecture", "location-based service", "data brokers", "unbundled option"]
+  },
+  {
+    "id": "eval_7004_004",
+    "query": "A website pop-up displays a running countdown clock stating 'time is running out to consent to data collection and receive a 15% discount', but the discount is actually available at all times. Is this practice compliant?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7004(a)(3)(E), choices driven by a false sense of urgency are misleading and prohibited. Displaying a fake countdown clock when the discount is not actually limited by time or availability constitutes misleading choice architecture and a dark pattern.",
+    "section": "7004",
+    "subsection": "§ 7004(a)(3)(E)",
+    "target_term": "False urgency",
+    "key_terms": ["false urgency", "countdown clock", "misleading statements", "dark pattern", "deceptive language"]
+  },
+  {
+    "id": "eval_7004_005",
+    "query": "Is providing options of 'Yes' and 'Ask me later' compliant when asking a consumer to opt-in to personal data sales?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7004(a)(2)(B), offering only 'Yes' and 'Ask me later' is not equal or symmetrical because there is no option to decline. 'Ask me later' implies the consumer has delayed rather than declined the decision. Symmetrical options must provide an explicit decline choice, such as between 'Yes' and 'No'.",
+    "section": "7004",
+    "subsection": "§ 7004(a)(2)(B)",
+    "target_term": "Symmetry in choice",
+    "key_terms": ["Ask me later", "symmetry in choice", "decline option", "opt-in framing"]
+  },
+  {
+    "id": "eval_7004_006",
+    "query": "What happens if a consumer clicks on 'Do Not Sell or Share My Personal Information' and is immediately forced to scroll through a long privacy policy page to find the actual opt-out webform?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7004(a)(5)(A), this violates the principle that methods must be easy to execute without unnecessary friction. Upon clicking the 'Do Not Sell or Share My Personal Information' link, a business shall not require the consumer to search or scroll through the text of a privacy policy to locate the opt-out submission mechanism.",
+    "section": "7004",
+    "subsection": "§ 7004(a)(5)(A)",
+    "target_term": "Easy to execute",
+    "key_terms": ["unnecessary friction", "easy to execute", "Do Not Sell link", "privacy policy scrolling"]
+  },
+  {
+    "id": "eval_7010_001",
+    "query": "What new mandatory disclosure requirement was added under section 7010 in the 2026 regulations for businesses utilizing Automated Decisionmaking Technology (ADMT)?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In the 2026 updates, section 7010(c) was added to mandate that any business using ADMT pursuant to section 7200(a) must provide consumers with a Pre-use Notice in accordance with section 7220, including a link through which consumers can opt-out of the business's use of ADMT (pursuant to section 7221). This ADMT Pre-use Notice requirement was not part of the 2023 baseline regulations.",
+    "section": "7010",
+    "subsection": "§ 7010(c)",
+    "target_term": "Pre-use Notice for ADMT",
+    "key_terms": ["Pre-use Notice", "ADMT disclosure", "2023 vs 2026 updates", "section 7010 overview"]
+  },
+  {
+    "id": "eval_7004_007",
+    "query": "Why is placing options 'Yes' and 'No' next to the statement 'Do Not Sell or Share My Personal Information' considered non-compliant under CCPA consent rules?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7004(a)(3)(A), offering 'Yes' or 'No' next to a negative statement like 'Do Not Sell or Share My Personal Information' creates a double negative (e.g., selecting 'No' to 'Do Not Sell' means allowing the sale). This is explicitly classified as a confusing interactive element and a prohibited dark pattern.",
+    "section": "7004",
+    "subsection": "§ 7004(a)(3)(A)",
+    "target_term": "Confusing language and double negatives",
+    "key_terms": ["double negative", "Do Not Sell", "confusing choices", "dark pattern"]
+  },
+  {
+    "id": "eval_7011_001",
+    "query": "What specific explanations regarding Automated Decisionmaking Technology (ADMT) must a business include in its privacy policy under the updated 2026 regulations?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7011(e)(2)(F)–(G), if a business uses ADMT pursuant to § 7200(a), its privacy policy must explain the consumer's right to opt-out of ADMT and right to access ADMT. Additionally, under § 7011(e)(3)(E), the privacy policy must include a general description of the verification process used for ADMT access requests. These disclosures were introduced in the 2026 regulatory updates.",
+    "section": "7011",
+    "subsection": "§ 7011(e)(2)(F)–(G), § 7011(e)(3)(E)",
+    "target_term": "ADMT privacy policy disclosures",
+    "key_terms": ["ADMT privacy policy", "right to opt-out of ADMT", "right to access ADMT", "2023 vs 2026 updates", "verification process"]
+  },
+  {
+    "id": "eval_7011_002",
+    "query": "Does the CCPA right against retaliation for exercising privacy rights extend to job applicants, students, and independent contractors in a business's privacy policy disclosures?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7011(e)(2)(H), a business's privacy policy must explain the consumer's right not to receive discriminatory treatment or retaliation for exercising CCPA rights. This explicitly covers applicants to educational programs, job applicants, students, employees, and independent contractors.",
+    "section": "7011",
+    "subsection": "§ 7011(e)(2)(H)",
+    "target_term": "Right against retaliation",
+    "key_terms": ["retaliation", "discriminatory treatment", "job applicants", "independent contractors", "students", "privacy policy rights"]
+  },
+  {
+    "id": "eval_7011_003",
+    "query": "What information regarding opt-out preference signals must be disclosed within a business's privacy policy?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7011(e)(3)(F)–(G), the privacy policy must explain how an opt-out preference signal will be processed (e.g., whether it applies to the device, browser, consumer account, and/or offline sales) and how the consumer can use it. If processed in a frictionless manner, the privacy policy must inform consumers on how to implement opt-out preference signals for frictionless processing.",
+    "section": "7011",
+    "subsection": "§ 7011(e)(3)(F)–(G)",
+    "target_term": "Opt-out preference signal disclosures",
+    "key_terms": ["opt-out preference signal", "frictionless manner", "browser level", "device level", "privacy policy instructions"]
+  },
+  {
+    "id": "eval_7011_004",
+    "query": "Is a business required to make its online privacy policy available in a format that allows consumers to print it out as a physical document?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7011(c), the privacy policy shall be available in a format that allows a consumer to print it out as a document.",
+    "section": "7011",
+    "subsection": "§ 7011(c)",
+    "target_term": "Printable privacy policy format",
+    "key_terms": ["printable format", "print out document", "privacy policy accessibility"]
+  },
+  {
+    "id": "eval_7012_001",
+    "query": "Is a business required to disclose data retention timeframes for each category of personal information collected in its Notice at Collection?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7012(e)(4), a Notice at Collection must state the length of time the business intends to retain each category of personal information (including sensitive personal information), or if specifying an exact duration is not possible, the specific criteria used to determine that retention period.",
+    "section": "7012",
+    "subsection": "§ 7012(e)(4)",
+    "target_term": "Data retention disclosures",
+    "key_terms": ["retention period", "retention criteria", "Notice at Collection", "categories of personal information"]
+  },
+  {
+    "id": "eval_7012_002",
+    "query": "Can an online business satisfy Notice at Collection rules by providing a website link that redirects consumers to the very top of its general privacy policy?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7012(f), providing a link to the privacy policy satisfies Notice at Collection ONLY IF the link takes the consumer directly to the specific section containing the required collection disclosures. Directing the consumer to the beginning of the privacy policy, requiring them to scroll through unrelated text, does not satisfy the legal standard.",
+    "section": "7012",
+    "subsection": "§ 7012(f)",
+    "target_term": "Direct section linking for Notice at Collection",
+    "key_terms": ["direct section link", "privacy policy scrolling", "Notice at Collection link", "specific section requirement"]
+  },
+  {
+    "id": "eval_7012_003",
+    "query": "If a retail store or website allows a third party (such as a Wi-Fi provider or ad network) to collect personal data on its premises or site, who must provide the Notice at Collection?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7012(g)(1)–(3), BOTH the first party and the third party controlling data collection have an obligation to provide a Notice at Collection. They may provide a single joint notice, or the third party must provide its own conspicuous notice (e.g., on its homepage, the Wi-Fi connection landing interface, or dashboard signage in rental vehicles).",
+    "section": "7012",
+    "subsection": "§ 7012(g)(1)–(3)",
+    "target_term": "Third parties controlling collection",
+    "key_terms": ["third party collection", "Wi-Fi services", "ad networks", "joint Notice at Collection", "physical premises"]
+  },
+  {
+    "id": "eval_7012_004",
+    "query": "What is the legal consequence if a business fails to give a consumer a Notice at Collection at or before collecting their personal data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7012(d), if a business does not give the Notice at Collection to the consumer at or before the point of collection of their personal information, the business shall not collect personal information from that consumer.",
+    "section": "7012",
+    "subsection": "§ 7012(d)",
+    "target_term": "Prohibition on collection without notice",
+    "key_terms": ["failure to give notice", "prohibition on collection", "at or before point of collection", "Notice at Collection enforcement"]
+  },
+  {
+    "id": "eval_7012_005",
+    "query": "When is a registered data broker exempt from providing a Notice at Collection directly to consumers?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7012(i), a registered data broker that collects personal information from a source other than directly from the consumer does not need to provide a Notice at Collection if its registration submission to the Attorney General includes a link to its online privacy policy with instructions on submitting opt-out requests.",
+    "section": "7012",
+    "subsection": "§ 7012(i)",
+    "target_term": "Data broker Notice at Collection exemption",
+    "key_terms": ["data broker", "AG registration", "indirect collection", "Notice at Collection exemption", "opt-out link"]
+  },
+  {
+    "id": "eval_7023_001",
+    "query": "Can a business choose to delete a consumer's inaccurate personal information instead of correcting it when responding to a request to correct?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes, but only if deleting the personal information does not negatively impact the consumer, or if the consumer consents to the deletion. For example, if deleting inaccurate information would make it harder for the consumer to obtain employment, housing, credit, or education, the business must correct the data or obtain explicit consent before deleting.",
+    "section": "7023",
+    "subsection": "§ 7023(e)",
+    "target_term": "Deletion as an alternative to correction",
+    "key_terms": ["request to correct", "deletion alternative", "negative impact", "consumer consent", "credit or housing opportunities"]
+  },
+  {
+    "id": "eval_7023_002",
+    "query": "How must a business prevent corrected consumer data from being overwritten if it regularly receives refreshed data feeds from external data brokers?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7023(c)(1) and § 7023(k), a business that complies with a request to correct must implement system measures to ensure the corrected information remains corrected and is not overridden by inaccurate personal information subsequently received from a data broker.",
+    "section": "7023",
+    "subsection": "§ 7023(c)(1), § 7023(k)",
+    "target_term": "Data broker overrides",
+    "key_terms": ["data broker", "corrected information", "system updates", "overridden data", "ongoing compliance"]
+  },
+  {
+    "id": "eval_7023_003",
+    "query": "What special right must a business inform a consumer about if it denies a request to correct health-related personal information?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7023(f)(3), if a business denies a request to correct health information, it must inform the consumer that they may provide a written statement of up to 250 words per alleged inaccurate piece of information to be included with their record pursuant to Civil Code § 1798.185(a)(78)(D). Upon request, the business must make this statement available to any person to whom the health data is disclosed, shared, or sold.",
+    "section": "7023",
+    "subsection": "§ 7023(f)(3)",
+    "target_term": "Health data correction denial",
+    "key_terms": ["health information", "written statement", "250 words", "denial explanation", "consumer record"]
+  },
+  {
+    "id": "eval_7023_004",
+    "query": "How can a business confirm to a verified consumer that its Social Security number or biometric data was corrected without violating CCPA disclosure restrictions?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7023(j), a business is prohibited from directly disclosing sensitive identifiers (like SSNs, driver's license numbers, or biometrics) back to the consumer. Instead, it must provide a verification method to confirm accuracy—such as having the verified consumer provide the info over a toll-free phone number while the business confirms whether it matches what is maintained in its system.",
+    "section": "7023",
+    "subsection": "§ 7023(j)",
+    "target_term": "Confirmation of sensitive item corrections",
+    "key_terms": ["Social Security number", "biometric data", "prohibition on disclosure", "confirmation method", "toll-free verification"]
+  },
+  {
+    "id": "eval_7023_005",
+    "query": "Under what circumstance must a business re-evaluate a request to correct if it previously denied a request regarding the same alleged inaccuracy within the past six months?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7023(g), a business may deny a request to correct if it has denied a request for the same alleged inaccuracy within the past six months. However, the business MUST treat the request as new if the consumer provides new or additional documentation proving that the information is inaccurate.",
+    "section": "7023",
+    "subsection": "§ 7023(g)",
+    "target_term": "Repeat requests to correct",
+    "key_terms": ["six months", "repeat request", "new documentation", "alleged inaccuracy"]
+  },
+  {
+    "id": "eval_7024_001",
+    "query": "If a business cannot verify a requestor's identity to the high degree of certainty required to disclose specific pieces of personal information, what must it do?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7024(a), if a business cannot verify identity for specific pieces of personal information, it must deny disclosing those specific pieces and inform the requestor. However, it MUST then evaluate the request as if it were seeking the disclosure of categories of personal information about the consumer under § 7024(b).",
+    "section": "7024",
+    "subsection": "§ 7024(a)",
+    "target_term": "Verification failure fallback",
+    "key_terms": ["specific pieces of information", "verification failure", "categories of personal information", "fallback evaluation"]
+  },
+  {
+    "id": "eval_7024_002",
+    "query": "What categories of highly sensitive personal data are strictly prohibited from being disclosed in response to a request to know?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7024(d), a business shall never disclose a consumer's Social Security number, driver's license number (or other government ID number), financial account number, health insurance/medical ID number, account passwords, security questions/answers, or unique biometric data. The business must only confirm that it collects that type of data with sufficient particularity.",
+    "section": "7024",
+    "subsection": "§ 7024(d)",
+    "target_term": "Prohibited disclosures in request to know",
+    "key_terms": ["Social Security number", "driver's license", "passwords", "financial account number", "biometric data", "prohibited disclosure"]
+  },
+  {
+    "id": "eval_7024_003",
+    "query": "How far back can a consumer request historical personal information under a request to know beyond the standard 12-month period?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7024(h), a consumer may request personal information collected beyond the 12-month period preceding the request, as long as the information was collected on or after January 1, 2022. The business must provide this data unless doing so proves impossible or involves disproportionate effort (which requires a detailed factual explanation to the consumer).",
+    "section": "7024",
+    "subsection": "§ 7024(h)",
+    "target_term": "Extended lookback period",
+    "key_terms": ["12-month lookback", "beyond 12 months", "January 1 2022", "disproportionate effort", "historical data"]
+  },
+  {
+    "id": "eval_7024_004",
+    "query": "What four cumulative conditions exempt a business from searching its systems when responding to a request to know?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7024(c)(1)–(4), a business is not required to search for personal information if ALL of the following are met: (1) Data is not maintained in a searchable or reasonably accessible format; (2) Data is maintained solely for legal/compliance purposes; (3) Data is not sold or used for any commercial purpose; and (4) The business describes the unsearched categories of records to the consumer.",
+    "section": "7024",
+    "subsection": "§ 7024(c)(1)–(4)",
+    "target_term": "Exemption from searching data",
+    "key_terms": ["search exception", "not searchable format", "legal compliance only", "no commercial purpose", "unsearched categories"]
+  },
+  {
+    "id": "eval_7024_005",
+    "query": "Can a business respond to a consumer's request to know categories of personal information by referring them to its online privacy policy?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Generally no. Under § 7024(j), a business must provide an individualized response. It cannot simply refer the consumer to its general privacy policy UNLESS its response would be identical for all consumers AND the privacy policy explicitly discloses all information required in a formal categories response.",
+    "section": "7024",
+    "subsection": "§ 7024(j)",
+    "target_term": "Individualized response requirement",
+    "key_terms": ["individualized response", "privacy policy referral", "categories of information", "identical response"]
+  },
+  {
+    "id": "eval_7025_001",
+    "query": "Is honoring global opt-out preference signals optional if a business already provides a 'Do Not Sell or Share My Personal Information' link on its website homepage?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7025(e), posting the 'Do Not Sell or Share My Personal Information' link does not exempt a business from honoring opt-out preference signals. Civil Code section 1798.135 gives businesses a choice between either: (1) processing signals AND providing the opt-out links; or (2) processing signals in a frictionless manner and omitting the opt-out links. Honoring valid opt-out preference signals is mandatory regardless of whether footer links are present.",
+    "section": "7025",
+    "subsection": "§ 7025(e)",
+    "target_term": "Mandatory opt-out preference signal processing",
+    "key_terms": ["opt-out preference signal", "Do Not Sell link", "frictionless manner", "Civil Code 1798.135", "mandatory signal processing"]
+  },
+  {
+    "id": "eval_7025_002",
+    "query": "If a consumer previously enabled an opt-out preference signal on their laptop, but later logs into their account from a smartphone that does NOT have the signal enabled, can the business treat the missing signal as consent to sell or share data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7025(c)(5) and Example (C) in § 7025(c)(7), where a consumer is known to the business and has previously submitted an opt-out preference signal linked to their account, the business shall NOT interpret the absence of an opt-out preference signal on a different device or browser as consent to opt-in or sell personal information.",
+    "section": "7025",
+    "subsection": "§ 7025(c)(5), § 7025(c)(7)(C)",
+    "target_term": "Absence of signal is not opt-in consent",
+    "key_terms": ["absence of signal", "opt-in consent", "known consumer", "cross-device logging", "opt-out persistence"]
+  },
+  {
+    "id": "eval_7025_003",
+    "query": "What changed in section 7025 regarding the requirement for businesses to display whether they have processed a consumer's opt-out preference signal?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In § 7025(c)(6), the regulation updated the wording from a permissive option ('may display') to a mandatory requirement ('must display'). A business MUST display whether it has processed the consumer's opt-out preference signal as a valid opt-out request on its website—for example, by showing text such as 'Opt-Out Request Preference Signal Honored' or reflecting the status through a toggle/radio button.",
+    "section": "7025",
+    "subsection": "§ 7025(c)(6)",
+    "target_term": "Mandatory display of signal status",
+    "key_terms": ["Opt-Out Request Preference Signal Honored", "must display", "2023 vs 2026 updates", "toggle status", "signal acknowledgment"]
+  },
+  {
+    "id": "eval_7025_004",
+    "query": "What three specific user interface restrictions must a business satisfy to process an opt-out preference signal in a 'frictionless manner' under section 7025(f)?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7025(f)(1)–(3), processing an opt-out preference signal in a frictionless manner requires that the business shall NOT: (1) Charge a fee or require valuable consideration; (2) Change or degrade the consumer's experience or product functionality compared to non-signal users; and (3) Display any notification, pop-up, text, graphic, animation, sound, video, or interstitial content in response to the signal (other than displaying the signal status or a link to a privacy settings menu).",
+    "section": "7025",
+    "subsection": "§ 7025(f)(1)–(3)",
+    "target_term": "Frictionless processing requirements",
+    "key_terms": ["frictionless manner", "no fee", "degrade user experience", "no pop-up interstitial", "privacy settings menu"]
+  },
+  {
+    "id": "eval_7025_005",
+    "query": "If a business sells personal information both online and offline, can it rely on frictionless opt-out signal processing to omit its 'Do Not Sell or Share My Personal Information' footer link?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "No. Under § 7025(g)(3) and Example (A) in § 7025(g)(3), a business can only omit footer links if the opt-out preference signal FULLY effectuates the consumer's opt-out request without needing extra information. If a business sells data offline and requires additional consumer information (e.g., account login) to apply the opt-out to offline sales, the signal does not fully effectuate the request, and the business CANNOT claim the link exemption under Civil Code § 1798.135(b)(1).",
+    "section": "7025",
+    "subsection": "§ 7025(g)(3), § 7025(g)(3)(A)",
+    "target_term": "Offline sales link exemption limit",
+    "key_terms": ["offline sales", "fully effectuate", "footer link exemption", "frictionless processing", "additional information"]
+  },
+  {
+    "id": "eval_7025_006",
+    "query": "How must a business handle a situation where an incoming browser opt-out preference signal directly conflicts with a logged-in user's account privacy settings that permit data sharing?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7025(c)(3), the business MUST process the opt-out preference signal as a valid request to opt-out. However, the business MAY notify the consumer of the conflict and offer them an opportunity to consent to sale/sharing under § 7004 rules. If the consumer affirmatively consents to sharing, the business may ignore the signal for that known consumer, provided it displays the consumer's choice status and waits at least 12 months before asking again.",
+    "section": "7025",
+    "subsection": "§ 7025(c)(3), § 7025(c)(7)(B)",
+    "target_term": "Conflict between signal and user settings",
+    "key_terms": ["conflicting settings", "signal overrides settings", "consent to share", "12 month wait", "privacy settings"]
+  },
+  {
+    "id": "eval_7025_007",
+    "query": "What steps may a business take if an opt-out preference signal conflicts with a consumer's participation in a loyalty or financial incentive program that requires data sharing?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7025(c)(4), the business may notify the consumer that processing the signal will withdraw them from the financial incentive program and ask them to affirm their intent to withdraw. If affirmed, the signal is processed and they are withdrawn. If the consumer does not affirm withdrawal (or if the business does not ask), the business MUST still process the signal for that browser/device, but may ignore the signal regarding participation in the incentive program if the user is known.",
+    "section": "7025",
+    "subsection": "§ 7025(c)(4), § 7025(c)(7)(D)",
+    "target_term": "Financial incentive signal conflict",
+    "key_terms": ["financial incentive program", "loyalty program", "affirm withdrawal", "conflicting signal", "whitelist"]
+  },
+  {
+    "id": "eval_7025_008",
+    "query": "When an unauthenticated guest visits a website using an opt-out preference signal, how far does the business's duty to process the opt-out extend?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7025(c)(1) and Example (A) in § 7025(c)(7), for an unauthenticated guest, the business must apply the opt-out preference signal to that specific browser or device and any pseudonymous profile tied to that browser identifier. The business is not required to apply the opt-out to any offline data or account profiles if the link between the browser and the consumer's account is unknown.",
+    "section": "7025",
+    "subsection": "§ 7025(c)(1), § 7025(c)(7)(A)",
+    "target_term": "Unauthenticated guest signal scope",
+    "key_terms": ["unauthenticated guest", "browser identifier", "pseudonymous profile", "scope of signal", "device level"]
+  },
+  {
+    "id": "eval_7025_009",
+    "query": "Are businesses permitted to collect or retain consumer personal information transmitted through an opt-out preference signal for marketing analytics?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7025(d), neither the business nor the platform/technology sending the opt-out preference signal shall use, disclose, or retain any personal information collected in connection with sending or processing the signal for ANY purpose other than sending or processing the opt-out preference signal.",
+    "section": "7025",
+    "subsection": "§ 7025(d)",
+    "target_term": "Data minimization for signal metadata",
+    "key_terms": ["data minimization", "purpose limitation", "signal processing data", "no marketing retention"]
+  },
+  {
+    "id": "eval_7025_010",
+    "query": "What privacy policy disclosures are mandatory for a business claiming exemption from posting 'Do Not Sell or Share My Personal Information' links under frictionless processing rules?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7025(g)(2)(A)–(D), the business must include in its privacy policy: (1) A description of the right to opt-out of sale/sharing; (2) An explicit statement that it processes opt-out preference signals in a frictionless manner; (3) Instructions on how consumers can implement opt-out preference signals for frictionless processing; and (4) Instructions for any other available opt-out methods.",
+    "section": "7025",
+    "subsection": "§ 7025(g)(2)(A)–(D)",
+    "target_term": "Privacy policy frictionless disclosures",
+    "key_terms": ["privacy policy requirements", "frictionless statement", "implementation instructions", "link exemption disclosures"]
+  },
+  {
+    "id": "eval_7026_001",
+    "query": "Is providing a cookie banner or cookie preference tool alone legally sufficient to satisfy a business's obligation to offer an opt-out method for data sale and sharing?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7026(a)(4), a cookie banner or cookie controls tool is not by itself an acceptable method for submitting opt-out requests. Cookie controls primarily address data collection rather than the sale or sharing of personal information. An acceptable opt-out method must specifically address data sale and sharing.",
+    "section": "7026",
+    "subsection": "§ 7026(a)(4)",
+    "target_term": "Cookie banner inadequacy for opt-out",
+    "key_terms": ["cookie banner", "cookie controls", "sale and sharing", "opt-out method", "data collection vs sale"]
+  },
+  {
+    "id": "eval_7026_002",
+    "query": "If an online publisher sells consumer data via real-time bidding programmatic advertising, can it wait the full 15 business days to execute a user's opt-out request?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7026(f)(1) and § 7026(f)(3)(A), a business must cease selling or sharing data as soon as feasibly possible, with 15 business days being the maximum upper limit. For real-time bidding where data transfers can be restricted instantaneously, the business must honor the opt-out request immediately upon receipt.",
+    "section": "7026",
+    "subsection": "§ 7026(f)(1), § 7026(f)(3)(A)",
+    "target_term": "Opt-out compliance timeline and real-time bidding",
+    "key_terms": ["15 business days", "real-time bidding", "programmatic advertising", "as soon as feasibly possible", "immediate opt-out"]
+  },
+  {
+    "id": "eval_7026_003",
+    "query": "What changed in section 7026 regarding a business's duty to provide confirmation when a consumer's opt-out request has been processed?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In § 7026(g), the 2026 regulations updated the language from permissive ('may provide') to mandatory ('must provide'). Businesses are now required to provide a means for consumers to confirm their opt-out request has been processed, such as displaying 'Consumer Opted Out of Sale/Sharing' or reflecting the status via a toggle/radio button in account settings.",
+    "section": "7026",
+    "subsection": "§ 7026(g)",
+    "target_term": "Mandatory confirmation of opt-out processing",
+    "key_terms": ["2023 vs 2026 updates", "must provide confirmation", "Opt-Out Request Honored", "toggle confirmation"]
+  },
+  {
+    "id": "eval_7026_004",
+    "query": "Does an authorized agent submitting an opt-out request on behalf of a consumer always need to provide signed written permission from that consumer?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7026(j), while a business may generally require an authorized agent to present written permission signed by the consumer, this requirement does NOT apply to opt-out requests submitted automatically via an opt-out preference signal.",
+    "section": "7026",
+    "subsection": "§ 7026(j)",
+    "target_term": "Authorized agent opt-out exceptions",
+    "key_terms": ["authorized agent", "signed written permission", "opt-out preference signal exception", "agent opt-out"]
+  },
+  {
+    "id": "eval_7026_005",
+    "query": "How long must a business wait before re-soliciting consent from a consumer who previously opted out of data sale/sharing or limited the use of sensitive personal information?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7026(k) and § 7027(l), a business must wait at least 12 months from the date of the consumer's request before asking the consumer to consent to the sale/sharing or expanded use of sensitive personal information.",
+    "section": "7026",
+    "subsection": "§ 7026(k), § 7027(l)",
+    "target_term": "12-month re-solicitation waiting period",
+    "key_terms": ["12 months", "re-solicit consent", "opt-out duration", "asking to opt-in"]
+  },
+  {
+    "id": "eval_7027_001",
+    "query": "Is a business required to provide a 'Limit the Use of My Sensitive Personal Information' link if it includes a health article search bar on its site and processes health terms without inferring consumer characteristics?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7027(a) and § 7027(m)(8), sensitive personal information collected or processed without the purpose of inferring characteristics about a consumer (such as processing keywords in a health search bar strictly to display relevant articles) is exempt from requests to limit and does not require posting a Notice of Right to Limit.",
+    "section": "7027",
+    "subsection": "§ 7027(a), § 7027(m)(8)",
+    "target_term": "Exemption for processing sensitive data without inferring characteristics",
+    "key_terms": ["inferring characteristics", "health search bar", "sensitive personal information exemption", "Notice of Right to Limit"]
+  },
+  {
+    "id": "eval_7027_002",
+    "query": "Why is a directions mapping application allowed to process precise geolocation data without offering a right to limit, whereas a mobile gaming application doing the same would violate CCPA rules?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7027(m)(1), a business can process sensitive personal info without offering a right to limit if the data is necessary to perform services reasonably expected by an average consumer. Precise geolocation is reasonably expected for a navigation app providing directions, but NOT for a gaming app. Therefore, the gaming app must offer a Notice of Right to Limit under § 7027(b).",
+    "section": "7027",
+    "subsection": "§ 7027(m)(1)",
+    "target_term": "Reasonable consumer expectations for sensitive data",
+    "key_terms": ["precise geolocation", "navigation app vs gaming app", "reasonably expected service", "statutory exceptions"]
+  },
+  {
+    "id": "eval_7027_003",
+    "query": "Can an enterprise collect employee biometric scan data for door access security and later reuse that same biometric dataset to train commercial facial recognition products?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7027(m)(3)(B), collecting employee biometric data for physical security authentication is an exempt statutory purpose under § 7027(m). However, retaining that biometric data indefinitely or reusing it for unrelated commercial product development falls outside the exception and violates CCPA limitations unless a right to limit is provided.",
+    "section": "7027",
+    "subsection": "§ 7027(m)(3)(B)",
+    "target_term": "Biometric data reuse limitations",
+    "key_terms": ["employee biometrics", "physical security access", "commercial product development", "unrelated purpose", "limit sensitive data"]
+  },
+  {
+    "id": "eval_7027_004",
+    "query": "What third-party notification obligations must a business execute within 15 business days of receiving a consumer's request to limit sensitive personal information?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7027(g)(1)–(3), the business must within 15 business days: (1) Cease non-exempt SPI uses; (2) Instruct its service providers and contractors to limit SPI processing; and (3) Notify all third parties to whom SPI was disclosed before compliance to limit processing and direct those third parties to forward the instruction to downstream recipients.",
+    "section": "7027",
+    "subsection": "§ 7027(g)(1)–(3)",
+    "target_term": "SPI request to limit downstream notifications",
+    "key_terms": ["request to limit", "15 business days", "service provider instructions", "third party downstream notification"]
+  },
+  {
+    "id": "eval_7027_005",
+    "query": "Can an online religious bookstore serve nonpersonalized contextual ads for religious merchandise on its website without triggering a consumer's right to limit sensitive data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7027(m)(5), short-term transient use—including nonpersonalized contextual advertising shown during a consumer's current interaction—is an exempt purpose, provided the data is not disclosed to third parties, used to build a consumer profile, or used to alter the experience outside that current interaction.",
+    "section": "7027",
+    "subsection": "§ 7027(m)(5)",
+    "target_term": "Short-term transient use and contextual advertising",
+    "key_terms": ["short-term transient use", "nonpersonalized advertising", "contextual ads", "religious beliefs", "profile building exemption"]
+  },
+  {
+    "id": "eval_7028_001",
+    "query": "What specific workflow process must a business follow when obtaining consent from a consumer who previously opted out of data sale/sharing to opt back in?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7028(a), requests to opt-in after opting out (or after limiting sensitive personal information) must use a mandatory two-step opt-in process: first, the consumer must clearly request to opt-in, and second, the consumer must separately confirm their choice to opt-in.",
+    "section": "7028",
+    "subsection": "§ 7028(a)",
+    "target_term": "Two-step opt-in process",
+    "key_terms": ["two-step opt-in", "opt-in confirmation", "re-solicitation", "opt-out reversal"]
+  },
+  {
+    "id": "eval_7028_002",
+    "query": "If an opted-out consumer attempts to purchase a service that strictly requires data sharing, how may the business prompt the consumer for opt-in consent?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7028(b), if an opted-out consumer initiates a transaction or service that requires data sale or sharing, the business may inform the consumer that the transaction requires sale/sharing and provide instructions on how to provide consent. Obtaining consent must strictly comply with § 7004 rules.",
+    "section": "7028",
+    "subsection": "§ 7028(b)",
+    "target_term": "Transaction-triggered opt-in request",
+    "key_terms": ["transaction-triggered opt-in", "service requirement", "section 7004 compliance", "opt-in consent"]
+  },
+  {
+    "id": "eval_7050_001",
+    "query": "Can an email marketing software vendor acting as a service provider analyze one client's customer interaction data to improve its service algorithms and use that data for another client's ad campaign?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7050(a)(3) and § 7050(a)(3)(A), a service provider may use personal information internally to build or improve the quality of its services for all clients. However, it is explicitly prohibited from using one business's original customer list or data to perform services or send marketing on behalf of another person.",
+    "section": "7050",
+    "subsection": "§ 7050(a)(3)(A)",
+    "target_term": "Internal quality improvement limitations",
+    "key_terms": ["service provider limits", "internal product improvement", "cross-client data usage", "email marketing"]
+  },
+  {
+    "id": "eval_7050_002",
+    "query": "Can a company providing cross-context behavioral advertising qualify legally as a 'service provider' under CCPA?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "No. Under § 7050(b), a service provider or contractor cannot contract with a business to provide cross-context behavioral advertising. Any person who contracts to provide cross-context behavioral advertising is classified as a third party, not a service provider, with respect to those advertising services.",
+    "section": "7050",
+    "subsection": "§ 7050(b)",
+    "target_term": "Cross-context behavioral advertising vendor status",
+    "key_terms": ["cross-context behavioral advertising", "service provider vs third party", "advertising restrictions", "data combination"]
+  },
+  {
+    "id": "eval_7050_003",
+    "query": "What steps must a service provider take if a consumer submits a CCPA access or deletion request directly to the service provider instead of the primary business?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7050(c), if a service provider receives a CCPA request directly from a consumer, it must either: (1) Act on behalf of the business in accordance with the business's instructions; or (2) Inform the consumer that the request cannot be acted upon because it was sent to a service provider rather than the controlling business.",
+    "section": "7050",
+    "subsection": "§ 7050(c)",
+    "target_term": "Direct consumer requests to service providers",
+    "key_terms": ["direct consumer request", "service provider response", "business instructions", "request routing"]
+  },
+  {
+    "id": "eval_7050_004",
+    "query": "What are the legal consequences if a business transfers consumer data to a vendor without a written contract that meets section 7051 requirements?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7050(e), a person who lacks a contract complying with § 7051 is NOT a service provider or contractor under the CCPA. Consequently, the disclosure of personal data to that vendor may be legally classified as a sale or sharing of personal information, requiring the business to offer opt-out rights.",
+    "section": "7050",
+    "subsection": "§ 7050(e)",
+    "target_term": "Lack of compliant contract consequences",
+    "key_terms": ["non-compliant contract", "loss of service provider status", "deemed sale or sharing", "opt-out obligations"]
+  },
+  {
+    "id": "eval_7050_005",
+    "query": "What new cooperation obligations were imposed on service providers under section 7050 regarding cybersecurity audits and risk assessments in the 2026 updates?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In § 7050(h), explicit obligations were added requiring service providers to cooperate with businesses by: (1) Making available all relevant information requested by auditors to complete cybersecurity audits under Article 9; and (2) Providing all facts necessary to conduct risk assessments under Article 10, without misrepresenting facts.",
+    "section": "7050",
+    "subsection": "§ 7050(h)(1)–(2)",
+    "target_term": "Cooperation in audits and risk assessments",
+    "key_terms": ["cybersecurity audits", "risk assessments", "Article 9", "Article 10", "2023 vs 2026 updates", "service provider cooperation"]
+  },
+  {
+    "id": "eval_7051_001",
+    "query": "Is referencing the entire master service agreement in general terms legally sufficient when specifying the business purpose in a service provider contract?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7051(a)(2), the contract must identify the specific business purpose(s) for processing personal information. The business purpose shall NOT be described in generic terms or by referencing the entire contract generally; the description must be specific.",
+    "section": "7051",
+    "subsection": "§ 7051(a)(2)",
+    "target_term": "Specific business purpose contract clause",
+    "key_terms": ["specific business purpose", "generic contract descriptions", "contract clause requirements", "purpose limitation"]
+  },
+  {
+    "id": "eval_7051_002",
+    "query": "What mandatory ongoing monitoring and audit rights must a business include in vendor contracts under the updated 2026 text of section 7051?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7051(a)(7), contracts must grant the business the right to take reasonable and appropriate steps to ensure compliant data usage. The updated text explicitly defines reasonable steps to include ongoing manual reviews, automated system scans, and regular internal or third-party assessments, audits, or operational testing at least once every 12 months.",
+    "section": "7051",
+    "subsection": "§ 7051(a)(7)",
+    "target_term": "Mandatory 12-month vendor audit clause",
+    "key_terms": ["audit rights", "automated scans", "at least once every 12 months", "vendor monitoring", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7051_003",
+    "query": "How does a business's failure to conduct ongoing due diligence or enforce vendor contract terms affect its liability if the service provider misuses consumer data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7051(c), whether a business conducts due diligence factors into whether it had reason to believe a vendor was violating the CCPA. A business that never enforces contract terms or exercises audit/testing rights might NOT be able to rely on the defense that it lacked reason to believe the vendor intended to violate the CCPA at the time of disclosure.",
+    "section": "7051",
+    "subsection": "§ 7051(c)",
+    "target_term": "Business due diligence and liability",
+    "key_terms": ["due diligence", "vendor audit defense", "contract enforcement", "reason to believe violation"]
+  },
+  {
+    "id": "eval_7053_001",
+    "query": "Is referencing an entire commercial agreement in generic terms legally sufficient when drafting the business purpose clause in a contract with a third party receiving consumer personal data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7053(a)(1), a business that sells or shares personal information with a third party must enter into an agreement that identifies the limited and specified purpose(s) for making the information available. The purpose(s) shall not be described in generic terms, such as referencing the entire contract generally; the description must be specific.",
+    "section": "7053",
+    "subsection": "§ 7053(a)(1)",
+    "target_term": "Third-party contract purpose clause",
+    "key_terms": ["third party contract", "generic contract descriptions", "limited and specified purpose", "sale or sharing"]
+  },
+  {
+    "id": "eval_7053_002",
+    "query": "What contractual remediation rights must a first-party business hold against a third party that receives consumer data if an opt-out request is forwarded?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7053(a)(5), the contract must grant the business the right, upon notice, to take reasonable and appropriate steps to stop and remediate unauthorized use. For example, the business may require the third party to provide documentation verifying that it no longer retains or uses the personal information of consumers whose opt-out requests were forwarded by the first party.",
+    "section": "7053",
+    "subsection": "§ 7053(a)(5)",
+    "target_term": "Third-party opt-out remediation",
+    "key_terms": ["forwarded opt-out request", "stop and remediate", "documentation verification", "unauthorized use"]
+  },
+  {
+    "id": "eval_7053_003",
+    "query": "How does a business's complete failure to enforce its third-party contract terms impact its legal defense if the third party misuses shared personal data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7053(b), whether a business conducts due diligence factors into whether it had reason to believe the third party was violating the CCPA. A business that never enforces the terms of its contract might not be able to rely on the defense that it lacked reason to believe the third party intended to use the personal information in violation of CCPA regulations.",
+    "section": "7053",
+    "subsection": "§ 7053(b)",
+    "target_term": "Third-party due diligence defense",
+    "key_terms": ["due diligence", "third-party enforcement", "reason to believe violation", "contractual defense"]
+  },
+  {
+    "id": "eval_7060_001",
+    "query": "Can a business require a consumer to submit a selfie with their driver's license to verify identity before honoring a request to opt-out of sale/sharing or an ADMT opt-out request?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7060(b), a business shall NOT require a consumer to verify their identity to make a request to opt-out of sale/sharing, a request to limit sensitive personal info, or a request to opt-out of ADMT. While a business may ask for minimal necessary information (e.g., name), burdensome identity checks like requiring a photo with a driver's license are strictly prohibited.",
+    "section": "7060",
+    "subsection": "§ 7060(b)",
+    "target_term": "Prohibition of identity verification for opt-outs",
+    "key_terms": ["no identity verification for opt-out", "ADMT opt-out", "driver's license photo", "burdensome request"]
+  },
+  {
+    "id": "eval_7060_002",
+    "query": "What verification rules apply to consumer requests regarding Automated Decisionmaking Technology (ADMT) under section 7060 in the 2026 regulations?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under the 2026 update to § 7060(a) and § 7060(f), a business must establish and document a reasonable method to verify identity for 'requests to access ADMT'. Conversely, under § 7060(b), a business shall not require identity verification for 'requests to opt-out of ADMT'. Additionally, security measures under § 7060(f) must protect against unauthorized access to information regarding ADMT usage.",
+    "section": "7060",
+    "subsection": "§ 7060(a), § 7060(b), § 7060(f)",
+    "target_term": "ADMT request verification rules",
+    "key_terms": ["ADMT access verification", "ADMT opt-out exemption", "2023 vs 2026 updates", "verification security"]
+  },
+  {
+    "id": "eval_7060_003",
+    "query": "May a business require a consumer to pay for a notarized affidavit as part of its identity verification process for a request to delete?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7060(e), a business shall not require a consumer or authorized agent to pay a fee for identity verification. A business MUST NOT require a notarized affidavit unless the business pays for or compensates the consumer for the cost of notarization and provides instructions on reimbursement prior to submission.",
+    "section": "7060",
+    "subsection": "§ 7060(e)",
+    "target_term": "Verification fee prohibition",
+    "key_terms": ["notarized affidavit", "verification fee", "reimbursement instructions", "no consumer fee"]
+  },
+  {
+    "id": "eval_7060_004",
+    "query": "What must a business do with new personal information collected from a consumer solely for identity verification once the CCPA request is processed?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7060(d), new personal information collected solely for verification purposes may only be used for verification, security, or fraud prevention. The business MUST delete any new personal information collected for verification as soon as practical after processing the request, except as necessary to comply with record-keeping requirements under § 7101.",
+    "section": "7060",
+    "subsection": "§ 7060(d)",
+    "target_term": "Mandatory deletion of verification data",
+    "key_terms": ["verification data minimization", "delete verification data", "as soon as practical", "section 7101 record keeping"]
+  },
+  {
+    "id": "eval_7060_005",
+    "query": "How must a business handle identity verification when a consumer submits a request to correct an inaccurate mailing address?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7060(h), for requests to correct, the business must make an effort to verify the consumer based on personal information that is NOT the subject of the request to correct. For example, if the consumer contends that the mailing address is wrong, the business cannot use the mailing address as a means of verifying identity.",
+    "section": "7060",
+    "subsection": "§ 7060(h)",
+    "target_term": "Verification for requests to correct",
+    "key_terms": ["request to correct", "contested personal information", "non-subject verification data", "address correction"]
+  },
+  {
+    "id": "eval_7062_001",
+    "query": "What degree of verification certainty and evidence is required for a non-accountholder submitting a request to know specific pieces of personal information or to access ADMT?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7062(c), requests for specific pieces of information or ADMT access require a 'reasonably high degree of certainty'. This may include matching at least three pieces of personal information provided by the consumer with reliable records maintained by the business, TOGETHER WITH a signed declaration under penalty of perjury that the requestor is the consumer.",
+    "section": "7062",
+    "subsection": "§ 7062(c)",
+    "target_term": "Reasonably high degree of certainty",
+    "key_terms": ["non-accountholder", "specific pieces of information", "ADMT access", "three data points", "signed declaration penalty of perjury"]
+  },
+  {
+    "id": "eval_7062_002",
+    "query": "How does the verification standard for non-accountholders requesting categories of information differ from requesting specific pieces of information or ADMT access?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7062(b) and § 7062(c), requesting categories of information requires a 'reasonable degree of certainty' (e.g., matching at least two reliable data points). In contrast, requesting specific pieces of information or ADMT access (added in 2026) requires a 'reasonably high degree of certainty' (matching at least three data points plus a signed declaration under penalty of perjury).",
+    "section": "7062",
+    "subsection": "§ 7062(b), § 7062(c)",
+    "target_term": "Categories vs specific pieces verification standards",
+    "key_terms": ["categories of information", "specific pieces of information", "ADMT access", "two data points vs three data points", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7062_003",
+    "query": "If a business determines that it has no reasonable method to verify any consumer for certain data requests, how often must it re-evaluate its verification mechanisms?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7062(g), if a business has no reasonable method to verify consumers, it must explain why in its privacy policy. The business MUST evaluate and document whether a reasonable verification method can be established at least once every 12 months, in connection with its annual privacy policy update.",
+    "section": "7062",
+    "subsection": "§ 7062(g)",
+    "target_term": "Annual re-evaluation of verification methods",
+    "key_terms": ["no reasonable verification method", "12 months re-evaluation", "privacy policy explanation", "documentation obligation"]
+  },
+  {
+    "id": "eval_7063_001",
+    "query": "Can a business require a consumer to resubmit a privacy request in their individual capacity if the request was originally submitted on their behalf by an authorized agent?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7063(a), while a business may require proof of signed permission and may require the consumer to verify their identity or confirm permission directly, businesses are explicitly prohibited from requiring the consumer to resubmit the request in their individual capacity.",
+    "section": "7063",
+    "subsection": "§ 7063(a)",
+    "target_term": "Prohibition on resubmission by consumer",
+    "key_terms": ["authorized agent", "resubmit request", "individual capacity", "signed permission", "direct verification"]
+  },
+  {
+    "id": "eval_7063_002",
+    "query": "What data use restrictions and security duties apply directly to authorized agents handling consumer personal data under section 7063?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7063(c)–(d), an authorized agent must implement and maintain reasonable security procedures to protect consumer information. Furthermore, an authorized agent is strictly prohibited from using a consumer's personal information for any purpose other than fulfilling the consumer's requests, verification, or fraud prevention.",
+    "section": "7063",
+    "subsection": "§ 7063(c), § 7063(d)",
+    "target_term": "Authorized agent data use restrictions",
+    "key_terms": ["authorized agent duties", "purpose limitation", "reasonable security", "fraud prevention", "fulfillment only"]
+  },
+  {
+    "id": "eval_7063_003",
+    "query": "When is a business prohibited from requiring a consumer to directly verify their identity or confirm agent permission when a request is submitted by an authorized agent?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7063(b), direct verification and confirmation requirements do not apply when the consumer has provided the authorized agent with power of attorney pursuant to Probate Code sections 4121 to 4130. However, a business cannot mandate that a consumer obtain a power of attorney to use an authorized agent.",
+    "section": "7063",
+    "subsection": "§ 7063(b)",
+    "target_term": "Power of attorney exemption for agents",
+    "key_terms": ["power of attorney", "Probate Code", "authorized agent exemption", "direct verification exception"]
+  },
+  {
+    "id": "eval_7070_001",
+    "query": "What specific methods are approved under § 7070 for verifying that a person consenting to the sale/sharing of a child's personal data is their parent or guardian?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7070(a)(2)(A)–(F), approved methods include: (1) A signed consent form returned via mail, fax, or electronic scan under penalty of perjury; (2) Credit/debit card use in a monetary transaction with primary account alerts; (3) Toll-free calls with trained personnel; (4) Video-conference with trained staff; (5) In-person communication; or (6) Checking government ID against databases, provided the ID is promptly deleted after verification.",
+    "section": "7070",
+    "subsection": "§ 7070(a)(2)(A)–(F)",
+    "target_term": "Verifiable parental consent methods",
+    "key_terms": ["children under 13", "verifiable parental consent", "COPPA", "government ID deletion", "toll-free video call"]
+  },
+  {
+    "id": "eval_7070_002",
+    "query": "If a business checks a parent's government-issued ID to verify consent for a child under 13, what must the business do with the parent's ID record after verification?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7070(a)(2)(F), checking a parent or guardian's government-issued ID against databases is permissible only if the parent or guardian's identification is deleted by the business from its records promptly after verification is completed.",
+    "section": "7070",
+    "subsection": "§ 7070(a)(2)(F)",
+    "target_term": "Prompt deletion of parental ID records",
+    "key_terms": ["government ID", "parental verification", "prompt deletion", "record retention prohibition"]
+  },
+  {
+    "id": "eval_7080_001",
+    "query": "What foundational legal threshold determines whether a price or service difference offered by a business is non-discriminatory under CCPA?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7080(b), a price or service difference is non-discriminatory only if it is reasonably related to the value of the consumer's data. If a business is unable to calculate a good-faith estimate of the value of the data or show that the price/service difference is reasonably related to that value, it is legally prohibited from offering the price or service difference.",
+    "section": "7080",
+    "subsection": "§ 7080(b)",
+    "target_term": "Value of consumer data calculation",
+    "key_terms": ["non-discriminatory", "value of consumer data", "good-faith estimate", "price or service difference"]
+  },
+  {
+    "id": "eval_7080_002",
+    "query": "When can a business deny a consumer's request to delete personal data while allowing the consumer to continue participating in a loyalty rewards program?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7080(d)(2), a business may deny a deletion request for specific data (such as email address or spend total) ONLY IF that data is strictly necessary for the business to provide the loyalty program requested by the consumer and is reasonably anticipated within the context of their ongoing relationship under Civil Code section 1798.105(d)(1).",
+    "section": "7080",
+    "subsection": "§ 7080(d)(2)",
+    "target_term": "Loyalty program deletion exception",
+    "key_terms": ["loyalty program", "request to delete denial", "necessary data", "ongoing relationship", "Civil Code 1798.105"]
+  },
+  {
+    "id": "eval_7080_003",
+    "query": "What ADMT-related request denials were explicitly added under section 7080 in the 2026 regulations as non-discriminatory practices?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "In § 7080(c), the 2026 updates added denials of a consumer's 'request to access ADMT' and 'request to opt-out of ADMT' to the list of permitted request denials that shall NOT be considered discriminatory, provided the denial is based on reasons permitted by the CCPA or its regulations.",
+    "section": "7080",
+    "subsection": "§ 7080(c)",
+    "target_term": "ADMT request denials and non-discrimination",
+    "key_terms": ["ADMT access denial", "ADMT opt-out denial", "non-discriminatory", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7080_004",
+    "query": "Can a music streaming business charge free-tier users $5 per month if they choose to opt-out of the sale or sharing of their personal information?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7080(d)(1), restricting opt-out rights exclusively to paying subscribers ($5/month) while forcing free-tier users to allow data sale/sharing is discriminatory and prohibited, UNLESS the business can prove through a good-faith calculation that the $5 monthly payment is reasonably related to the value of the consumer's data to the business.",
+    "section": "7080",
+    "subsection": "§ 7080(d)(1)",
+    "target_term": "Discriminatory fee for privacy opt-outs",
+    "key_terms": ["music streaming", "opt-out fee", "discriminatory practice", "data value equivalence"]
+  },
+  {
+    "id": "eval_7080_005",
+    "query": "Is a price or service difference that arises directly from compliance with state or federal law considered discriminatory under CCPA regulations?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7080(g), a price or service difference that is the direct result of compliance with a state or federal law shall not be considered discriminatory.",
+    "section": "7080",
+    "subsection": "§ 7080(g)",
+    "target_term": "Legal compliance discrimination exception",
+    "key_terms": ["state or federal law", "legal compliance", "non-discrimination exception", "price difference"]
+  },
+  {
+    "id": "eval_7102_001",
+    "query": "What specific metric categories must a business handling the personal information of 10 million or more consumers compile and disclose under the updated 2026 regulations?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7102(a)(1), large-scale businesses must compile metrics for the previous calendar year showing the number of requests received, complied with (in whole or in part), and denied for: (A) requests to delete, (B) requests to correct, (C) requests to know, (D) requests to access ADMT, (E) requests to opt-out of sale/sharing, (F) requests to limit, and (G) requests to opt-out of ADMT. In addition, under (H), they must calculate the median or mean number of days to substantively respond to these requests. Metrics for ADMT access and ADMT opt-out were newly added in the 2026 updates.",
+    "section": "7102",
+    "subsection": "§ 7102(a)(1)(A)–(H)",
+    "target_term": "Large scale metric disclosures",
+    "key_terms": ["10 million consumers", "ADMT access metrics", "ADMT opt-out metrics", "mean or median response days", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7102_002",
+    "query": "By what deadline each year must large-scale businesses compile and publish their annual CCPA request metrics, and where must these disclosures be published?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7102(a)(2), a business meeting the 10 million consumer threshold must disclose the compiled metric information by July 1 of every calendar year. The information must be published within the business's privacy policy or posted on its website and accessible via a link included in its privacy policy.",
+    "section": "7102",
+    "subsection": "§ 7102(a)(2)",
+    "target_term": "July 1 disclosure deadline",
+    "key_terms": ["July 1 deadline", "privacy policy disclosure", "large scale metrics", "annual reporting"]
+  },
+  {
+    "id": "eval_7102_003",
+    "query": "Can a large business choose to aggregate its annual metrics for all global individuals rather than California consumers alone?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7102(b), a business may choose to compile and disclose the metrics for requests received from all individuals globally rather than just California consumers. However, the business must explicitly state in its disclosure that it has done so, and it must be prepared to compile and provide California-only consumer metrics to the Attorney General upon request.",
+    "section": "7102",
+    "subsection": "§ 7102(b)",
+    "target_term": "All individuals metric aggregation option",
+    "key_terms": ["all individuals", "California consumers", "Attorney General request", "metric aggregation option"]
+  },
+  {
+    "id": "eval_7120_001",
+    "query": "What data processing volume thresholds trigger the requirement for a business to complete an annual CCPA cybersecurity audit under section 7120?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7120(b), a business's data processing presents a 'significant risk' requiring a cybersecurity audit if it meets the statutory CCPA revenue threshold AND either: (1) derives 50% or more of annual revenue from selling/sharing consumer data (§ 1798.140(d)(1)(C)); OR (2) processed the personal information of 250,000+ consumers/households in the preceding calendar year; OR (3) processed the sensitive personal information of 50,000+ consumers in the preceding calendar year.",
+    "section": "7120",
+    "subsection": "§ 7120(b)(1)–(2)",
+    "target_term": "Significant risk cybersecurity audit triggers",
+    "key_terms": ["cybersecurity audit trigger", "significant risk threshold", "250,000 consumers", "50,000 sensitive personal information", "data sale revenue threshold"]
+  },
+  {
+    "id": "eval_7120_002",
+    "query": "Does a company processing sensitive personal information of 60,000 consumers in a calendar year trigger the CCPA cybersecurity audit mandate if it also meets the standard CCPA gross revenue threshold?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Yes. Under § 7120(b)(2)(B), a business that meets the CCPA gross revenue threshold (§ 1798.140(d)(1)(A)) and processed the sensitive personal information of 50,000 or more consumers in the preceding calendar year meets the definition of presenting a 'significant risk to consumers' security' and must complete a cybersecurity audit.",
+    "section": "7120",
+    "subsection": "§ 7120(b)(2)(B)",
+    "target_term": "Sensitive personal information threshold",
+    "key_terms": ["sensitive personal information", "50,000 consumers", "significant risk", "cybersecurity audit mandate"]
+  },
+  {
+    "id": "eval_7121_001",
+    "query": "What is the staggered compliance schedule for submitting the first cybersecurity audit report based on a business's annual gross revenue under section 7121?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7121(a)(1)–(3), the first cybersecurity audit report deadline is tiered by revenue: (1) April 1, 2028 for businesses with >$100M gross revenue in 2026 (covering Jan 1, 2027 – Jan 1, 2028); (2) April 1, 2029 for businesses with $50M–$100M revenue in 2027 (covering Jan 1, 2028 – Jan 1, 2029); and (3) April 1, 2030 for businesses with <$50M revenue in 2028 (covering Jan 1, 2029 – Jan 1, 2030). These phased implementation dates were added in the 2026 regulations.",
+    "section": "7121",
+    "subsection": "§ 7121(a)(1)–(3)",
+    "target_term": "Cybersecurity audit phased implementation deadlines",
+    "key_terms": ["staggered compliance schedule", "April 1 2028", "April 1 2029", "April 1 2030", "audit period", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7121_002",
+    "query": "After the initial phased rollout concludes on April 1, 2030, what is the annual recurring timeframe and audit period for completing subsequent cybersecurity audit reports?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7121(b), after April 1, 2030, if a business meets section 7120 criteria on January 1 of a year for the preceding year, the business must complete a cybersecurity audit covering the next 12 calendar months, and file the audit report by April 1 of the following year (e.g., meeting criteria on Jan 1, 2035 requires an audit from Jan 1, 2035 to Jan 1, 2036, with report due April 1, 2036).",
+    "section": "7121",
+    "subsection": "§ 7121(b)",
+    "target_term": "Annual recurring cybersecurity audit cycle",
+    "key_terms": ["recurring audit cycle", "12-month coverage", "April 1 reporting deadline", "ongoing annual compliance"]
+  },
+  {
+    "id": "eval_7122_001",
+    "query": "What structural independence rules must an internal auditor satisfy to conduct a valid CCPA cybersecurity audit under section 7122?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7122(a)(2)–(3), an internal auditor must exercise objective, impartial judgment and not participate in operational activities that compromise independence (e.g., developing or maintaining the security program). Furthermore, the highest-ranking internal auditor must report directly to an executive team member who has NO direct responsibility for the cybersecurity program, and that non-cybersecurity executive must handle the auditor's evaluation and compensation.",
+    "section": "7122",
+    "subsection": "§ 7122(a)(2)–(3)",
+    "target_term": "Internal auditor independence requirements",
+    "key_terms": ["internal auditor independence", "reporting line", "compensation independence", "no operational conflict", "executive reporting"]
+  },
+  {
+    "id": "eval_7122_002",
+    "query": "Can a cybersecurity audit report rely primarily on management attestations, and how long must audit documentation be retained?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7122(d), no finding of a cybersecurity audit may rely primarily on management assertions or attestations; findings must rely primarily on specific evidence (documents, sampling, technical testing, interviews). Under § 7122(g), both the business and auditor must retain all relevant audit documents for a minimum of five (5) years after completion.",
+    "section": "7122",
+    "subsection": "§ 7122(d), § 7122(g)",
+    "target_term": "Evidence reliance and 5-year retention rule",
+    "key_terms": ["management attestations prohibited", "objective evidence", "five year retention", "document retention"]
+  },
+  {
+    "id": "eval_7122_003",
+    "query": "To whom must the final cybersecurity audit report be delivered within executive management, and how is independence maintained regarding their compensation?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7122(f), the completed cybersecurity audit report must be delivered to a member of executive management who has direct responsibility for the business's cybersecurity program. However, under § 7122(a)(3), to preserve internal auditor independence, the auditor's own performance evaluation and compensation must be determined by a DIFFERENT executive who does NOT have direct responsibility for the cybersecurity program.",
+    "section": "7122",
+    "subsection": "§ 7122(a)(3), § 7122(f)",
+    "target_term": "Executive reporting and compensation independence",
+    "key_terms": ["audit report delivery", "executive management", "compensation separation", "auditor independence"]
+  },
+  {
+    "id": "eval_7123_001",
+    "query": "What specific authentication controls, including multi-factor authentication and password standards, must a business evaluate during a CCPA cybersecurity audit?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7123(c)(1)(A)–(B), the cybersecurity audit must assess authentication controls, including: (1) Multi-factor authentication that is resistant to phishing attacks for employees, independent contractors, personnel, service providers, and contractors; and (2) If passwords or passphrases are used, strong unique passwords that are at least eight characters in length, not on a disallowed list of commonly used passwords, and not reused.",
+    "section": "7123",
+    "subsection": "§ 7123(c)(1)(A)–(B)",
+    "target_term": "Authentication and MFA requirements",
+    "key_terms": ["multi-factor authentication", "phishing-resistant MFA", "password length", "disallowed passwords", "authentication controls"]
+  },
+  {
+    "id": "eval_7123_002",
+    "query": "When a business is required to train its workforce on cybersecurity, what three specific time points or events trigger this training obligation under CCPA rules?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7123(c)(13), cybersecurity education and training must be provided to each employee, independent contractor, and personnel with system access at three specific points: (1) When their employment or contract begins; (2) Annually thereafter; and (3) Following a personal information security breach as described in Civil Code section 1798.150.",
+    "section": "7123",
+    "subsection": "§ 7123(c)(13)",
+    "target_term": "Workforce cybersecurity training triggers",
+    "key_terms": ["cybersecurity training", "onboarding training", "annual training", "post-breach training", "Civil Code 1798.150"]
+  },
+  {
+    "id": "eval_7123_003",
+    "query": "Can a business satisfy CCPA cybersecurity audit obligations by reusing an existing security assessment conducted under NIST Cybersecurity Framework (NIST CSF 2.0)?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Yes. Under § 7123(f), introduced in the 2026 regulations, a business may utilize a cybersecurity audit, assessment, or evaluation prepared for another purpose—such as an audit based on the National Institute of Standards and Technology (NIST) Cybersecurity Framework 2.0—provided that it meets all statutory CCPA audit requirements, either on its own or through supplementation.",
+    "section": "7123",
+    "subsection": "§ 7123(f)",
+    "target_term": "Reuse of external audit frameworks",
+    "key_terms": ["NIST CSF 2.0", "external audit framework", "supplementation", "2023 vs 2026 updates", "audit reuse"]
+  },
+  {
+    "id": "eval_7123_004",
+    "query": "What must the cybersecurity audit report contain regarding identified security gaps, weaknesses, and remediation plans?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7123(e)(3)–(4), the audit report must identify and describe in detail the status of any gaps or weaknesses in policies or components that increase the risk of unauthorized access, destruction, use, modification, disclosure, or loss of availability of personal information. Furthermore, it must document the business's plan to address those gaps and weaknesses, including specific timeframes for resolution.",
+    "section": "7123",
+    "subsection": "§ 7123(e)(3)–(4)",
+    "target_term": "Audit gap identification and remediation planning",
+    "key_terms": ["audit gaps and weaknesses", "remediation plan", "resolution timeframe", "risk of unauthorized access"]
+  },
+  {
+    "id": "eval_7123_005",
+    "query": "What certification statement and auditor sign-off requirements must be included in a final CCPA cybersecurity audit report?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7123(e)(8), the cybersecurity audit report must include a statement signed and dated by the highest-ranking auditor certifying that they completed an independent review of the business's program and system, exercised objective and impartial judgment on all issues, and did not rely primarily on assertions or attestations by the business's management.",
+    "section": "7123",
+    "subsection": "§ 7123(e)(8)",
+    "target_term": "Auditor independent certification statement",
+    "key_terms": ["highest-ranking auditor", "signed certification", "independent review", "no management reliance", "impartial judgment"]
+  },
+  {
+    "id": "eval_7123_006",
+    "query": "How does section 7123 regulate account management and privileged access controls, including temporary or elevated privileges?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7123(c)(3)(A)–(B), account management controls must enforce least privilege across employees, service providers (§ 7051), and third parties (§ 7053). For privileged accounts, the audit must assess restricting the number of privileged accounts, restricting access functions to necessary job duties, limiting active use, and utilizing a privileged-access management (PAM) solution to ensure just-in-time temporary access assignment.",
+    "section": "7123",
+    "subsection": "§ 7123(c)(3)(A)–(B)",
+    "target_term": "Privileged account management and PAM solutions",
+    "key_terms": ["least privilege", "privileged access management", "PAM solution", "just-in-time access", "account restrictions"]
+  },
+  {
+    "id": "eval_7123_007",
+    "query": "What regulatory and consumer breach notification documentation must be disclosed within the cybersecurity audit report if a security incident occurred?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7123(e)(9)–(10), if a business provided breach notifications to consumers under Civil Code § 1798.82(a), or was required to notify California privacy regulators regarding unauthorized access or loss of data availability, the audit report must include sample copies (excluding PI) or descriptions of the notices, dates and details of the incident, and related remediation measures.",
+    "section": "7123",
+    "subsection": "§ 7123(e)(9)–(10)",
+    "target_term": "Breach notification disclosures in audit reports",
+    "key_terms": ["breach notifications", "Civil Code 1798.82", "regulatory notifications", "remediation details", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7123_008",
+    "query": "What default masking requirement applies to sensitive personal information in application interfaces during secure configuration assessments?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7123(c)(5)(C), secure configuration assessment includes verifying that sensitive personal information (as defined in Civil Code § 1798.145(ae)(1)(A)–(B)) and other personal data as appropriate is masked by default in applications by systematically removing or replacing it with symbols such as asterisks or bullets.",
+    "section": "7123",
+    "subsection": "§ 7123(c)(5)(C)",
+    "target_term": "Default data masking requirements",
+    "key_terms": ["sensitive personal information", "data masking", "asterisks or bullets", "default application security", "secure configuration"]
+  },
+  {
+    "id": "eval_7123_009",
+    "query": "How does section 7123 specify the acceptable methods for disposing of consumer personal information that is no longer required to be retained?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7123(c)(16), the cybersecurity audit must evaluate retention schedules and proper disposal procedures for personal information no longer needed. Proper disposal must be accomplished by: (A) Shredding; (B) Erasing; or (C) Otherwise modifying the personal information in those records to render it unreadable or undecipherable through any means.",
+    "section": "7123",
+    "subsection": "§ 7123(c)(16)",
+    "target_term": "Data disposal and destruction standards",
+    "key_terms": ["data disposal", "shredding", "erasing", "unreadable or undecipherable", "retention schedules"]
+  },
+  {
+    "id": "eval_7123_010",
+    "query": "What controls over software/hardware inventories and unauthorized execution are mandated under § 7123(c)(4)?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7123(c)(4)(A)–(C), the business must maintain personal information inventories (data maps, flows, tagging), hardware/software inventories, and enforce allowlisting (discrete lists of authorized hardware/software controlling what can connect and execute). It must also enforce hardware/software approval processes to prevent unauthorized devices from connecting.",
+    "section": "7123",
+    "subsection": "§ 7123(c)(4)(A)–(C)",
+    "target_term": "Inventory management and allowlisting",
+    "key_terms": ["data maps and flows", "data tagging", "hardware allowlisting", "software allowlisting", "unauthorized devices"]
+  },
+  {
+    "id": "eval_7124_001",
+    "query": "What is the annual deadline and recipient agency for submitting the cybersecurity audit Certification of Completion under CCPA?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7124(a)–(b), a business required to complete a cybersecurity audit must submit a written Certification of Completion to the California Privacy Protection Agency (CPPA) no later than April 1 following any year that the business was required to complete the audit.",
+    "section": "7124",
+    "subsection": "§ 7124(a)–(b)",
+    "target_term": "Certification of Completion deadline",
+    "key_terms": ["April 1 deadline", "Certification of Completion", "CPPA submission", "cybersecurity audit certification", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7124_002",
+    "query": "Who within a business's executive management team is qualified to complete and submit the cybersecurity audit Certification of Completion?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7124(c), the written certification must be completed by a member of executive management who: (1) Is directly responsible for the business's cybersecurity-audit compliance; (2) Has sufficient knowledge of the cybersecurity audit to provide accurate information; and (3) Has the authority to submit the certification to the Agency.",
+    "section": "7124",
+    "subsection": "§ 7124(c)(1)–(3)",
+    "target_term": "Qualifying certifying executive",
+    "key_terms": ["executive management", "directly responsible", "sufficient knowledge", "certifying authority", "signing officer"]
+  },
+  {
+    "id": "eval_7124_003",
+    "query": "What specific legal attestation statement and standard of perjury are required when submitting the § 7124 cybersecurity audit certification online?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7124(d)(4), the submitter must electronically sign an attestation under penalty of perjury under California state law declaring that the information submitted is true and correct, that they meet § 7124(c) executive criteria, and that the business has not made any attempt to influence the auditor's decisions or assessments regarding the cybersecurity audit.",
+    "section": "7124",
+    "subsection": "§ 7124(d)(4)",
+    "target_term": "Penalty of perjury attestation",
+    "key_terms": ["penalty of perjury", "electronic signature", "auditor independence declaration", "cppa.ca.gov website", "attestation statement"]
+  },
+  {
+    "id": "eval_7150_001",
+    "query": "What core legal threshold triggers the requirement for a business to conduct a CCPA risk assessment, and when must that assessment take place?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7150(a), a business whose processing of personal information presents 'significant risk to consumers' privacy' must conduct a risk assessment BEFORE initiating that processing activity. Section 7150(b) establishes six distinct processing categories that constitute significant risk, introduced in the 2026 regulations.",
+    "section": "7150",
+    "subsection": "§ 7150(a), § 7150(b)",
+    "target_term": "Significant risk to privacy trigger",
+    "key_terms": ["significant risk to privacy", "risk assessment trigger", "before initiating processing", "2023 vs 2026 updates", "Article 10"]
+  },
+  {
+    "id": "eval_7150_002",
+    "query": "Under what circumstances is a business exempt from conducting a risk assessment when processing sensitive personal information of its employees or independent contractors?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7150(b)(2)(A), a business is exempt from a risk assessment for processing employee/contractor sensitive personal data ONLY IF processed solely and specifically for: administering compensation, determining and storing employment authorization, administering benefits, providing legal reasonable accommodations, or wage reporting required by law.",
+    "section": "7150",
+    "subsection": "§ 7150(b)(2)(A)",
+    "target_term": "Employee sensitive data risk assessment exemption",
+    "key_terms": ["employment context exception", "compensation administration", "employment authorization", "benefits administration", "wage reporting"]
+  },
+  {
+    "id": "eval_7150_003",
+    "query": "Is a company required to perform a CCPA risk assessment if it uses video interviews and automated emotion-recognition AI to screen job applicants without human intervention?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Yes. Under § 7150(b)(3) and Example 1 in § 7150(c)(1), using automated decisionmaking technology (ADMT) to make a significant decision concerning a consumer (such as automated emotion-recognition software to evaluate videotaped job interviews without human involvement) presents a significant risk to privacy and requires a risk assessment prior to deployment.",
+    "section": "7150",
+    "subsection": "§ 7150(b)(3), § 7150(c)(1)",
+    "target_term": "ADMT significant decision trigger",
+    "key_terms": ["emotion recognition", "videotaped job interviews", "significant decision", "ADMT risk assessment", "hiring automation"]
+  },
+  {
+    "id": "eval_7150_004",
+    "query": "When does automated profiling used to infer consumer intelligence, work performance, or health trigger a mandatory risk assessment?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7150(b)(4), a risk assessment is mandatory when automated processing is used to infer or extrapolate intelligence, ability, aptitude, performance at work, economic situation, health, preferences, location, or behavior based upon systematic observation of a consumer acting as a job applicant, educational applicant, student, employee, or independent contractor.",
+    "section": "7150",
+    "subsection": "§ 7150(b)(4)",
+    "target_term": "Workplace and educational automated profiling",
+    "key_terms": ["systematic observation", "job applicant profiling", "work performance inference", "automated extrapolation", "employee monitoring"]
+  },
+  {
+    "id": "eval_7150_005",
+    "query": "Does using automated processing to infer consumer health or personal preferences based on presence in a sensitive location require a risk assessment, and is ride-hailing covered?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7150(b)(5), automated processing that infers consumer health, preferences, or behavior based on presence in a sensitive location requires a risk assessment. However, using personal information solely to deliver goods to or provide transportation for a consumer at a sensitive location is explicitly excluded from this trigger.",
+    "section": "7150",
+    "subsection": "§ 7150(b)(5)",
+    "target_term": "Sensitive location profiling trigger",
+    "key_terms": ["sensitive location", "presence-based inference", "transportation exception", "goods delivery exception", "extrapolate preferences"]
+  },
+  {
+    "id": "eval_7150_006",
+    "query": "Does extracting facial prints from user photographs to train an internal AI facial-recognition model trigger a CCPA risk assessment?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7150(b)(6) and Example 4 in § 7150(c)(4), processing personal information that a business intends to use to train ADMT for significant decisions, or to train facial-recognition, emotion-recognition, or biological profiling technology, explicitly constitutes a significant risk requiring a risk assessment.",
+    "section": "7150",
+    "subsection": "§ 7150(b)(6), § 7150(c)(4)",
+    "target_term": "Training AI and facial recognition models",
+    "key_terms": ["training ADMT", "facial recognition", "extracting faceprints", "biological profiling", "emotion recognition models"]
+  },
+  {
+    "id": "eval_7151_001",
+    "query": "Who must be included internally in a business's risk assessment process, and what external parties may participate?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7151(a), employees whose job duties include participating in the target processing activity MUST be included in the risk assessment process. Under § 7151(b), a business MAY include external parties such as service providers, contractors, bias mitigation experts in ADMT, affected consumers, or consumer advocacy organizations.",
+    "section": "7151",
+    "subsection": "§ 7151(a)–(b)",
+    "target_term": "Internal and external stakeholder involvement",
+    "key_terms": ["stakeholder involvement", "internal employees", "bias detection experts", "consumer advocacy organizations", "risk assessment team"]
+  },
+  {
+    "id": "eval_7152_001",
+    "query": "Is a business permitted to state 'to improve our services' or 'for security purposes' as the business purpose in its CCPA risk assessment report?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7152(a)(1), generic descriptions such as 'to improve our services' or 'for security purposes' are explicitly prohibited in a risk assessment report. The business must state the purpose specifically—for example, specifying that 'improving the service' means decreasing consumer wait times when processing privacy rights requests.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(1)",
+    "target_term": "Prohibition on generic purpose descriptions",
+    "key_terms": ["risk assessment purpose", "generic descriptions prohibited", "to improve our services", "specific business purpose"]
+  },
+  {
+    "id": "eval_7152_002",
+    "query": "What specific requirements apply to identifying categories of personal information and data minimization within a risk assessment report?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7152(a)(2), the risk assessment report must identify and document all categories of personal information to be processed (including sensitive personal information). Crucially, the assessment must document that the data collected constitutes the minimum personal information necessary to achieve the specific purpose of processing.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(2)",
+    "target_term": "Data minimization in risk assessments",
+    "key_terms": ["minimum personal information", "data minimization", "categories of personal information", "sensitive personal information"]
+  },
+  {
+    "id": "eval_7152_003",
+    "query": "What specific documentation regarding Automated Decisionmaking Technology (ADMT) logic and output must be included in the operational elements of a CCPA risk assessment?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7152(a)(3)(G), introduced in the 2026 regulations for ADMT uses under § 7150(b)(3), the business must explicitly document: (1) The logic of the ADMT, including any underlying assumptions or limitations; and (2) The output of the ADMT and how the business will use that output to make a significant decision concerning a consumer.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(3)(G)",
+    "target_term": "ADMT logic and output documentation",
+    "key_terms": ["ADMT logic", "assumptions and limitations", "ADMT output", "significant decision", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7152_004",
+    "query": "How does section 7152 govern the identification of processing benefits in a risk assessment, and are generic benefit statements acceptable?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7152(a)(4), benefits to the business, consumers, other stakeholders, and the public must be documented specifically and cannot be stated in generic terms like 'improving our service'. For instance, a valid benefit statement would specify enabling consumers to receive requested personal information on a quicker timeline by reducing request response times.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(4)",
+    "target_term": "Specific processing benefits requirement",
+    "key_terms": ["processing benefits", "generic benefit statements prohibited", "stakeholder benefits", "quicker response timeline"]
+  },
+  {
+    "id": "eval_7152_005",
+    "query": "What examples of psychological and reputational harms are explicitly listed in section 7152 as negative privacy impacts that a business must evaluate?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7152(a)(5)(G)–(H), reputational harms include stigmatization (e.g., a dating app disclosing a user's sexual preferences outside the app). Psychological harms include emotional distress, shame, or anxiety resulting from nonconsensual disclosure of intimate imagery or disclosure of a consumer's purchases of pregnancy tests or emergency contraception for non-medical purposes.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(5)(G)–(H)",
+    "target_term": "Psychological and reputational privacy harms",
+    "key_terms": ["psychological harms", "reputational harms", "stigmatization", "nonconsensual intimate imagery", "emergency contraception", "dating app disclosure"]
+  },
+  {
+    "id": "eval_7152_006",
+    "query": "How does section 7152 treat dark patterns, coerced consent, and economic profiling as negative impacts on consumer privacy?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7152(a)(5)(C)–(E), negative impacts include: (1) Impairing consumer choice or using dark patterns to obtain non-freely given consent; (2) Coercing consumers by conditioning service access on providing unnecessary data; and (3) Economic harms such as depriving economic opportunities, charging higher prices, or compensating lower rates based on profiling.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(5)(C)–(E)",
+    "target_term": "Coercion, dark patterns, and economic profiling harms",
+    "key_terms": ["dark patterns", "coerced consent", "unnecessary data conditioning", "economic harms", "price discrimination", "profiling"]
+  },
+  {
+    "id": "eval_7152_007",
+    "query": "What privacy-enhancing technologies (PETs) and technical safeguards are highlighted in § 7152(a)(6) for mitigating processing risks in a risk assessment?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7152(a)(6)(A)(i)–(iv), recommended safeguards include technical controls (encryption, system segmentation, access controls), privacy-enhancing technologies (trusted execution environments, federated learning, homomorphic encryption, differential privacy), consulting external bias/privacy experts, and implementing ADMT anti-discrimination policies and training.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(6)(A)",
+    "target_term": "Privacy-enhancing technologies and safeguards",
+    "key_terms": ["privacy-enhancing technologies", "PETs", "differential privacy", "homomorphic encryption", "federated learning", "trusted execution environments", "safeguards"]
+  },
+  {
+    "id": "eval_7152_008",
+    "query": "Are internal contributors and legal counsel required to be identified in a CCPA risk assessment report?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7152(a)(8), a business must identify and document all individuals who provided information for the risk assessment report. However, there is an explicit exception for legal counsel who provided legal advice.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(8)",
+    "target_term": "Contributor documentation and legal privilege exception",
+    "key_terms": ["risk assessment contributors", "legal counsel exception", "legal advice privilege", "contributor documentation"]
+  },
+  {
+    "id": "eval_7152_009",
+    "query": "Who must review and approve a CCPA risk assessment report before a business initiates processing, and what rule applies to legal counsel?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7152(a)(9), the risk assessment report must document the review/approval date and names/positions of approvers. Crucially, an individual who holds the authority to participate in deciding whether the business will initiate the processing MUST review and approve the assessment. Legal counsel providing legal advice is explicitly excepted from being listed.",
+    "section": "7152",
+    "subsection": "§ 7152(a)(9)",
+    "target_term": "Risk assessment approver authority requirements",
+    "key_terms": ["risk assessment approval", "executive authority", "authority to initiate processing", "approval date", "legal counsel exception"]
+  },
+  {
+    "id": "eval_7152_010",
+    "query": "What central balancing test must a business perform and document under section 7152 before deciding whether to initiate personal data processing?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7152(a) and § 7152(a)(7), introduced in the 2026 regulations, a business must conduct a formal balancing test to determine whether the privacy risks to consumers outweigh the processing benefits to consumers, the business, stakeholders, and the public. The business must explicitly document in the report whether it will initiate the processing based on this balancing analysis.",
+    "section": "7152",
+    "subsection": "§ 7152(a), § 7152(a)(7)",
+    "target_term": "Privacy risk vs benefit balancing test",
+    "key_terms": ["risk vs benefit balancing test", "privacy risks outweigh benefits", "decision to initiate processing", "Article 10 risk assessment", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7153_001",
+    "query": "What information must a vendor that provides ADMT software to another business disclose to enable that recipient business to perform its own CCPA risk assessment?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7153(a)–(b), a business that makes ADMT (trained using personal information) available to another recipient business to make a significant decision concerning a consumer pursuant to § 7150(b)(3) MUST provide to the recipient business all facts available to it that are necessary for the recipient business to conduct its own risk assessment.",
+    "section": "7153",
+    "subsection": "§ 7153(a)–(b)",
+    "target_term": "ADMT vendor duty to recipient businesses",
+    "key_terms": ["ADMT vendor", "recipient business", "facts necessary for risk assessment", "significant decision", "training data"]
+  },
+  {
+    "id": "eval_7154_001",
+    "query": "What is the primary statutory goal of conducting a CCPA risk assessment under section 7154?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7154(a), the statutory goal of a risk assessment is restricting or prohibiting the processing of personal information if the privacy risks to the consumer outweigh the benefits resulting from the processing to the consumer, the business, other stakeholders, and the public.",
+    "section": "7154",
+    "subsection": "§ 7154(a)",
+    "target_term": "Statutory goal of risk assessments",
+    "key_terms": ["goal of risk assessment", "restricting or prohibiting processing", "privacy risks outweigh benefits", "balancing test"]
+  },
+  {
+    "id": "eval_7155_001",
+    "query": "What constitutes a 'material change' to a processing activity, and within what timeframe must a business update its CCPA risk assessment after a material change occurs?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7155(a)(3), a change is material if it creates new negative impacts, increases the magnitude or likelihood of previously identified negative impacts (§ 7152(a)(5)), or diminishes the effectiveness of safeguards (§ 7152(a)(6)). Examples include changes to processing purpose, minimum data necessary, or spikes in privacy complaints. When a material change occurs, the business must update its risk assessment as soon as feasibly possible, but no later than 45 calendar days from the date of the material change.",
+    "section": "7155",
+    "subsection": "§ 7155(a)(3)",
+    "target_term": "Material change 45-day update deadline",
+    "key_terms": ["material change", "45 calendar days", "increased negative impacts", "diminished safeguards", "risk assessment update"]
+  },
+  {
+    "id": "eval_7155_002",
+    "query": "How frequently must a business review and update its existing CCPA risk assessments if no material changes occur in the interim?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7155(a)(2), at least once every three years, a business must review and update as necessary its risk assessments to ensure that they remain accurate in accordance with Article 10 requirements.",
+    "section": "7155",
+    "subsection": "§ 7155(a)(2)",
+    "target_term": "Three-year periodic review requirement",
+    "key_terms": ["three years", "periodic review", "ongoing risk assessment", "Article 10 review"]
+  },
+  {
+    "id": "eval_7155_003",
+    "query": "What compliance deadline applies to high-risk processing activities initiated prior to the effective date of the 2026 regulations that continue thereafter?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7155(b), introduced in the 2026 regulations, for any processing activity identified in § 7150(b) that a business initiated prior to the effective date of the regulations and continues thereafter, the business must conduct and document a compliant risk assessment no later than December 31, 2027.",
+    "section": "7155",
+    "subsection": "§ 7155(b)",
+    "target_term": "Pre-existing processing risk assessment deadline",
+    "key_terms": ["pre-existing processing", "December 31 2027", "legacy high-risk activities", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7155_004",
+    "query": "How long must a business retain original and updated versions of its CCPA risk assessment reports?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7155(c), a business must retain its risk assessments (including original and updated versions) for as long as the processing activity continues OR for five (5) years after the completion of the risk assessment, whichever duration is later.",
+    "section": "7155",
+    "subsection": "§ 7155(c)",
+    "target_term": "Risk assessment retention duration",
+    "key_terms": ["risk assessment retention", "five years", "duration of processing", "original and updated versions"]
+  },
+  {
+    "id": "eval_7156_001",
+    "query": "When is a business permitted to conduct a single CCPA risk assessment for multiple operational activities across different physical locations or marketing campaigns?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7156(a), a business may conduct a single risk assessment for a 'comparable set of processing activities' that present similar privacy risks to consumers—for example, an in-store child birthday and holiday coupon mailing program across multiple retail stores that collects the same data using the same service providers and technology (§ 7156(a)(1)).",
+    "section": "7156",
+    "subsection": "§ 7156(a), § 7156(a)(1)",
+    "target_term": "Comparable set of processing activities",
+    "key_terms": ["comparable processing activities", "single risk assessment", "similar privacy risks", "multi-location processing"]
+  },
+  {
+    "id": "eval_7156_002",
+    "query": "Can a business satisfy CCPA risk assessment requirements by using a Data Protection Impact Assessment (DPIA) prepared for another state's privacy law?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7156(b), a business may utilize a risk assessment prepared for another purpose or jurisdiction (e.g., another state DPIA or GDPR DPIA) ONLY IF it contains all required CCPA § 7152 elements or is supplemented with the missing CCPA-specific information—such as the minimum necessary data analysis, explicit decision to initiate processing, and the names/positions of executive approvers with authority to halt processing.",
+    "section": "7156",
+    "subsection": "§ 7156(b), § 7156(b)(1)",
+    "target_term": "Multi-jurisdictional assessment supplementation",
+    "key_terms": ["out-of-state DPIA", "GDPR DPIA reuse", "supplementation requirement", "section 7152 alignment"]
+  },
+  {
+    "id": "eval_7157_001",
+    "query": "What are the submission deadlines for reporting risk assessment summary information to the CPPA for assessments conducted in 2026/2027 versus subsequent years?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7157(a)(1)–(2), introduced in the 2026 regulations package, for risk assessments conducted in 2026 and 2027, the submission to the CPPA is due no later than April 1, 2028. For risk assessments conducted after 2027, the submission is due by April 1 following any year during which assessments were conducted or updated (e.g., 2028 assessments are due April 1, 2029).",
+    "section": "7157",
+    "subsection": "§ 7157(a)(1)–(2)",
+    "target_term": "CPPA risk assessment submission schedule",
+    "key_terms": ["April 1 2028 deadline", "annual CPPA submission", "2026 and 2027 assessments", "subsequent annual deadlines", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7157_002",
+    "query": "Who must complete the annual risk assessment submission to the CPPA, and what specific legal declaration must be signed under penalty of perjury?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7157(b)(5) and § 7157(c), the submission must be made via cppa.ca.gov by an executive management team member directly responsible for risk-assessment compliance with sufficient knowledge and authority. The executive must electronically sign an attestation under penalty of perjury under California law declaring that the business conducted the required risk assessments and that the submitted information is true and correct.",
+    "section": "7157",
+    "subsection": "§ 7157(b)(5), § 7157(c), § 7157(d)",
+    "target_term": "Executive attestation under penalty of perjury",
+    "key_terms": ["executive management", "penalty of perjury attestation", "directly responsible", "cppa.ca.gov portal", "summary submission"]
+  },
+  {
+    "id": "eval_7157_003",
+    "query": "Are full CCPA risk assessment reports submitted annually to the CPPA by default, and how quickly must a business produce them if demanded by regulators?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7157(e), businesses submit only summary information and attestations annually. Full risk assessment reports are not submitted routinely, but the CPPA or the California Attorney General may require a business to submit its full risk assessment reports at any time. Upon receiving such a request, the business MUST submit its full risk assessment reports within 30 calendar days.",
+    "section": "7157",
+    "subsection": "§ 7157(e)",
+    "target_term": "30-day regulator demand production rule",
+    "key_terms": ["30 calendar days", "regulator demand", "full risk assessment report", "CPPA or Attorney General request"]
+  },
+  {
+    "id": "eval_7200_001",
+    "query": "What is the primary threshold that triggers the application of Article 11 ADMT requirements, and what is the compliance deadline for pre-existing ADMT implementations?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7200(a)–(b), Article 11 applies whenever a business uses Automated Decisionmaking Technology (ADMT) to make a significant decision concerning a consumer. For ADMT uses initiated prior to January 1, 2027, the business must be in full compliance no later than January 1, 2027. For ADMT used on or after January 1, 2027, compliance is required at any time the technology is used.",
+    "section": "7200",
+    "subsection": "§ 7200(a)–(b)",
+    "target_term": "ADMT scope and January 1 2027 compliance deadline",
+    "key_terms": ["ADMT scope", "significant decision", "January 1 2027 deadline", "pre-existing ADMT", "Article 11", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7220_001",
+    "query": "When and how must a business present a Pre-use Notice to consumers when deploying ADMT for a significant decision under section 7220?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7220(a)–(b), a Pre-use Notice must be presented prominently and conspicuously at or before the point when the business collects personal information to be processed by ADMT, or prior to processing if the data was collected previously for another purpose. It must be presented in the manner in which the business primarily interacts with the consumer and may be integrated into the Notice at Collection.",
+    "section": "7220",
+    "subsection": "§ 7220(a), § 7220(b)(1)–(3)",
+    "target_term": "Pre-use Notice timing and presentation",
+    "key_terms": ["Pre-use Notice", "at or before collection", "Notice at Collection integration", "primary manner of interaction", "prominently and conspicuously"]
+  },
+  {
+    "id": "eval_7220_002",
+    "query": "Is a business allowed to state 'to make a significant decision' as the purpose description in its ADMT Pre-use Notice?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7220(c)(1), the Pre-use Notice must include a plain language explanation of the specific purpose for using ADMT. Describing the purpose in generic terms such as 'to make a significant decision' without further information is explicitly prohibited because it fails to inform the consumer of the specific decision being made.",
+    "section": "7220",
+    "subsection": "§ 7220(c)(1)",
+    "target_term": "Prohibition on generic purpose in Pre-use Notice",
+    "key_terms": ["Pre-use Notice purpose", "generic terms prohibited", "specific decision explanation", "plain language"]
+  },
+  {
+    "id": "eval_7220_003",
+    "query": "What specific disclosures must a business make in its Pre-use Notice regarding consumer opt-out rights, human appeal exceptions, and other ADMT exceptions?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7220(c)(2), the Pre-use Notice must describe the consumer's right to opt-out of ADMT and how to submit a request. If the business is exempt from providing an opt-out because it relies on the human appeal exception (§ 7221(b)(1)), it must inform the consumer of the ability and instructions to submit an appeal. If relying on another exception under § 7221(b), it must explicitly identify the specific exception.",
+    "section": "7220",
+    "subsection": "§ 7220(c)(2)(A)–(B)",
+    "target_term": "Pre-use Notice opt-out and exception disclosures",
+    "key_terms": ["ADMT opt-out right", "human appeal exception", "exception identification", "appeal instructions", "Pre-use Notice disclosures"]
+  },
+  {
+    "id": "eval_7220_004",
+    "query": "What technical details regarding ADMT logic, inputs, outputs, and alternative decision processes must be provided in or linked from a Pre-use Notice?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7220(c)(5), introduced in the 2026 regulations (which allow layered notices or hyperlinks), a business must explain: (A) how ADMT processes personal information and categories of PI affecting output (such as scores); (B) the type of output and whether it is the sole factor or combined with other factors/human roles; and (C) the alternative decisionmaking process available if a consumer opts out.",
+    "section": "7220",
+    "subsection": "§ 7220(c)(5)(A)–(C)",
+    "target_term": "ADMT logic, output, and alternative process disclosures",
+    "key_terms": ["ADMT output", "layered notice", "categories of PI affecting output", "sole factor vs human role", "alternative decision process", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7220_005",
+    "query": "What statutory carve-outs exempt a business from disclosing trade secrets or security measures within an ADMT Pre-use Notice?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7220(d)(1)–(2), a business is NOT required to disclose trade secrets (as defined in Civil Code § 3426.1(d)) or information that would compromise its ability to prevent/detect security incidents, resist fraud/malicious actions, or ensure the physical safety of natural persons.",
+    "section": "7220",
+    "subsection": "§ 7220(d)(1)–(2)",
+    "target_term": "Trade secret and security exemptions for Pre-use Notice",
+    "key_terms": ["trade secrets exemption", "Civil Code 3426.1", "security incident compromise", "fraud prevention", "physical safety"]
+  },
+  {
+    "id": "eval_7220_006",
+    "query": "Can an employer provide a single consolidated Pre-use Notice covering productivity software that monitors employees for work assignment, compensation, and demotion decisions?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Yes. Under § 7220(e)(1), a business may provide a consolidated Pre-use Notice when using a single ADMT for multiple purposes. The regulation specifically highlights an employer using productivity monitoring software to determine work allocation/compensation and demotions as a valid consolidated notice use case, provided all required § 7220 disclosures are included for each purpose.",
+    "section": "7220",
+    "subsection": "§ 7220(e)(1)",
+    "target_term": "Consolidated Pre-use Notice for single ADMT with multiple purposes",
+    "key_terms": ["consolidated Pre-use Notice", "single ADMT multiple purposes", "productivity monitoring", "employee demotion and compensation"]
+  },
+  {
+    "id": "eval_7220_007",
+    "query": "How does section 7220 govern consolidated Pre-use Notices when a business uses multiple distinct ADMT tools for a single evaluation process, such as hiring?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7220(e)(2), a business using multiple ADMTs for a single purpose (e.g., job applicant screening using both resume scanning software and vocal/facial expression evaluation software) may issue a single consolidated Pre-use Notice covering all the tools used in that process.",
+    "section": "7220",
+    "subsection": "§ 7220(e)(2)",
+    "target_term": "Consolidated Pre-use Notice for multiple ADMTs with single purpose",
+    "key_terms": ["multiple ADMTs single purpose", "consolidated Pre-use Notice", "job applicant screening", "resume screening and facial analysis"]
+  },
+  {
+    "id": "eval_7220_008",
+    "query": "When is an educational institution permitted to consolidate Pre-use Notices for automated plagiarism detection and automated exam grading?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7220(e)(3), an educational provider using multiple ADMTs for multiple purposes (e.g., plagiarism screening tools for suspension decisions AND automated exam assessment tools for granting diplomas) may issue a consolidated Pre-use Notice to new students addressing all proposed ADMT uses.",
+    "section": "7220",
+    "subsection": "§ 7220(e)(3)",
+    "target_term": "Consolidated Pre-use Notice for educational ADMT systems",
+    "key_terms": ["educational provider", "multiple ADMTs multiple purposes", "plagiarism detection", "exam grading", "consolidated notice"]
+  },
+  {
+    "id": "eval_7220_009",
+    "query": "Does a business need to issue a new Pre-use Notice every single time it uses an ADMT to allocate work to the same employee on a daily basis?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7220(e)(4), a business making systematic, regular use of a single ADMT (such as methodical daily work allocation to employees) may provide a single consolidated Pre-use Notice rather than providing a new notice to the same employees each time the ADMT is used.",
+    "section": "7220",
+    "subsection": "§ 7220(e)(4)",
+    "target_term": "Systematic use consolidated Pre-use Notice exemption",
+    "key_terms": ["systematic use", "regular ADMT use", "methodical work allocation", "consolidated Pre-use Notice"]
+  },
+  {
+    "id": "eval_7221_001",
+    "query": "What qualifications and authority must a designated human reviewer possess for a business to claim the human appeal exception to ADMT opt-out requests?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7221(b)(1)(A), to qualify for the human appeal exception, the business must designate a human reviewer who knows how to interpret and use the ADMT output, has the explicit authority to overturn/change the decision based on their analysis, and actively reviews the ADMT output alongside any evidence provided by the consumer. This exception was established in the 2026 regulations.",
+    "section": "7221",
+    "subsection": "§ 7221(b)(1)(A)",
+    "target_term": "Human reviewer appeal exception qualifications",
+    "key_terms": ["human appeal exception", "authority to overturn", "interpret ADMT output", "human reviewer", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7221_002",
+    "query": "Under what narrow conditions can a business deny an ADMT opt-out request for employee hiring or work allocation decisions without providing a human appeal option?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7221(b)(2)–(3), opt-out exceptions apply to hiring/admission or work allocation/compensation decisions ONLY IF: (1) the ADMT is used solely to assess the consumer's ability to perform at work/school or solely for work allocation/compensation; AND (2) the ADMT demonstrably works for the business's purpose and does not unlawfully discriminate based on protected characteristics.",
+    "section": "7221",
+    "subsection": "§ 7221(b)(2)–(3)",
+    "target_term": "Hiring and work allocation ADMT opt-out exceptions",
+    "key_terms": ["hiring opt-out exception", "ability to perform", "work allocation exception", "no unlawful discrimination"]
+  },
+  {
+    "id": "eval_7221_003",
+    "query": "Can a business rely on a standard website cookie banner or cookie management tool as an acceptable method for handling ADMT opt-out requests?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7221(c)(4), a cookie banner or cookie control tool is explicitly prohibited from serving as an acceptable ADMT opt-out method because cookie tools pertain to data collection, not the automated processing of decisionmaking technology. ADMT opt-out methods must be specific to the right to opt-out of ADMT.",
+    "section": "7221",
+    "subsection": "§ 7221(c)(4)",
+    "target_term": "Cookie banner prohibition for ADMT opt-outs",
+    "key_terms": ["cookie banner prohibition", "cookie controls insufficient", "specific ADMT opt-out method", "data collection vs ADMT processing"]
+  },
+  {
+    "id": "eval_7221_004",
+    "query": "Is a business permitted to require identity verification or account creation before processing a consumer's request to opt-out of ADMT?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "No. Under § 7221(e)–(f), a business must NOT require a consumer to create an account or submit a verifiable consumer request to opt-out of ADMT. The business may ask only for minimal information necessary to direct the opt-out, and if it can comply with the request without additional information, it must do so immediately.",
+    "section": "7221",
+    "subsection": "§ 7221(e), § 7221(f)",
+    "target_term": "Prohibition on verification and account creation for ADMT opt-outs",
+    "key_terms": ["no verifiable request required", "no account creation", "minimal information", "unverified ADMT opt-out"]
+  },
+  {
+    "id": "eval_7221_005",
+    "query": "What steps must a business take if it denies an ADMT opt-out request based on a belief that the request is fraudulent?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7221(g), a business may deny an ADMT opt-out request ONLY IF it has a good-faith, reasonable, and documented belief that the request is fraudulent. If denying, the business must inform the requestor that it will not comply and provide an explicit explanation of why it believes the request is fraudulent.",
+    "section": "7221",
+    "subsection": "§ 7221(g)",
+    "target_term": "Fraudulent ADMT opt-out request denial",
+    "key_terms": ["fraudulent request denial", "good-faith belief", "documented rationale", "denial explanation"]
+  },
+  {
+    "id": "eval_7221_006",
+    "query": "What operational timeline and vendor notification requirements apply when a consumer opts out of ADMT after the business has already initiated processing?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7221(n)(1)–(2), introduced in the 2026 regulations, if a consumer opts out after ADMT processing has initiated, the business must: (1) cease processing personal information using that ADMT as soon as feasibly possible, but no later than 15 business days; AND (2) notify and instruct all service providers, contractors, and third parties to also cease processing within that same 15-business-day timeline.",
+    "section": "7221",
+    "subsection": "§ 7221(n)(1)–(2)",
+    "target_term": "15-business-day post-processing opt-out compliance window",
+    "key_terms": ["15 business days", "cease ADMT processing", "downstream vendor notification", "post-initiation opt-out", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7221_007",
+    "query": "How long must a business wait before asking a consumer who previously opted out of ADMT to consent again to ADMT processing?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7221(k), a business must wait at least 12 months from the date it receives the consumer's request to opt-out of ADMT before asking the consumer to consent to the business's use of the ADMT for which they previously opted out.",
+    "section": "7221",
+    "subsection": "§ 7221(k)",
+    "target_term": "12-month re-prompting prohibition for ADMT",
+    "key_terms": ["12 month wait", "re-prompting consent", "opt-out persistence", "12-month prohibition"]
+  },
+  {
+    "id": "eval_7221_008",
+    "query": "Can a business offer granular choices to opt-out of specific ADMT applications while omitting a global single-click option to opt-out of all ADMT processing?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7221(i), while a business may present choices allowing specific uses of ADMT, it MUST also offer a single, unified option to opt-out of all of the business's uses of ADMT set forth in section 7221(a).",
+    "section": "7221",
+    "subsection": "§ 7221(i)",
+    "target_term": "Global opt-out option requirement for ADMT",
+    "key_terms": ["global opt-out option", "granular ADMT choices", "single option opt-out", "opt-out of all ADMT"]
+  },
+  {
+    "id": "eval_7221_009",
+    "query": "What documentation must an authorized agent provide to a business when submitting an ADMT opt-out request on a consumer's behalf?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7221(j), an authorized agent must provide written permission signed by the consumer demonstrating that the agent has been authorized to act on their behalf. A business may deny the request if the authorized agent fails to provide this signed written permission.",
+    "section": "7221",
+    "subsection": "§ 7221(j)",
+    "target_term": "Authorized agent signed permission requirement",
+    "key_terms": ["authorized agent", "signed written permission", "agent authorization", "ADMT opt-out"]
+  },
+  {
+    "id": "eval_7221_010",
+    "query": "What rule governs an ADMT opt-out request submitted before the business has actually initiated processing of the consumer's personal data?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7221(m), if a consumer submits a request to opt-out of ADMT before the business has initiated that processing, the business is strictly prohibited from initiating processing of the consumer's personal information using that ADMT.",
+    "section": "7221",
+    "subsection": "§ 7221(m)",
+    "target_term": "Pre-processing opt-out prohibition",
+    "key_terms": ["pre-processing opt-out", "prohibition on initiation", "pre-use opt-out compliance"]
+  },
+  {
+    "id": "eval_7222_001",
+    "query": "What core categories of plain language explanations must a business disclose when responding to a consumer's request to access ADMT under section 7222?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7222(b)(1)–(4), introduced in the 2026 ADMT regulations, a business must provide plain language explanations of: (1) The specific purpose for using ADMT with respect to the consumer (generic terms prohibited); (2) The logic and parameters used to generate the consumer's specific output; (3) The outcome and role of the output in making a significant decision (including human involvement roles and planned future uses); and (4) Non-retaliation statements with direct links to instructions for exercising other CCPA rights.",
+    "section": "7222",
+    "subsection": "§ 7222(b)(1)–(4)",
+    "target_term": "ADMT access request disclosure requirements",
+    "key_terms": ["ADMT access request", "plain language explanation", "logic of ADMT", "decision outcome", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7222_002",
+    "query": "Is a business permitted to direct a consumer to the top of its general privacy policy when responding to an ADMT access request instruction requirement?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "No. Under § 7222(b)(4)(A), directing a consumer to the beginning of a general privacy policy so that they must scroll through other information does NOT satisfy the requirement. The business must provide a link that takes the consumer directly to the specific section of the privacy policy that contains instructions for exercising CCPA rights.",
+    "section": "7222",
+    "subsection": "§ 7222(b)(4)(A)",
+    "target_term": "Direct link requirement for privacy rights instructions",
+    "key_terms": ["direct link requirement", "privacy policy scrolling prohibited", "ADMT rights instructions", "specific section link"]
+  },
+  {
+    "id": "eval_7222_003",
+    "query": "When is a business allowed to provide an aggregate-level response summarizing ADMT logic and outputs instead of individual transaction details?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7222(j), introduced in the 2026 regulations, if a business used an ADMT with respect to a consumer more than four (4) times within a 12-month period, it may provide an aggregate-level response. This includes a summary of outputs generated over the preceding 12 months, the average parameters affecting those outputs, and how those parameters applied to the consumer.",
+    "section": "7222",
+    "subsection": "§ 7222(j)",
+    "target_term": "Four-time threshold for aggregate ADMT access response",
+    "key_terms": ["more than four times", "12-month period", "aggregate-level response", "summary of outputs", "average parameters", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7222_004",
+    "query": "What statutory exemptions allow a business to redact or withhold information from an ADMT access request response?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7222(c)(1)–(2), a business is not required to disclose: (1) Trade secrets as defined in Civil Code § 3426.1(d); or (2) Information that would compromise the business's ability to prevent/investigate security incidents, resist fraud or illegal actions, or ensure physical safety of natural persons.",
+    "section": "7222",
+    "subsection": "§ 7222(c)(1)–(2)",
+    "target_term": "Trade secret and security exemptions for ADMT access",
+    "key_terms": ["trade secrets exception", "Civil Code 3426.1", "security incident compromise", "fraud prevention", "physical safety"]
+  },
+  {
+    "id": "eval_7222_005",
+    "query": "How may a business fulfill an ADMT access request through a self-service account portal?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7222(h), if a business maintains a password-protected account with the consumer, it may fulfill an ADMT access request via a secure self-service portal, provided the portal fully discloses all required ADMT information, uses reasonable data security controls, and complies with Article 5 identity verification standards.",
+    "section": "7222",
+    "subsection": "§ 7222(h)",
+    "target_term": "Self-service portal fulfillment for ADMT access",
+    "key_terms": ["self-service portal", "password-protected account", "portable copy", "reasonable security controls", "Article 5 verification"]
+  },
+  {
+    "id": "eval_7222_006",
+    "query": "What statutory obligation do service providers and contractors have when a business receives a verifiable ADMT access request?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7222(i), a service provider or contractor must assist the business in responding to a verifiable consumer request to access ADMT, either by providing the consumer's personal information in its possession collected under contract or by enabling the business to access that information directly.",
+    "section": "7222",
+    "subsection": "§ 7222(i)",
+    "target_term": "Service provider duty to assist in ADMT access requests",
+    "key_terms": ["service provider duty to assist", "contractor assistance", "verifiable consumer request", "ADMT access data"]
+  },
+  {
+    "id": "eval_7222_007",
+    "query": "What details regarding human involvement must be disclosed when explaining the outcome of an ADMT significant decision?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7222(b)(3), the business must explain whether the ADMT output was the sole factor or combined with other factors. If a human participated in the decisionmaking process in a manner that did not meet the definition of meaningful 'human involvement' under § 7001(e)(1), the business must explicitly explain that human's exact role in the process.",
+    "section": "7222",
+    "subsection": "§ 7222(b)(3)",
+    "target_term": "Human involvement role disclosure in ADMT access",
+    "key_terms": ["sole factor vs multi-factor", "human involvement role", "section 7001(e)(1)", "decision outcome", "ADMT output usage"]
+  },
+  {
+    "id": "eval_7222_008",
+    "query": "Can a business provide statistical comparison data (such as output percentiles) when responding to a consumer's ADMT access request?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7222(l), nothing prohibits a business from providing voluntary additional explanatory information, such as the range of possible outputs or aggregate output statistics (e.g., the top five most common outputs and the percentage of consumers receiving each in the past calendar year) to help consumers compare their outcome.",
+    "section": "7222",
+    "subsection": "§ 7222(l)",
+    "target_term": "Voluntary comparative output statistics",
+    "key_terms": ["additional explanatory information", "range of possible outputs", "aggregate output statistics", "consumer comparison"]
+  },
+  {
+    "id": "eval_7222_009",
+    "query": "What procedural rule applies if a business denies a verified ADMT access request in whole or in part due to a legal conflict?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7222(f), if a business denies a verified ADMT access request (in whole or in part) due to a conflict with federal or state law or a CCPA exception, it must inform the requestor and explain the legal basis for denial, unless prohibited by law. If denied only in part, it must disclose all other non-exempt information sought.",
+    "section": "7222",
+    "subsection": "§ 7222(f)",
+    "target_term": "Partial or full ADMT access denial explanation",
+    "key_terms": ["legal conflict denial", "partial denial disclosure", "explanation of basis", "CCPA exception"]
+  },
+  {
+    "id": "eval_7222_010",
+    "query": "What submission channels and design standards must a business maintain for receiving consumer requests to access ADMT?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7222(d), submission methods for ADMT access requests must be easy to use and free of dark patterns. A business may utilize its existing intake methods for requests to know, delete, or correct established under section 7020.",
+    "section": "7222",
+    "subsection": "§ 7222(d)",
+    "target_term": "ADMT access submission channels and dark pattern prohibition",
+    "key_terms": ["dark patterns prohibited", "section 7020 intake channels", "easy to use", "ADMT access submission"]
+  },
+  {
+    "id": "eval_7270_001",
+    "query": "How is an 'insurance company' defined under CCPA regulations section 7270, and what specific entities are included within this definition?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7270(a), an 'insurance company' is defined as any person subject to the California Insurance Code and its regulations. This explicitly includes insurance institutions, agents, and insurance-support organizations as defined in Insurance Code section 791.02.",
+    "section": "7270",
+    "subsection": "§ 7270(a)",
+    "target_term": "Insurance company definition",
+    "key_terms": ["insurance company", "California Insurance Code", "insurance institutions", "insurance agents", "insurance-support organizations", "Insurance Code 791.02"]
+  },
+  {
+    "id": "eval_7271_001",
+    "query": "To what extent does the CCPA apply to insurance companies that meet the definition of a 'business', and what determines whether personal information is subject to CCPA versus the California Insurance Code?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7271(a), introduced under Article 12 in the 2026 regulations, insurance companies meeting the 'business' definition must comply with the CCPA for any personal information NOT subject to the Insurance Code and its regulations. Data collected for purposes not connected to an insurance transaction (e.g., website tracking or employment data) is subject to CCPA, whereas claim/policy servicing data governed by the Insurance Code is exempt.",
+    "section": "7271",
+    "subsection": "§ 7271(a)",
+    "target_term": "Insurance company CCPA scope and carve-out",
+    "key_terms": ["insurance company CCPA scope", "Insurance Code exemption", "insurance transaction", "personal information scope", "Article 12", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7271_002",
+    "query": "Is an insurance company required to honor opt-out preference signals and offer opt-out of sale/sharing for personal data collected from website visitors who have not applied for an insurance product?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Yes. Under § 7271(b)(1), when an insurance company collects personal information from website visitors who have not applied for an insurance product or service and uses it to tailor cross-context targeted ads, that data is not related to an insurance transaction under Insurance Code § 791.02. Therefore, the company must fully comply with CCPA, including honoring opt-out preference signals and providing sale/sharing opt-out rights.",
+    "section": "7271",
+    "subsection": "§ 7271(b)(1)",
+    "target_term": "Website visitor tracking by insurance companies",
+    "key_terms": ["website visitors", "opt-out preference signals", "sale or sharing opt-out", "cross-context behavioral advertising", "non-insurance transaction data"]
+  },
+  {
+    "id": "eval_7271_003",
+    "query": "Does CCPA compliance apply to employee and job applicant personal information collected by an insurance company?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Yes. Under § 7271(b)(2), personal information collected from employees and job applicants for employment purposes is not subject to the California Insurance Code or its regulations. Consequently, an insurance company must comply with the CCPA regarding employee/applicant data, including providing a Notice at Collection at or before the point of collection.",
+    "section": "7271",
+    "subsection": "§ 7271(b)(2)",
+    "target_term": "Insurance company employee data compliance",
+    "key_terms": ["insurance company employees", "job applicants", "Notice at Collection", "employment data", "CCPA applicability"]
+  },
+  {
+    "id": "eval_7300_001",
+    "query": "What specific requirements must a sworn complaint satisfy when filed with the California Privacy Protection Agency under section 7300?",
+    "query_type": "VERSION_DIFF",
+    "ground_truth_answer": "Under § 7300(a)(1)–(5), updated under Article 13 in the 2026 regulations package, a sworn complaint must be submitted to the Enforcement Division online at cppa.ca.gov, in person, or by mail. It must: (1) Identify the alleged violator; (2) State supporting facts and evidence; (3) Authorize communication/disclosure between the violator and Agency; (4) Include complainant contact info; and (5) Be signed and submitted under penalty of perjury.",
+    "section": "7300",
+    "subsection": "§ 7300(a)(1)–(5)",
+    "target_term": "Sworn complaint filing requirements",
+    "key_terms": ["sworn complaint", "Enforcement Division", "penalty of perjury", "cppa.ca.gov portal", "Article 13", "2023 vs 2026 updates"]
+  },
+  {
+    "id": "eval_7300_002",
+    "query": "How does the CPPA Enforcement Division handle notifications to complainants and duplicate sworn complaints under section 7300?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7300(b), the Enforcement Division must notify the complainant in writing of any action taken or planned regarding the complaint, along with reasons for action or nonaction. Duplicate complaints submitted by the same complainant may be rejected without notice.",
+    "section": "7300",
+    "subsection": "§ 7300(b)",
+    "target_term": "Complainant notification and duplicate rejection",
+    "key_terms": ["complainant notification", "action or nonaction reasons", "duplicate complaints", "rejection without notice"]
+  },
+  {
+    "id": "eval_7302_001",
+    "query": "What legal standard defines the existence of 'probable cause' in CCPA enforcement proceedings under section 7302?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7302(a) and Civil Code section 1798.199.50, probable cause exists when the evidence supports a reasonable belief that the CCPA or its regulations have been violated.",
+    "section": "7302",
+    "subsection": "§ 7302(a)",
+    "target_term": "Probable cause standard",
+    "key_terms": ["probable cause", "reasonable belief", "Civil Code 1798.199.50", "enforcement standard"]
+  },
+  {
+    "id": "eval_7302_002",
+    "query": "Are CPPA probable cause proceedings open to the public by default, and how can an alleged violator request an in-person or public hearing?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7302(c)(1), probable cause proceedings are closed to the public by default and conducted in whole or in part by telephone or videoconference. An alleged violator may make the proceeding public or in-person ONLY by filing a written request at least 10 business days prior to the proceeding.",
+    "section": "7302",
+    "subsection": "§ 7302(c)(1)",
+    "target_term": "Closed probable cause proceeding and 10-day notice rule",
+    "key_terms": ["closed proceeding", "videoconference hearing", "10 business days notice", "public proceeding request", "in-person hearing request"]
+  },
+  {
+    "id": "eval_7302_003",
+    "query": "Who is authorized to participate in a CPPA probable cause proceeding, and what occurs if the alleged violator fails to attend?",
+    "query_type": "HYBRID_BOTH",
+    "ground_truth_answer": "Under § 7302(c)(2)–(3), participation in informal probable cause proceedings is strictly restricted to the alleged violator(s), their legal counsel, and the Enforcement Division. If an alleged violator fails to appear, they waive all rights to further probable cause proceedings under Civil Code § 1798.199.50, and the Agency decides probable cause based solely on the Enforcement Division's notice and arguments.",
+    "section": "7302",
+    "subsection": "§ 7302(c)(2)–(3)",
+    "target_term": "Proceeding participation limits and attendance waiver",
+    "key_terms": ["participation restriction", "legal counsel", "Enforcement Division", "failure to appear waiver", "ex parte determination"]
+  },
+  {
+    "id": "eval_7302_004",
+    "query": "Are CPPA probable cause determinations subject to judicial appeal or public disclosure?",
+    "query_type": "POLICY_LOOKUP",
+    "ground_truth_answer": "Under § 7302(d)–(e), the Agency's written probable cause determination is final and NOT subject to appeal. Notices of probable cause and probable cause determinations are confidential, not open to the public, and inadmissible as evidence in any action or special proceeding other than an action enforcing the CCPA.",
+    "section": "7302",
+    "subsection": "§ 7302(d)–(e)",
+    "target_term": "Finality, confidentiality, and inadmissibility of probable cause decisions",
+    "key_terms": ["not subject to appeal", "final determination", "confidentiality of notice", "inadmissible evidence", "CCPA enforcement action"]
+  }
+]
