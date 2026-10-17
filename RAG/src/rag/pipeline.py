@@ -2,9 +2,18 @@ import os
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
+from src.config import settings
+# Automatically export Langfuse settings to environment variables on import
+if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
+    os.environ["LANGFUSE_PUBLIC_KEY"] = settings.LANGFUSE_PUBLIC_KEY
+    os.environ["LANGFUSE_SECRET_KEY"] = settings.LANGFUSE_SECRET_KEY
+    os.environ["LANGFUSE_HOST"] = settings.LANGFUSE_HOST
+
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, Field
 from langchain_core.documents import Document
+from langfuse import observe, get_client
+from langfuse.langchain import CallbackHandler
 
 from src.generation.llm_service import get_llm, _get_text_content
 from src.generation.prompt_templates import get_prompt_template
@@ -13,14 +22,6 @@ from src.retrieval.hybrid import HybridRetriever
 from src.retrieval.reranker import CrossEncoderReranker
 from src.guardrails.abstention import AbstentionGuard, AbstentionDecision
 from src.guardrails.citation_verifier import CitationVerifier, CitationVerificationResult
-from langfuse.decorators import observe, langfuse_context
-
-from src.config import settings
-# Automatically export Langfuse settings to environment variables on import
-if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
-    os.environ["LANGFUSE_PUBLIC_KEY"] = settings.LANGFUSE_PUBLIC_KEY
-    os.environ["LANGFUSE_SECRET_KEY"] = settings.LANGFUSE_SECRET_KEY
-    os.environ["LANGFUSE_HOST"] = settings.LANGFUSE_HOST
 
 class RAGResponse(BaseModel):
     """End-to-end structured response payload from the RAG pipeline."""
@@ -101,19 +102,19 @@ class RAGPipeline:
 
         # Update trace metadata & tags in Langfuse UI
         if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
-            langfuse_context.update_current_trace(
-                name="CCPA_RAG_Query",
-                input={"query": user_query},
-                tags=tags or ["production"],
-                metadata=metadata or {},
-            )
+            try:
+                langfuse = get_client()
+                langfuse.update_current_trace(
+                    name="CCPA_RAG_Query",
+                    input={"query": user_query},
+                    tags=tags or ["production"],
+                    metadata=metadata or {},
+                )
+            except Exception:
+                pass
 
         # Extract LangChain callback handler scoped to this trace
-        handler = (
-            langfuse_context.get_current_langchain_handler()
-            if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY
-            else None
-        )
+        handler = CallbackHandler() if (settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY) else None
         callbacks = [handler] if handler else []
 
         # Step 1: Intent Routing
@@ -153,11 +154,15 @@ class RAGPipeline:
                 summary="Query resulted in abstention. Citation verification skipped."
             )
 
-            # Attach final output to the trace
+            # Attach final output to trace on abstention
             if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
-                langfuse_context.update_current_trace(
-                output={"answer": None, "abstained": abstention.should_abstain}
-                )
+                try:
+                    langfuse = get_client()
+                    langfuse.update_current_trace(
+                        output={"answer": None, "abstained": True}
+                    )
+                except Exception:
+                    pass
 
             return RAGResponse(
                 query=user_query,
@@ -204,11 +209,15 @@ class RAGPipeline:
             for doc in context_docs
         ]
 
-        # 6. Attach final output to the trace
+        # Attach final generated output to the trace
         if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
-            langfuse_context.update_current_trace(
-                output={"answer": generated_answer, "abstained": abstention.should_abstain}
-            )
+            try:
+                langfuse = get_client()
+                langfuse.update_current_trace(
+                    output={"answer": generated_answer, "abstained": False}
+                )
+            except Exception:
+                pass
 
         return RAGResponse(
             query=user_query,
@@ -246,7 +255,7 @@ if __name__ == "__main__":
     
     print("\n[RAG Pipeline Test — Switchable Query Router]")
     print("=" * 85)
-    test_query = test_query_19
+    test_query = test_query_15
     print(f"Query: '{test_query}'\n")
     
 
