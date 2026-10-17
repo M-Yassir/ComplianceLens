@@ -23,4 +23,4 @@ services:
 
 networks:
   rag-network:
-    external: true
+    name: rag-network
