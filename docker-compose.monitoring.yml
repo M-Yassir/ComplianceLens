@@ -1,0 +1,26 @@
+services:
+  langfuse-server:
+    image: ghcr.io/langfuse/langfuse:2
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/langfuse
+      - NEXTAUTH_SECRET=my-secret-key
+      - SALT=my-salt
+    networks:
+      - rag-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=langfuse
+    networks:
+      - rag-network
+
+networks:
+  rag-network:
+    external: true
