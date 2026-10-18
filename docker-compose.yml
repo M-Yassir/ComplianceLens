@@ -1,4 +1,32 @@
 services:
+  # ---------------------------------------------------------------------------
+  # FastAPI Application Service
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: ./RAG
+      dockerfile: Dockerfile
+    container_name: ccpa_rag_api
+    ports:
+      - "7000:7000"
+    env_file:
+      - ./RAG/.env
+    environment:
+      # Vector DB settings (Overridden for container network)
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - LANGFUSE_HOST=http://langfuse-web:3000
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      chromadb:
+        condition: service_started
+    networks:
+      - rag-network
+    restart: unless-stopped
+  # ---------------------------------------------------------------------------
+  # ChromaDB Service
+  # ---------------------------------------------------------------------------
   chromadb:
     image: chromadb/chroma:latest
     container_name: ccpa_chroma_db

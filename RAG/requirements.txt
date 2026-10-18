@@ -1,10 +1,28 @@
+# Web Framework & Server
 fastapi
+uvicorn[standard]
+
+# Pydantic & Config
+pydantic
+pydantic-settings
+python-dotenv
+
+# LangChain & Google GenAI
 langchain
 langchain-core
-unstructured
-langchain-unstructured
 langchain-community
 langchain-google-genai
-langfuse
+
+# Document Parsing & Unstructured
+unstructured
+langchain-unstructured
 pypdf
 pymupdf
+
+# Retrieval & Reranking
+sentence-transformers
+rank-bm25
+faiss-cpu
+
+# Telemetry & Observability
+langfuse
