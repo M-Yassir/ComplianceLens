@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   # ---------------------------------------------------------------------------
   # FastAPI Application Service
@@ -8,22 +10,22 @@ services:
       dockerfile: Dockerfile
     container_name: ccpa_rag_api
     ports:
-      - "7000:7000"
+      - "8000:8000"
     env_file:
       - ./RAG/.env
     environment:
-      # Vector DB settings (Overridden for container network)
       - CHROMA_HOST=chromadb
       - CHROMA_PORT=8000
       - LANGFUSE_HOST=http://langfuse-web:3000
     volumes:
-      - ./data:/app/data
+      - ./RAG/data:/app/data
     depends_on:
       chromadb:
-        condition: service_started
+        condition: service_healthy
     networks:
       - rag-network
     restart: unless-stopped
+
   # ---------------------------------------------------------------------------
   # ChromaDB Service
   # ---------------------------------------------------------------------------
@@ -31,7 +33,7 @@ services:
     image: chromadb/chroma:latest
     container_name: ccpa_chroma_db
     ports:
-      - "8000:8000"
+      - "8001:8000"
     volumes:
       - chroma_data:/data
     environment:
@@ -39,11 +41,20 @@ services:
       - PERSIST_DIRECTORY=/data
       - ANONYMIZED_TELEMETRY=FALSE
       - ALLOW_RESET=TRUE
-      - CHROMA_SERVER_CORS_ALLOW_ORIGINS='["*"]'
+      - CHROMA_SERVER_CORS_ALLOW_ORIGINS=["*"]
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/8000' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    networks:
+      - rag-network
     restart: unless-stopped
 
 networks:
   rag-network:
+    external: true
     name: rag-network
 
 volumes:

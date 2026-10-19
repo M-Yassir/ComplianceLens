@@ -1,28 +1,35 @@
 # Web Framework & Server
-fastapi
-uvicorn[standard]
+fastapi==0.146.0
+uvicorn==0.54.0
 
-# Pydantic & Config
-pydantic
-pydantic-settings
-python-dotenv
+# Settings & Environment
+pydantic==2.14.1
+pydantic-settings==2.15.0
+python-dotenv==1.2.3
 
-# LangChain & Google GenAI
-langchain
-langchain-core
-langchain-community
-langchain-google-genai
+# LangChain Core & Framework
+langchain==1.4.2
+langchain-core==1.6.6
+langchain-community==0.4.2
 
-# Document Parsing & Unstructured
-unstructured
-langchain-unstructured
-pypdf
-pymupdf
+# Provider Integrations
+langchain-chroma==1.1.0
+langchain-google-genai==4.4.0
+langchain-openai==1.6.6
+langchain-huggingface==1.2.2
+langchain-groq==1.1.3
+langchain-ollama==1.1.0
+langchain-unstructured==1.0.1
 
-# Retrieval & Reranking
-sentence-transformers
-rank-bm25
-faiss-cpu
+# Vector Store & Search / Retrieval
+chromadb==1.5.9
+rank-bm25==0.2.2
+flashrank==0.2.10
 
-# Telemetry & Observability
-langfuse
+# Document Parsing
+unstructured==0.27.8
+pypdf==6.19.0
+pymupdf==1.28.2
+
+# Observability & Telemetry
+langfuse==5.0.2
