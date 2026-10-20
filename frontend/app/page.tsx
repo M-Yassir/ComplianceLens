@@ -2,9 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import {
-  Search,
   FileText,
-  Download,
   Send,
   ZoomIn,
   ZoomOut,
@@ -16,9 +14,11 @@ import {
   BookOpen,
   Scale,
   RefreshCw,
-  ExternalLink,
   ShieldCheck,
-  Info
+  Info,
+  PanelLeftClose,
+  PanelLeftOpen,
+  GripVertical
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -68,6 +68,11 @@ export default function ComplianceLensApp() {
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  // Pane Visibility & Resizing State
+  const [isDocPaneOpen, setIsDocPaneOpen] = useState(true);
+  const [leftWidth, setLeftWidth] = useState(50); // percentage (20% to 75%)
+  const [isResizing, setIsResizing] = useState(false);
+
   // Document Viewer State
   const [zoom, setZoom] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,19 +87,36 @@ export default function ComplianceLensApp() {
     chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
+  // Handle Drag Resizing of the Dual Panes
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing) return;
+      const newWidth = (e.clientX / window.innerWidth) * 100;
+      if (newWidth >= 20 && newWidth <= 75) {
+        setLeftWidth(newWidth);
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
+
+    if (isResizing) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing]);
+
   // ---------------------------------------------------------------------------
   // Handlers
   // ---------------------------------------------------------------------------
-  const handleDownloadPDF = () => {
-    const link = document.createElement("a");
-    link.href = "/ccpa_document.pdf";
-    link.download = "California_Consumer_Privacy_Act_CCPA.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   const handlePageJump = (page: number, sectionId?: string) => {
+    if (!isDocPaneOpen) setIsDocPaneOpen(true);
     setCurrentPage(page);
     if (sectionId) setSelectedSection(sectionId);
   };
@@ -164,15 +186,18 @@ export default function ComplianceLensApp() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-slate-100 font-sans text-slate-800 overflow-hidden">
+    <div
+      className={`flex flex-col h-screen w-screen bg-slate-100 font-sans text-slate-800 overflow-hidden ${
+        isResizing ? "select-none cursor-col-resize" : ""
+      }`}
+    >
       {/* =================================================================== */}
       {/* HEADER BAR                                                          */}
       {/* =================================================================== */}
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-sm">
+      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-sm shrink-0">
         {/* Logo & App Branding */}
         <div className="flex items-center space-x-3">
           <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 shadow-md shadow-blue-500/20 text-white">
-            {/* Custom Lens/Shield SVG Logo */}
             <svg
               className="w-6 h-6"
               viewBox="0 0 24 24"
@@ -200,20 +225,33 @@ export default function ComplianceLensApp() {
           </div>
         </div>
 
-        {/* Center Title Badge */}
-        <div className="hidden md:flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600">
+        {/* Center Statute Badge */}
+        <div className="hidden lg:flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600">
           <Scale className="w-4 h-4 text-blue-600" />
           <span>California Consumer Privacy Act (Cal. Civ. Code § 1798.100 et seq.)</span>
         </div>
 
-        {/* Header Actions */}
+        {/* Header Toggle Actions */}
         <div className="flex items-center space-x-3">
           <button
-            onClick={handleDownloadPDF}
-            className="flex items-center space-x-2 bg-slate-900 hover:bg-blue-600 text-white px-3.5 py-2 rounded-lg text-xs font-medium transition-all shadow-sm active:scale-95"
+            onClick={() => setIsDocPaneOpen((prev) => !prev)}
+            className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-all shadow-sm active:scale-95 ${
+              isDocPaneOpen
+                ? "bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
           >
-            <Download className="w-4 h-4" />
-            <span>Download Official Act</span>
+            {isDocPaneOpen ? (
+              <>
+                <PanelLeftClose className="w-4 h-4" />
+                <span>Hide Document</span>
+              </>
+            ) : (
+              <>
+                <PanelLeftOpen className="w-4 h-4" />
+                <span>Show Document Viewer</span>
+              </>
+            )}
           </button>
         </div>
       </header>
@@ -221,147 +259,169 @@ export default function ComplianceLensApp() {
       {/* =================================================================== */}
       {/* MAIN DUAL-PANE BODY                                                 */}
       {/* =================================================================== */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden relative">
         {/* ----------------------------------------------------------------- */}
         {/* LEFT PANE: LIVE CCPA DOCUMENT VIEWER                              */}
         {/* ----------------------------------------------------------------- */}
-        <div className="w-1/2 border-r border-slate-200 bg-slate-50 flex flex-col">
-          {/* Document Controls Bar */}
-          <div className="h-12 bg-white border-b border-slate-200 px-4 flex items-center justify-between">
-            {/* View Switcher */}
-            <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg text-xs font-medium">
-              <button
-                onClick={() => setActiveTab("doc")}
-                className={`px-3 py-1 rounded-md transition-all ${
-                  activeTab === "doc"
-                    ? "bg-white text-slate-900 shadow-sm"
-                    : "text-slate-500 hover:text-slate-800"
-                }`}
-              >
-                Document Viewer
-              </button>
-              <button
-                onClick={() => setActiveTab("index")}
-                className={`px-3 py-1 rounded-md transition-all ${
-                  activeTab === "index"
-                    ? "bg-white text-slate-900 shadow-sm"
-                    : "text-slate-500 hover:text-slate-800"
-                }`}
-              >
-                Section Index
-              </button>
-            </div>
-
-            {/* Quick Section Selector */}
-            <div className="flex items-center space-x-2">
-              <select
-                value={selectedSection}
-                onChange={(e) => {
-                  const sec = CCPA_SECTIONS.find((s) => s.id === e.target.value);
-                  if (sec) handlePageJump(sec.page, sec.id);
-                }}
-                className="bg-slate-50 border border-slate-300 rounded-lg text-xs px-2.5 py-1 text-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              >
-                <option value="">Jump to Statute Section...</option>
-                {CCPA_SECTIONS.map((sec) => (
-                  <option key={sec.id} value={sec.id}>
-                    {sec.title}
-                  </option>
-                ))}
-              </select>
-
-              {/* Zoom Controls */}
-              <div className="flex items-center space-x-1 bg-slate-100 rounded-lg p-1 border border-slate-200 text-slate-600">
+        {isDocPaneOpen && (
+          <div
+            style={{ width: `${leftWidth}%` }}
+            className="bg-slate-50 flex flex-col h-full border-r border-slate-200 shrink-0"
+          >
+            {/* Document Controls Bar */}
+            <div className="h-12 bg-white border-b border-slate-200 px-4 flex items-center justify-between shrink-0">
+              {/* View Switcher */}
+              <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg text-xs font-medium">
                 <button
-                  onClick={() => setZoom((z) => Math.max(z - 10, 60))}
-                  className="p-1 hover:bg-white rounded text-slate-700 transition-all"
-                  title="Zoom Out"
+                  onClick={() => setActiveTab("doc")}
+                  className={`px-3 py-1 rounded-md transition-all ${
+                    activeTab === "doc"
+                      ? "bg-white text-slate-900 shadow-sm"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
                 >
-                  <ZoomOut className="w-3.5 h-3.5" />
-                </button>
-                <span className="text-[11px] font-semibold px-1 text-slate-600">{zoom}%</span>
-                <button
-                  onClick={() => setZoom((z) => Math.min(z + 10, 180))}
-                  className="p-1 hover:bg-white rounded text-slate-700 transition-all"
-                  title="Zoom In"
-                >
-                  <ZoomIn className="w-3.5 h-3.5" />
+                  Document Viewer
                 </button>
                 <button
-                  onClick={() => setZoom(100)}
-                  className="p-1 hover:bg-white rounded text-slate-700 transition-all"
-                  title="Reset Zoom"
+                  onClick={() => setActiveTab("index")}
+                  className={`px-3 py-1 rounded-md transition-all ${
+                    activeTab === "index"
+                      ? "bg-white text-slate-900 shadow-sm"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  Section Index
                 </button>
               </div>
-            </div>
-          </div>
 
-          {/* Document Content Panel */}
-          <div className="flex-1 overflow-y-auto p-4 flex justify-center bg-slate-200/70 relative">
-            {activeTab === "doc" ? (
-              <div
-                className="w-full h-full max-w-3xl bg-white shadow-lg rounded-xl overflow-hidden border border-slate-300 transition-all duration-200"
-                style={{
-                  transform: `scale(${zoom / 100})`,
-                  transformOrigin: "top center",
-                }}
-              >
-                {/* Embedded Native Browser PDF Viewer */}
-                <iframe
-                  src={`/ccpa_document.pdf#page=${currentPage}`}
-                  className="w-full h-full border-none"
-                  title="CCPA Official Text"
-                />
-              </div>
-            ) : (
-              /* Section Index Table */
-              <div className="w-full max-w-2xl bg-white rounded-xl shadow-sm border border-slate-200 p-6 overflow-y-auto">
-                <div className="flex items-center space-x-2 mb-4 pb-3 border-b border-slate-100">
-                  <BookOpen className="w-5 h-5 text-blue-600" />
-                  <h3 className="font-semibold text-slate-900 text-sm">
-                    Statutory Navigation Index
-                  </h3>
-                </div>
-                <div className="space-y-2">
+              {/* Quick Section Selector & Zoom */}
+              <div className="flex items-center space-x-2">
+                <select
+                  value={selectedSection}
+                  onChange={(e) => {
+                    const sec = CCPA_SECTIONS.find((s) => s.id === e.target.value);
+                    if (sec) handlePageJump(sec.page, sec.id);
+                  }}
+                  className="bg-slate-50 border border-slate-300 rounded-lg text-xs px-2 py-1 text-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none max-w-[170px] truncate"
+                >
+                  <option value="">Jump to Section...</option>
                   {CCPA_SECTIONS.map((sec) => (
-                    <div
-                      key={sec.id}
-                      onClick={() => {
-                        handlePageJump(sec.page, sec.id);
-                        setActiveTab("doc");
-                      }}
-                      className="p-3 rounded-lg border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 cursor-pointer transition-all flex items-center justify-between group"
-                    >
-                      <div>
-                        <div className="font-medium text-xs text-slate-800 group-hover:text-blue-700">
-                          {sec.title}
-                        </div>
-                        <div className="text-[11px] text-slate-400 mt-0.5">
-                          California Civil Code Section {sec.id}
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-[10px] bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-800 px-2 py-0.5 rounded font-mono">
-                          Page {sec.page}
-                        </span>
-                        <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600" />
-                      </div>
-                    </div>
+                    <option key={sec.id} value={sec.id}>
+                      {sec.title}
+                    </option>
                   ))}
+                </select>
+
+                {/* Zoom Controls */}
+                <div className="hidden sm:flex items-center space-x-1 bg-slate-100 rounded-lg p-1 border border-slate-200 text-slate-600">
+                  <button
+                    onClick={() => setZoom((z) => Math.max(z - 10, 60))}
+                    className="p-1 hover:bg-white rounded text-slate-700 transition-all"
+                    title="Zoom Out"
+                  >
+                    <ZoomOut className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="text-[11px] font-semibold px-1 text-slate-600">{zoom}%</span>
+                  <button
+                    onClick={() => setZoom((z) => Math.min(z + 10, 180))}
+                    className="p-1 hover:bg-white rounded text-slate-700 transition-all"
+                    title="Zoom In"
+                  >
+                    <ZoomIn className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => setZoom(100)}
+                    className="p-1 hover:bg-white rounded text-slate-700 transition-all"
+                    title="Reset Zoom"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
+
+            {/* Document Content Panel */}
+            <div className="flex-1 overflow-y-auto p-4 flex justify-center bg-slate-200/70 relative">
+              {activeTab === "doc" ? (
+                <div
+                  className="w-full h-full bg-white shadow-lg rounded-xl overflow-hidden border border-slate-300 transition-all duration-200"
+                  style={{
+                    transform: `scale(${zoom / 100})`,
+                    transformOrigin: "top center",
+                  }}
+                >
+                  <iframe
+                    src={`/ccpa_document.pdf#page=${currentPage}`}
+                    className={`w-full h-full border-none ${
+                      isResizing ? "pointer-events-none" : ""
+                    }`}
+                    title="CCPA Official Text"
+                  />
+                </div>
+              ) : (
+                /* Section Index Table */
+                <div className="w-full max-w-2xl bg-white rounded-xl shadow-sm border border-slate-200 p-6 overflow-y-auto">
+                  <div className="flex items-center space-x-2 mb-4 pb-3 border-b border-slate-100">
+                    <BookOpen className="w-5 h-5 text-blue-600" />
+                    <h3 className="font-semibold text-slate-900 text-sm">
+                      Statutory Navigation Index
+                    </h3>
+                  </div>
+                  <div className="space-y-2">
+                    {CCPA_SECTIONS.map((sec) => (
+                      <div
+                        key={sec.id}
+                        onClick={() => {
+                          handlePageJump(sec.page, sec.id);
+                          setActiveTab("doc");
+                        }}
+                        className="p-3 rounded-lg border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 cursor-pointer transition-all flex items-center justify-between group"
+                      >
+                        <div>
+                          <div className="font-medium text-xs text-slate-800 group-hover:text-blue-700">
+                            {sec.title}
+                          </div>
+                          <div className="text-[11px] text-slate-400 mt-0.5">
+                            California Civil Code Section {sec.id}
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-[10px] bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-800 px-2 py-0.5 rounded font-mono">
+                            Page {sec.page}
+                          </span>
+                          <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* ----------------------------------------------------------------- */}
+        {/* DRAG RESIZE HANDLE                                                */}
+        {/* ----------------------------------------------------------------- */}
+        {isDocPaneOpen && (
+          <div
+            onMouseDown={() => setIsResizing(true)}
+            className="w-2 hover:w-3 bg-slate-200 hover:bg-blue-500 cursor-col-resize flex items-center justify-center group transition-all shrink-0 z-20 border-x border-slate-300/50"
+            title="Drag to resize windows"
+          >
+            <GripVertical className="w-3 h-3 text-slate-400 group-hover:text-white" />
+          </div>
+        )}
 
         {/* ----------------------------------------------------------------- */}
         {/* RIGHT PANE: AI RAG CHAT ASSISTANT                                 */}
         {/* ----------------------------------------------------------------- */}
-        <div className="w-1/2 bg-white flex flex-col">
+        <div
+          style={{ width: isDocPaneOpen ? `${100 - leftWidth}%` : "100%" }}
+          className="bg-white flex flex-col h-full flex-1 transition-all duration-75"
+        >
           {/* Sub-Header */}
-          <div className="h-12 border-b border-slate-200 px-6 flex items-center justify-between bg-slate-50/50">
+          <div className="h-12 border-b border-slate-200 px-6 flex items-center justify-between bg-slate-50/50 shrink-0">
             <div className="flex items-center space-x-2">
               <Sparkles className="w-4 h-4 text-blue-600" />
               <span className="font-semibold text-xs text-slate-800">Compliance Assistant</span>
@@ -389,12 +449,12 @@ export default function ComplianceLensApp() {
                   How can I assist with CCPA compliance today?
                 </h2>
                 <p className="text-xs text-slate-500 max-w-md mb-6 leading-relaxed">
-                  Ask detailed questions regarding consumer privacy rights, business obligations,
-                  opt-out mechanisms, or statutory non-compliance penalties.
+                  Ask questions regarding consumer rights, opt-out policies, statutory exemptions,
+                  or business liability under the CCPA.
                 </p>
 
-                {/* Suggested Prompts Grid */}
-                <div className="grid grid-cols-1 gap-2 w-full max-w-md">
+                {/* Suggested Prompts */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 w-full max-w-xl">
                   {SUGGESTED_PROMPTS.map((prompt, i) => (
                     <button
                       key={i}
@@ -402,7 +462,7 @@ export default function ComplianceLensApp() {
                       className="p-3 text-left bg-white border border-slate-200 hover:border-blue-400 hover:shadow-sm rounded-xl text-xs text-slate-700 transition-all flex items-center justify-between group"
                     >
                       <span>{prompt}</span>
-                      <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 transition-colors" />
+                      <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 transition-colors shrink-0 ml-2" />
                     </button>
                   ))}
                 </div>
@@ -441,7 +501,7 @@ export default function ComplianceLensApp() {
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
                     </div>
 
-                    {/* Assistant Citations & Actions */}
+                    {/* Assistant Source Citations */}
                     {msg.role === "assistant" && (
                       <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col space-y-2">
                         {msg.citations && msg.citations.length > 0 && (
@@ -453,10 +513,7 @@ export default function ComplianceLensApp() {
                               {msg.citations.map((cit, idx) => (
                                 <button
                                   key={idx}
-                                  onClick={() => {
-                                    handlePageJump(cit.page, cit.section);
-                                    setActiveTab("doc");
-                                  }}
+                                  onClick={() => handlePageJump(cit.page, cit.section)}
                                   className="inline-flex items-center space-x-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 px-2 py-0.5 rounded text-[10px] font-medium transition-colors"
                                 >
                                   <FileText className="w-3 h-3" />
@@ -493,7 +550,7 @@ export default function ComplianceLensApp() {
               ))
             )}
 
-            {/* Loading / Thinking Indicator */}
+            {/* Loading Indicator */}
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-none p-4 shadow-sm text-xs text-slate-500 flex items-center space-x-3">
@@ -506,7 +563,7 @@ export default function ComplianceLensApp() {
           </div>
 
           {/* Chat Input Bar */}
-          <div className="p-4 border-t border-slate-200 bg-white">
+          <div className="p-4 border-t border-slate-200 bg-white shrink-0">
             <div className="relative flex items-center bg-slate-50 border border-slate-300 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all shadow-sm">
               <input
                 type="text"
