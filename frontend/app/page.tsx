@@ -147,15 +147,23 @@ export default function ComplianceLensApp() {
     const startTime = Date.now();
 
     try {
-      const response = await fetch(`${apiUrl}/api/query`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: textToSend }),
-      });
+      const response = await fetch(`${apiUrl}/api/v1/query`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    query: textToSend,
+    metadata: {
+      user_id: "usr_123",
+    },
+    tags: ["api-production"],
+  }),
+});
 
-      if (!response.ok) {
-        throw new Error(`API returned status ${response.status}`);
-      }
+if (!response.ok) {
+  const errorData = await response.json().catch(() => null);
+  console.error("FastAPI Error Response:", errorData);
+  throw new Error(`API returned status ${response.status}: ${JSON.stringify(errorData)}`);
+}
 
       const data = await response.json();
       const endTime = Date.now();
