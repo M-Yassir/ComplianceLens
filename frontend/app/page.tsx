@@ -21,8 +21,7 @@ import {
   GripVertical,
   X,
   GitCompare,
-  FileSearch,
-  CheckCircle2
+  FileSearch
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -46,22 +45,11 @@ interface Message {
   latency?: number;
 }
 
-// Key CCPA Sections for Quick Jump Navigation
-const CCPA_SECTIONS = [
-  { id: "1798.100", title: "§ 1798.100 - General Duties & Notice", page: 1 },
-  { id: "1798.105", title: "§ 1798.105 - Consumer Right to Deletion", page: 3 },
-  { id: "1798.110", title: "§ 1798.110 - Right to Know Information", page: 5 },
-  { id: "1798.120", title: "§ 1798.120 - Right to Opt-Out of Sale/Share", page: 8 },
-  { id: "1798.130", title: "§ 1798.130 - Notice & Response Procedures", page: 11 },
-  { id: "1798.140", title: "§ 1798.140 - Key Definitions & Thresholds", page: 15 },
-  { id: "1798.150", title: "§ 1798.150 - Private Right of Action", page: 20 },
-];
-
 const SUGGESTED_PROMPTS = [
-  "What changed between the 2023 CCPA baseline and the 2026 rules?",
-  "What are the consumer opt-out requirements for data selling?",
-  "Explain the business obligations under Section 1798.100.",
-  "What is the cure period and penalties for non-compliance?",
+  "How does Section 7001 define Automated Decisionmaking Technology (ADMT)?",
+  "What are the 'symmetry in choice' dark pattern rules under Section 7004?",
+  "What restrictions does Section 7002 place on collection and use of personal data?",
+  "How are sworn complaints and probable cause proceedings handled under Sections 7300 and 7302?",
 ];
 
 export default function ComplianceLensApp() {
@@ -82,8 +70,6 @@ export default function ComplianceLensApp() {
   // Document Viewer State
   const [zoom, setZoom] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedSection, setSelectedSection] = useState("");
-  const [activeTab, setActiveTab] = useState<"doc" | "index">("doc");
 
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -132,10 +118,9 @@ export default function ComplianceLensApp() {
   // ---------------------------------------------------------------------------
   // Handlers
   // ---------------------------------------------------------------------------
-  const handlePageJump = (page: number, sectionId?: string) => {
+  const handlePageJump = (page: number) => {
     if (!isDocPaneOpen) setIsDocPaneOpen(true);
     setCurrentPage(page);
-    if (sectionId) setSelectedSection(sectionId);
   };
 
   const copyToClipboard = (text: string, id: string) => {
@@ -182,8 +167,8 @@ export default function ComplianceLensApp() {
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         latency: Math.round(endTime - startTime),
         citations: data.sources || [
-          { section: "§ 1798.100", title: "General Duties", page: 1 },
-          { section: "§ 1798.120", title: "Right to Opt-Out", page: 8 },
+          { section: "§ 7001", title: "Definitions", page: 2 },
+          { section: "§ 7004", title: "Symmetry in Choice", page: 18 },
         ],
       };
 
@@ -231,7 +216,7 @@ export default function ComplianceLensApp() {
         {/* Center Statute Badge */}
         <div className="hidden lg:flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600">
           <Scale className="w-4 h-4 text-blue-600" />
-          <span>California Consumer Privacy Act (Cal. Civ. Code § 1798.100 et seq.)</span>
+          <span>California Consumer Privacy Act Regulations</span>
         </div>
 
         {/* Header Actions */}
@@ -284,132 +269,58 @@ export default function ComplianceLensApp() {
           >
             {/* Document Controls Bar */}
             <div className="h-12 bg-white border-b border-slate-200 px-4 flex items-center justify-between shrink-0">
-              {/* View Switcher */}
-              <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg text-xs font-medium">
-                <button
-                  onClick={() => setActiveTab("doc")}
-                  className={`px-3 py-1 rounded-md transition-all ${
-                    activeTab === "doc"
-                      ? "bg-white text-slate-900 shadow-sm"
-                      : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  Document Viewer
-                </button>
-                <button
-                  onClick={() => setActiveTab("index")}
-                  className={`px-3 py-1 rounded-md transition-all ${
-                    activeTab === "index"
-                      ? "bg-white text-slate-900 shadow-sm"
-                      : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  Section Index
-                </button>
+              <div className="flex items-center space-x-2 text-xs text-slate-600 font-medium">
+                <FileText className="w-4 h-4 text-blue-600" />
+                <span>CCPA Official Text</span>
+                <span className="bg-slate-100 border border-slate-200 text-slate-500 text-[10px] font-mono px-2 py-0.5 rounded">
+                  Page {currentPage}
+                </span>
               </div>
 
-              {/* Quick Section Selector & Zoom */}
-              <div className="flex items-center space-x-2">
-                <select
-                  value={selectedSection}
-                  onChange={(e) => {
-                    const sec = CCPA_SECTIONS.find((s) => s.id === e.target.value);
-                    if (sec) handlePageJump(sec.page, sec.id);
-                  }}
-                  className="bg-slate-50 border border-slate-300 rounded-lg text-xs px-2 py-1 text-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none max-w-[170px] truncate"
+              {/* Zoom Controls */}
+              <div className="flex items-center space-x-1 bg-slate-100 rounded-lg p-1 border border-slate-200 text-slate-600">
+                <button
+                  onClick={() => setZoom((z) => Math.max(z - 10, 60))}
+                  className="p-1 hover:bg-white rounded text-slate-700 transition-all"
+                  title="Zoom Out"
                 >
-                  <option value="">Jump to Section...</option>
-                  {CCPA_SECTIONS.map((sec) => (
-                    <option key={sec.id} value={sec.id}>
-                      {sec.title}
-                    </option>
-                  ))}
-                </select>
-
-                {/* Zoom Controls */}
-                <div className="hidden sm:flex items-center space-x-1 bg-slate-100 rounded-lg p-1 border border-slate-200 text-slate-600">
-                  <button
-                    onClick={() => setZoom((z) => Math.max(z - 10, 60))}
-                    className="p-1 hover:bg-white rounded text-slate-700 transition-all"
-                    title="Zoom Out"
-                  >
-                    <ZoomOut className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="text-[11px] font-semibold px-1 text-slate-600">{zoom}%</span>
-                  <button
-                    onClick={() => setZoom((z) => Math.min(z + 10, 180))}
-                    className="p-1 hover:bg-white rounded text-slate-700 transition-all"
-                    title="Zoom In"
-                  >
-                    <ZoomIn className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    onClick={() => setZoom(100)}
-                    className="p-1 hover:bg-white rounded text-slate-700 transition-all"
-                    title="Reset Zoom"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                  <ZoomOut className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-[11px] font-semibold px-1 text-slate-600">{zoom}%</span>
+                <button
+                  onClick={() => setZoom((z) => Math.min(z + 10, 180))}
+                  className="p-1 hover:bg-white rounded text-slate-700 transition-all"
+                  title="Zoom In"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setZoom(100)}
+                  className="p-1 hover:bg-white rounded text-slate-700 transition-all"
+                  title="Reset Zoom"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
 
             {/* Document Content Panel */}
             <div className="flex-1 overflow-y-auto p-4 flex justify-center bg-slate-200/70 relative">
-              {activeTab === "doc" ? (
-                <div
-                  className="w-full h-full bg-white shadow-lg rounded-xl overflow-hidden border border-slate-300 transition-all duration-200"
-                  style={{
-                    transform: `scale(${zoom / 100})`,
-                    transformOrigin: "top center",
-                  }}
-                >
-                  <iframe
-                    src={`/ccpa_document.pdf#page=${currentPage}`}
-                    className={`w-full h-full border-none ${
-                      isResizing ? "pointer-events-none" : ""
-                    }`}
-                    title="CCPA Official Text"
-                  />
-                </div>
-              ) : (
-                /* Section Index Table */
-                <div className="w-full max-w-2xl bg-white rounded-xl shadow-sm border border-slate-200 p-6 overflow-y-auto">
-                  <div className="flex items-center space-x-2 mb-4 pb-3 border-b border-slate-100">
-                    <BookOpen className="w-5 h-5 text-blue-600" />
-                    <h3 className="font-semibold text-slate-900 text-sm">
-                      Statutory Navigation Index
-                    </h3>
-                  </div>
-                  <div className="space-y-2">
-                    {CCPA_SECTIONS.map((sec) => (
-                      <div
-                        key={sec.id}
-                        onClick={() => {
-                          handlePageJump(sec.page, sec.id);
-                          setActiveTab("doc");
-                        }}
-                        className="p-3 rounded-lg border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 cursor-pointer transition-all flex items-center justify-between group"
-                      >
-                        <div>
-                          <div className="font-medium text-xs text-slate-800 group-hover:text-blue-700">
-                            {sec.title}
-                          </div>
-                          <div className="text-[11px] text-slate-400 mt-0.5">
-                            California Civil Code Section {sec.id}
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-[10px] bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-800 px-2 py-0.5 rounded font-mono">
-                            Page {sec.page}
-                          </span>
-                          <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <div
+                className="w-full h-full bg-white shadow-lg rounded-xl overflow-hidden border border-slate-300 transition-all duration-200"
+                style={{
+                  transform: `scale(${zoom / 100})`,
+                  transformOrigin: "top center",
+                }}
+              >
+                <iframe
+                  src={`/ccpa_document.pdf#page=${currentPage}`}
+                  className={`w-full h-full border-none ${
+                    isResizing ? "pointer-events-none" : ""
+                  }`}
+                  title="CCPA Official Text"
+                />
+              </div>
             </div>
           </div>
         )}
@@ -527,7 +438,7 @@ export default function ComplianceLensApp() {
                               {msg.citations.map((cit, idx) => (
                                 <button
                                   key={idx}
-                                  onClick={() => handlePageJump(cit.page, cit.section)}
+                                  onClick={() => handlePageJump(cit.page)}
                                   className="inline-flex items-center space-x-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 px-2 py-0.5 rounded text-[10px] font-medium transition-colors"
                                 >
                                   <FileText className="w-3 h-3" />
@@ -597,7 +508,6 @@ export default function ComplianceLensApp() {
             </div>
             <div className="flex items-center justify-between mt-2 text-[10px] text-slate-400 px-1">
               <span>Press Enter ↵ to submit</span>
-              
             </div>
           </div>
         </div>
