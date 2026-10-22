@@ -18,11 +18,16 @@ import {
   Info,
   PanelLeftClose,
   PanelLeftOpen,
-  GripVertical
+  GripVertical,
+  X,
+  GitCompare,
+  FileSearch,
+  CheckCircle2
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import ComplianceLensLogo from "./components/logo";
+
 // -----------------------------------------------------------------------------
 // Types & Interfaces
 // -----------------------------------------------------------------------------
@@ -53,10 +58,10 @@ const CCPA_SECTIONS = [
 ];
 
 const SUGGESTED_PROMPTS = [
+  "What changed between the 2023 CCPA baseline and the 2026 rules?",
   "What are the consumer opt-out requirements for data selling?",
   "Explain the business obligations under Section 1798.100.",
   "What is the cure period and penalties for non-compliance?",
-  "How does CCPA define 'Personal Information'?",
 ];
 
 export default function ComplianceLensApp() {
@@ -68,10 +73,11 @@ export default function ComplianceLensApp() {
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Pane Visibility & Resizing State
+  // Pane Visibility, Resizing & Modal State
   const [isDocPaneOpen, setIsDocPaneOpen] = useState(true);
   const [leftWidth, setLeftWidth] = useState(50); // percentage (20% to 75%)
   const [isResizing, setIsResizing] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
 
   // Document Viewer State
   const [zoom, setZoom] = useState(100);
@@ -87,7 +93,18 @@ export default function ComplianceLensApp() {
     chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
-  // Handle Drag Resizing of the Dual Panes
+  // Keyboard shortcut (Escape to close About Modal)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isAboutOpen) {
+        setIsAboutOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isAboutOpen]);
+
+  // Handle Drag Resizing of Dual Panes
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing) return;
@@ -196,20 +213,20 @@ export default function ComplianceLensApp() {
       {/* =================================================================== */}
       <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-sm shrink-0">
         {/* Logo & App Branding */}
-<div className="flex items-center space-x-3">
-  <ComplianceLensLogo className="w-10 h-10 shrink-0 drop-shadow-sm" />
-  <div>
-    <div className="flex items-center space-x-2">
-      <span className="text-xl font-extrabold tracking-tight text-slate-900">
-        Compliance<span className="text-blue-600">Lens</span>
-      </span>
-      <span className="bg-blue-50 text-blue-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-blue-200">
-        CCPA 2026
-      </span>
-    </div>
-    <p className="text-xs text-slate-500">AI Legal Intelligence & Audit Platform</p>
-  </div>
-</div>
+        <div className="flex items-center space-x-3">
+          <ComplianceLensLogo className="w-10 h-10 shrink-0 drop-shadow-sm" />
+          <div>
+            <div className="flex items-center space-x-2">
+              <span className="text-xl font-extrabold tracking-tight text-slate-900">
+                Compliance<span className="text-blue-600">Lens</span>
+              </span>
+              <span className="bg-blue-50 text-blue-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-blue-200">
+                CCPA 2026
+              </span>
+            </div>
+            <p className="text-xs text-slate-500">AI Legal Intelligence & Audit Platform</p>
+          </div>
+        </div>
 
         {/* Center Statute Badge */}
         <div className="hidden lg:flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600">
@@ -217,8 +234,19 @@ export default function ComplianceLensApp() {
           <span>California Consumer Privacy Act (Cal. Civ. Code § 1798.100 et seq.)</span>
         </div>
 
-        {/* Header Toggle Actions */}
-        <div className="flex items-center space-x-3">
+        {/* Header Actions */}
+        <div className="flex items-center space-x-2.5">
+          {/* About / Info Button */}
+          <button
+            onClick={() => setIsAboutOpen(true)}
+            className="flex items-center space-x-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-3 py-2 rounded-lg text-xs font-medium transition-all shadow-sm active:scale-95"
+            title="Learn how ComplianceLens works"
+          >
+            <Info className="w-4 h-4 text-blue-600" />
+            <span>About</span>
+          </button>
+
+          {/* Document Viewer Toggle */}
           <button
             onClick={() => setIsDocPaneOpen((prev) => !prev)}
             className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-all shadow-sm active:scale-95 ${
@@ -230,12 +258,12 @@ export default function ComplianceLensApp() {
             {isDocPaneOpen ? (
               <>
                 <PanelLeftClose className="w-4 h-4" />
-                <span>Hide Document</span>
+                <span className="hidden sm:inline">Hide Document</span>
               </>
             ) : (
               <>
                 <PanelLeftOpen className="w-4 h-4" />
-                <span>Show Document Viewer</span>
+                <span className="hidden sm:inline">Show Document Viewer</span>
               </>
             )}
           </button>
@@ -436,7 +464,7 @@ export default function ComplianceLensApp() {
                 </h2>
                 <p className="text-xs text-slate-500 max-w-md mb-6 leading-relaxed">
                   Ask questions regarding consumer rights, opt-out policies, statutory exemptions,
-                  or business liability under the CCPA.
+                  or compare current rules against earlier baselines.
                 </p>
 
                 {/* Suggested Prompts */}
@@ -541,7 +569,7 @@ export default function ComplianceLensApp() {
               <div className="flex justify-start">
                 <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-none p-4 shadow-sm text-xs text-slate-500 flex items-center space-x-3">
                   <div className="w-2 h-2 bg-blue-600 rounded-full animate-ping" />
-                  <span>Searching ChromaDB & evaluating CCPA legal context...</span>
+                  <span>Searching & evaluating CCPA legal context...</span>
                 </div>
               </div>
             )}
@@ -569,14 +597,107 @@ export default function ComplianceLensApp() {
             </div>
             <div className="flex items-center justify-between mt-2 text-[10px] text-slate-400 px-1">
               <span>Press Enter ↵ to submit</span>
-              <span className="flex items-center space-x-1">
-                <Info className="w-3 h-3 text-slate-400" />
-                <span>RAG powered by LangChain & ChromaDB</span>
-              </span>
+              
             </div>
           </div>
         </div>
       </div>
+
+      {/* =================================================================== */}
+      {/* ABOUT COMPLIANCE LENS MODAL OVERLAY                                 */}
+      {/* =================================================================== */}
+      {isAboutOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white border border-slate-200 rounded-2xl shadow-2xl max-w-xl w-full p-6 space-y-6 relative overflow-hidden"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsAboutOpen(false)}
+              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-all"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="flex items-center space-x-3 pb-4 border-b border-slate-100">
+              <ComplianceLensLogo className="w-10 h-10 shrink-0" />
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">About ComplianceLens</h3>
+                <p className="text-xs text-slate-500">
+                  Interactive Legal Intelligence & Policy Audit Platform
+                </p>
+              </div>
+            </div>
+
+            {/* Platform Purpose Description */}
+            <p className="text-xs text-slate-600 leading-relaxed">
+              <strong>ComplianceLens</strong> simplifies complex legal documents by pairing a live,
+              searchable copy of the California Consumer Privacy Act (CCPA) with an intelligent
+              conversational assistant.
+            </p>
+
+            {/* Core Features Grid */}
+            <div className="space-y-3">
+              {/* Pillar 1 */}
+              <div className="flex items-start space-x-3 p-3 bg-blue-50/60 rounded-xl border border-blue-100">
+                <FileSearch className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-semibold text-slate-900">
+                    Interactive Policy Queries
+                  </h4>
+                  <p className="text-[11px] text-slate-600 mt-0.5 leading-normal">
+                    Ask plain-English questions to search the CCPA for specific rules on consumer rights,
+                    business liability, opt-out mechanisms, and enforcement thresholds.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 2 */}
+              <div className="flex items-start space-x-3 p-3 bg-indigo-50/60 rounded-xl border border-indigo-100">
+                <GitCompare className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-semibold text-slate-900">
+                    Version Comparison (2023 vs. 2026)
+                  </h4>
+                  <p className="text-[11px] text-slate-600 mt-0.5 leading-normal">
+                    Track statutory evolution over time. Instantly identify what changed between the 2023
+                    enforcement rules and updated 2026 standards, including expanded consumer protections and audit requirements.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 3 */}
+              <div className="flex items-start space-x-3 p-3 bg-sky-50/60 rounded-xl border border-sky-100">
+                <BookOpen className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-semibold text-slate-900">
+                    Live Section & Subsection References
+                  </h4>
+                  <p className="text-[11px] text-slate-600 mt-0.5 leading-normal">
+                    Verify every answer against official legal text. When the chatbot cites a provision, click the
+                    citation badge to view the exact page, section, and subsection in the live document window.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-[10px] text-slate-400">
+                Cal. Civ. Code § 1798.100 et seq.
+              </span>
+              <button
+                onClick={() => setIsAboutOpen(false)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-medium transition-all shadow-sm active:scale-95"
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
