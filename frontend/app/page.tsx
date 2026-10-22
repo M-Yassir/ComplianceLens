@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
+import ComplianceLensLogo from "./components/logo";
 // -----------------------------------------------------------------------------
 // Types & Interfaces
 // -----------------------------------------------------------------------------
@@ -196,34 +196,20 @@ export default function ComplianceLensApp() {
       {/* =================================================================== */}
       <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-sm shrink-0">
         {/* Logo & App Branding */}
-        <div className="flex items-center space-x-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 shadow-md shadow-blue-500/20 text-white">
-            <svg
-              className="w-6 h-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              <circle cx="12" cy="11" r="3" />
-              <path d="M12 8v0" />
-            </svg>
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-xl font-extrabold tracking-tight text-slate-900">
-                Compliance<span className="text-blue-600">Lens</span>
-              </span>
-              <span className="bg-blue-50 text-blue-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-blue-200">
-                CCPA 2026
-              </span>
-            </div>
-            <p className="text-xs text-slate-500">AI Legal Intelligence & Audit Platform</p>
-          </div>
-        </div>
+<div className="flex items-center space-x-3">
+  <ComplianceLensLogo className="w-10 h-10 shrink-0 drop-shadow-sm" />
+  <div>
+    <div className="flex items-center space-x-2">
+      <span className="text-xl font-extrabold tracking-tight text-slate-900">
+        Compliance<span className="text-blue-600">Lens</span>
+      </span>
+      <span className="bg-blue-50 text-blue-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-blue-200">
+        CCPA 2026
+      </span>
+    </div>
+    <p className="text-xs text-slate-500">AI Legal Intelligence & Audit Platform</p>
+  </div>
+</div>
 
         {/* Center Statute Badge */}
         <div className="hidden lg:flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600">
