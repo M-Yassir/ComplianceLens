@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     container_name: ccpa_rag_frontend
     ports:
-      - "4000:3000" # Maps host port 4000 -> container port 3000
+      - "4000:4000" # Maps host port 4000 -> container port 3000
     environment:
       - INTERNAL_API_URL=http://api:8000 # Internal Docker DNS
     depends_on:
