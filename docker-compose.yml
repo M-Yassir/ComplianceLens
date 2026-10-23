@@ -1,5 +1,22 @@
 services:
   # ---------------------------------------------------------------------------
+  # Next.js Frontend Application
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ccpa_rag_frontend
+    ports:
+      - "4000:3000" # Maps host port 4000 -> container port 3000
+    environment:
+      - INTERNAL_API_URL=http://api:8000 # Internal Docker DNS
+    depends_on:
+      - api
+    networks:
+      - rag-network
+    restart: unless-stopped
+  # ---------------------------------------------------------------------------
   # FastAPI Application Service
   # ---------------------------------------------------------------------------
   api:

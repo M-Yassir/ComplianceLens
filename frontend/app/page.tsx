@@ -147,7 +147,7 @@ export default function ComplianceLensApp() {
     const startTime = Date.now();
 
     try {
-      const response = await fetch(`${apiUrl}/api/v1/query`, {
+      const response = await fetch("/api/v1/query", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -186,7 +186,7 @@ if (!response.ok) {
         id: (Date.now() + 1).toString(),
         role: "assistant",
         content:
-          "⚠️ **Unable to connect to ComplianceLens backend API.**\n\nPlease ensure your FastAPI service is running at `http://localhost:8000`.",
+          "**Unable to connect to ComplianceLens backend API.**\n\nPlease ensure your FastAPI service is running at `http://localhost:8000`.",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, errorMessage]);
