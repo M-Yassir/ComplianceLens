@@ -73,11 +73,6 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 
-# Root-level generated text outputs
-version_N.txt
-version_N_minus_1.txt
-*.pdf
-
 # Local Vector Databases (e.g., ChromaDB / Qdrant local files)
 chroma_db/
 qdrant_data/
