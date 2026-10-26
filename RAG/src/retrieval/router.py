@@ -1,5 +1,3 @@
-# src/retrieval/router.py
-
 import re
 from enum import Enum
 from typing import Any, List, Optional
@@ -45,18 +43,15 @@ class QueryRouter:
         "change", "changed", "changes", "diff", "difference", "different",
         "amend", "amended", "amendment", "update", "updated", "updates",
         "versus", "vs", "compare", "compared", "comparison", "new rule",
-        "previous", "prior", "2023", "historical", "redline", "strikethrough",
-        "modify", "modified", "modification", "repeal", "repealed",
-        "delete", "deleted", "deletion", "add", "added", "addition",
-        "revise", "revised", "revision", "renumber", "renumbered", "reletter"
+        "previous", "prior", "2023", "historical", "redline", "strikethrough"
     }
 
     def __init__(self, llm: Optional[Any] = None):
         self.llm = llm
 
     def _extract_sections(self, query: str) -> List[str]:
-        """Extracts section references (e.g. '7002' from '§ 7002', 'sec. 7002', or 'Section 7002')."""
-        matches = re.findall(r"(?:§|section|sec\.?)\s*(\d+[a-z]?)", query, re.IGNORECASE)
+        """Extracts section references (e.g. '7002' from '§ 7002' or 'Section 7002')."""
+        matches = re.findall(r"(?:§|section)\s*(\d+[a-z]?)", query, re.IGNORECASE)
         return sorted(list(set(m.lower() for m in matches)))
 
     def _heuristic_route(self, query: str) -> QueryRoutingDecision:
@@ -67,14 +62,24 @@ class QueryRouter:
 
         diff_matches = words.intersection(self.DIFF_KEYWORDS)
 
+        # Natural-language ways of asking "what is different now": "what was added...",
+        # "were removed", "on the new version", "compared with before", "since 2023".
+        # (Single keywords alone are too ambiguous - they only reach HYBRID_BOTH below.)
+        diff_phrase = re.search(
+            r"\b(was|were|been|got)\s+(newly\s+)?(added|removed|deleted|repealed|amended|revised|modified|replaced|renumbered|changed|updated)\b"
+            r"|\b(new|old|previous|prior|latest|earlier|updated)\s+versions?\b"
+            r"|\bcompared\s+(to|with)\b|\bbefore\s+and\s+after\b|\bsince\s+2023\b",
+            query_lower,
+        )
+
         # Explicit version comparison query
-        if len(diff_matches) >= 2 or ("2023" in words and "2026" in words) or "what changed" in query_lower:
+        if diff_phrase or len(diff_matches) >= 2 or ("2023" in words and "2026" in words) or "what changed" in query_lower:
             return QueryRoutingDecision(
                 route=RouteType.VERSION_DIFF,
                 confidence=0.95,
                 version_filter=None,  # Need cross-version scope
                 extracted_sections=extracted_sections,
-                reasoning=f"Query matched cross-version keywords: {list(diff_matches)}",
+                reasoning=f"Query matched cross-version keywords/phrases: {list(diff_matches) or diff_phrase.group(0)}",
             )
 
         # Single diff keyword present
@@ -130,7 +135,6 @@ if __name__ == "__main__":
         "What changed in section 7025 between the 2023 regulations and the 2026 updates?",
         "Did the CPPA update the rules for Automated Decisionmaking Technology (ADMT)?",
         "How should a business display Do Not Sell or Share links?",
-        "What is the definition of alternative opt-out link under sec. 7001?",
     ]
 
     print("\n" + "=" * 85)
