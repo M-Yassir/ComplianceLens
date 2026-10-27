@@ -45,12 +45,129 @@ interface Message {
   latency?: number;
 }
 
+interface DisplayCitation {
+  displaySection: string;
+  section: string;
+  page: number;
+  title?: string;
+}
+
+// Parses exact statutory citations from the LLM response text and maps them to source pages
+function extractVerifiedCitations(sources: any[] = [], content: string = ""): DisplayCitation[] {
+  if (!content) return [];
+
+  // Map retrieved sources by section number for page lookups
+  const sourceMap = new Map<string, { page: number; title: string }>();
+  sources.forEach((src) => {
+    const secNum = src.section ? String(src.section).replace(/\D/g, "") : "";
+    if (secNum && !sourceMap.has(secNum)) {
+      sourceMap.set(secNum, {
+        page: src.page ?? src.page_number ?? 1,
+        title: src.section_title || src.title || "",
+      });
+    }
+  });
+
+  const verified: DisplayCitation[] = [];
+  const seen = new Set<string>();
+
+  // Matches patterns like: § 7051(c), § 7053(b), § 7051(a)(6), Section 7001(e)
+  const regex = /(?:§|Section)\s*(\d{4})(?:\s*\(([a-z0-9]+)\))?(?:\s*\(([a-z0-9]+)\))?/gi;
+  let match;
+
+  while ((match = regex.exec(content)) !== null) {
+    const sectionNum = match[1];
+    const sub1 = match[2] ? `(${match[2]})` : "";
+    const sub2 = match[3] ? `(${match[3]})` : "";
+    const displaySection = `§ ${sectionNum}${sub1}${sub2}`;
+
+    if (!seen.has(displaySection)) {
+      seen.add(displaySection);
+      const srcInfo = sourceMap.get(sectionNum);
+      verified.push({
+        displaySection,
+        section: sectionNum,
+        page: srcInfo ? srcInfo.page : 1,
+        title: srcInfo ? srcInfo.title : `Section ${sectionNum}`,
+      });
+    }
+  }
+
+  // Fallback if no explicit § citations were found in text:
+  if (verified.length === 0 && sources.length > 0) {
+    sources.forEach((cit) => {
+      const rawSection = cit.section || "";
+      const subSec = cit.sub_item || (typeof parseSubsection === "function" ? parseSubsection(cit) : "");
+      const cleanSubSec = subSec ? `(${subSec.replace(/[()]/g, "")})` : "";
+      const displaySection = rawSection ? `§ ${rawSection.replace(/^§\s*/, "")}${cleanSubSec}` : "Citation";
+
+      if (!seen.has(displaySection)) {
+        seen.add(displaySection);
+        verified.push({
+          displaySection,
+          section: rawSection,
+          page: cit.page ?? cit.page_number ?? 1,
+          title: cit.section_title || cit.title || "",
+        });
+      }
+    });
+  }
+
+  return verified;
+}
+
 const SUGGESTED_PROMPTS = [
   "How does Section 7001 define Automated Decisionmaking Technology (ADMT)?",
   "What are the 'symmetry in choice' dark pattern rules under Section 7004?",
   "What restrictions does Section 7002 place on collection and use of personal data?",
   "How are sworn complaints and probable cause proceedings handled under Sections 7300 and 7302?",
 ];
+
+// Helper to extract legal subsections while stripping database chunk tags like _p1, _p2
+function parseSubsection(citation: any): string {
+  const { parent_id, snippet, section_title } = citation;
+
+  // 1. Check parent_id for child tags (e.g. "v2026_sec7001_child_aa" -> "(aa)")
+  if (parent_id && parent_id.includes("_child_")) {
+    const match = parent_id.match(/_child_([a-z0-9]+)/i);
+    if (match) return `(${match[1]})`;
+  }
+
+  // 2. Scan snippet text for statutory markers (e.g., "(b)", "(b)(1)", "(aa)")
+  if (snippet) {
+    const snippetMatch = snippet.match(/\n\s*(\([a-z0-9]+\)(?:\s*\([0-9]+\))?)/i);
+    if (snippetMatch) {
+      return snippetMatch[1].replace(/\s+/g, "");
+    }
+  }
+
+  // 3. Fallback: Check section_title for parenthesized terms
+  if (section_title) {
+    const titleMatch = section_title.match(/\(([a-z0-9]+)\)/i);
+    if (titleMatch) return `(${titleMatch[1]})`;
+  }
+
+  return "";
+}
+
+// Checks if a citation section/subsection actually appears in the LLM response text
+function isCitationReferencedInContent(citation: any, content: string): boolean {
+  const sectionNum = citation.section ? citation.section.replace(/\D/g, "") : "";
+  if (!sectionNum) return true; // Fallback to display if section number is missing
+
+  const subSecRaw = citation.sub_item || parseSubsection(citation);
+  const subSec = subSecRaw.replace(/[()]/g, "").trim();
+
+  if (subSec) {
+    // Matches patterns like "7001(e)", "7001(e)(1)", "7001 (e)"
+    const subSecRegex = new RegExp(`${sectionNum}\\s*\\(?${subSec}`, "i");
+    return subSecRegex.test(content);
+  }
+
+  // Matches section number references like "§ 7001" or "Section 7001"
+  const sectionRegex = new RegExp(`(?:§|section)?\\s*${sectionNum}`, "i");
+  return sectionRegex.test(content);
+}
 
 export default function ComplianceLensApp() {
   // ---------------------------------------------------------------------------
@@ -72,7 +189,7 @@ export default function ComplianceLensApp() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const chatBottomRef = useRef<HTMLDivElement>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const apiUrl = process.env.INTERNAL_API_URL || "http://localhost:8000";
 
   // Auto-scroll chat to bottom
   useEffect(() => {
@@ -147,53 +264,51 @@ export default function ComplianceLensApp() {
     const startTime = Date.now();
 
     try {
-      const response = await fetch("/api/v1/query", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    query: textToSend,
-    metadata: {
-      user_id: "usr_123",
-    },
-    tags: ["api-production"],
-  }),
-});
+    // Use relative path so Next.js rewrites proxy it internally to http://api:8000
+    const response = await fetch("/api/v1/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: textToSend,
+        metadata: {
+          user_id: "usr_123",
+        },
+        tags: ["api-production"],
+      }),
+    });
 
-if (!response.ok) {
-  const errorData = await response.json().catch(() => null);
-  console.error("FastAPI Error Response:", errorData);
-  throw new Error(`API returned status ${response.status}: ${JSON.stringify(errorData)}`);
-}
-
-      const data = await response.json();
-      const endTime = Date.now();
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: data.answer || data.response || data.result || "No response content generated.",
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        latency: Math.round(endTime - startTime),
-        citations: data.sources || [
-          { section: "§ 7001", title: "Definitions", page: 2 },
-          { section: "§ 7004", title: "Symmetry in Choice", page: 18 },
-        ],
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content:
-          "**Unable to connect to ComplianceLens backend API.**\n\nPlease ensure your FastAPI service is running at `http://localhost:8000`.",
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      console.error("FastAPI Error Response:", errorData);
+      throw new Error(`API returned status ${response.status}`);
     }
-  };
+
+    const data = await response.json();
+    const endTime = Date.now();
+
+    const assistantMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: "assistant",
+      content: data.answer || data.response || data.result || "No response content generated.",
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      latency: Math.round(endTime - startTime),
+      citations: data.sources || [],
+    };
+
+    setMessages((prev) => [...prev, assistantMessage]);
+  } catch (error) {
+    const errorMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: "assistant",
+      content:
+        "**Unable to connect to ComplianceLens backend API.**\n\nPlease ensure your FastAPI service is running and accessible on the Docker network.",
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    };
+    setMessages((prev) => [...prev, errorMessage]);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div
@@ -280,9 +395,6 @@ if (!response.ok) {
               <div className="flex items-center space-x-2 text-xs text-slate-600 font-medium">
                 <FileText className="w-4 h-4 text-blue-600" />
                 <span>CCPA Official Text</span>
-                <span className="bg-slate-100 border border-slate-200 text-slate-500 text-[10px] font-mono px-2 py-0.5 rounded">
-                  Page {currentPage}
-                </span>
               </div>
 
               {/* Zoom Controls */}
@@ -434,29 +546,34 @@ if (!response.ok) {
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
                     </div>
 
-                    {/* Assistant Source Citations */}
+                    {/* Verified Statutory Citations */}
                     {msg.role === "assistant" && (
                       <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col space-y-2">
-                        {msg.citations && msg.citations.length > 0 && (
-                          <div>
-                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                              Verified Source Statutory Citations:
-                            </span>
-                            <div className="flex flex-wrap gap-1.5">
-                              {msg.citations.map((cit, idx) => (
-                                <button
-                                  key={idx}
-                                  onClick={() => handlePageJump(cit.page)}
-                                  className="inline-flex items-center space-x-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 px-2 py-0.5 rounded text-[10px] font-medium transition-colors"
-                                >
-                                  <FileText className="w-3 h-3" />
-                                  <span>{cit.section}</span>
-                                  <span className="text-blue-500 font-mono">(p. {cit.page})</span>
-                                </button>
-                              ))}
+                        {(() => {
+                          const verifiedCitations = extractVerifiedCitations(msg.citations, msg.content);
+                          if (verifiedCitations.length === 0) return null;
+
+                          return (
+                            <div>
+                              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
+                                Verified Source Statutory Citations:
+                              </span>
+                              <div className="flex flex-wrap gap-1.5">
+                                {verifiedCitations.map((cit, idx) => (
+                                  <button
+                                    key={idx}
+                                    onClick={() => handlePageJump(cit.page)}
+                                    className="inline-flex items-center space-x-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors shadow-sm"
+                                    title={cit.title || cit.displaySection}
+                                  >
+                                    <FileText className="w-3.5 h-3.5 text-blue-600" />
+                                    <span>{cit.displaySection}</span>
+                                  </button>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          );
+                        })()}
 
                         <div className="flex justify-end pt-1">
                           <button
