@@ -19,9 +19,8 @@ from dataclasses import dataclass, asdict, field
 
 # Pipeline & Module Imports
 from src.rag.pipeline import RAGPipeline, RAGResponse
-from src.generation.llm_service import _get_text_content
+from src.generation.llm_service import get_llm, _get_text_content
 from src.vector_store.embeddings import get_embedding_function
-from langfuse import observe, get_client
 # NOTE: the cross-version engine is imported lazily (only with --include-diff) so a
 # problem in that module can't take down the policy-lookup evaluation.
 
@@ -88,6 +87,7 @@ class SingleEvalResult:
     semantic_similarity: Optional[float]  # Cosine sim (None: abstained, or embedding call failed)
     llm_judge_score: Optional[float] = None
     llm_judge_reasoning: Optional[str] = None
+    model_refusal: bool = False  # out-of-scope question the retrieval guard let through but the model declined (judge >= 4)
     execution_time_sec: float = 0.0
     retrieved_sources: List[Dict[str, Any]] = field(default_factory=list)
     error: Optional[str] = None  # set when the pipeline call itself failed (excluded from metrics)
@@ -105,7 +105,8 @@ class AggregateEvalMetrics:
     top_1_precision_rate: float = 0.0        # Top-1 Hit Rate (Answerable)
     mean_precision_at_k: float = 0.0         # Precision@K (Answerable)
     false_abstention_rate: float = 0.0       # Answerable queries refused
-    out_of_scope_abstention_rate: float = 0.0 # OOS queries correctly refused
+    out_of_scope_abstention_rate: float = 0.0 # OOS queries correctly refused (guard OR model, see below)
+    out_of_scope_model_refusals: int = 0      # ...of which refused by the model, detected by the LLM judge
     mean_key_term_recall: float = 0.0
     mean_semantic_similarity: float = 0.0
     citation_validity_rate: float = 0.0
@@ -128,6 +129,8 @@ class CCPAEvalHarness:
     ):
         self.dataset_path = dataset_path
         self.use_llm_judge = use_llm_judge
+        # temperature 0 so judge scores are reproducible between runs
+        self.judge_llm = get_llm(temperature=0) if use_llm_judge else None
 
         # Initialize core pipeline modules
         self.rag_pipeline = RAGPipeline(min_rerank_score=min_rerank_threshold)
@@ -186,11 +189,16 @@ Score the answer from 1 to 5 based on legal accuracy, completeness, and lack of 
 3 = Partially correct but missed key statutory nuances.
 5 = Legally precise, complete, and fully aligned with ground truth.
 
+If the Ground Truth says the system should decline (e.g. "Unable to provide a confident answer"), score by whether the candidate declines:
+5 = clearly says it cannot answer / the information is not available, without answering the question anyway;
+3 = declines part of the question but substantively answers the rest;
+1 = gives a substantive answer anyway.
+
 Respond ONLY with JSON formatted exactly like:
 {{"score": 5.0, "reasoning": "Direct explanation of evaluation"}}
 """
         try:
-            response = self.rag_pipeline.llm.invoke(prompt)
+            response = self.judge_llm.invoke(prompt)
             # Gemini-style responses can be a list of parts; the pipeline already normalises this.
             content = _get_text_content(getattr(response, "content", response)).strip()
             match = re.search(r"\{.*\}", content, flags=re.DOTALL)  # tolerate ```json fences / prose
@@ -247,9 +255,7 @@ Respond ONLY with JSON formatted exactly like:
                     if self.cross_version_rag is None:
                         raise RuntimeError("VERSION_DIFF row but cross-version engine not loaded (use --include-diff)")
                     comp_res = self.cross_version_rag.query_section_changes(
-                        user_query=query, extracted_sections=expected_secs,
-                        tags=["evaluation", "golden-dataset"],
-                        metadata={"eval_id": eval_id, "expected_route": expected_route}
+                        user_query=query, extracted_sections=expected_secs
                     )
                     generated_answer = comp_res.answer
                     actual_route = "VERSION_DIFF"
@@ -259,11 +265,7 @@ Respond ONLY with JSON formatted exactly like:
                     sources_meta = []
                     retrieved_secs = [str(s) for s in comp_res.sections_analyzed]
                 else:
-                    rag_resp: RAGResponse = self.rag_pipeline.query(
-                        query, 
-                        tags=["evaluation", "golden-dataset"],
-                        metadata={"eval_id": eval_id, "expected_route": expected_route}
-                    )
+                    rag_resp: RAGResponse = self.rag_pipeline.query(query)
                     generated_answer = rag_resp.answer
                     actual_route = rag_resp.routing_decision.route.value
                     route_reasoning = rag_resp.routing_decision.reasoning
@@ -303,8 +305,16 @@ Respond ONLY with JSON formatted exactly like:
 
             # LLM Judge Evaluation
             llm_score, llm_reason = None, None
-            if self.use_llm_judge and scored_answer and ground_truth:
+            # Judge answered questions, and also out-of-scope questions the guard did NOT abstain on
+            # (their ground truth is a refusal, so the judge checks whether the model declined).
+            if self.use_llm_judge and not abstained and ground_truth and (scored_answer or answerable is False):
                 llm_score, llm_reason = self._evaluate_llm_judge(query, ground_truth, generated_answer)
+
+            # Effective abstention: the retrieval score can't tell "on topic" from "answers the question", so an
+            # out-of-scope question counts as refused when the model itself declined (judge score >= 4).
+            model_refusal = bool(answerable is False and not abstained and llm_score is not None and llm_score >= 4)
+            if model_refusal:
+                abstained = True
 
             res = SingleEvalResult(
                 eval_id=eval_id,
@@ -326,6 +336,7 @@ Respond ONLY with JSON formatted exactly like:
                 semantic_similarity=sem_sim,
                 llm_judge_score=llm_score,
                 llm_judge_reasoning=llm_reason,
+                model_refusal=model_refusal,
                 execution_time_sec=exec_time,
                 retrieved_sources=sources_meta,
             )
@@ -333,7 +344,7 @@ Respond ONLY with JSON formatted exactly like:
 
             # Format CLI status string
             if answerable is False:
-                status = "✅ OOS ABSTAIN" if abstained else "❌ FAILED TO ABSTAIN"
+                status = ("✅ OOS REFUSED (model)" if model_refusal else "✅ OOS ABSTAIN") if abstained else "❌ FAILED TO ABSTAIN"
             elif section_hit and (term_recall is None or term_recall >= 0.6):
                 status = "✅ PASS"
             elif abstained:
@@ -391,7 +402,7 @@ Respond ONLY with JSON formatted exactly like:
         non_abstained = [r for r in results if not r.abstained]
         citation_hits = sum(1 for r in non_abstained if r.citation_valid)
 
-        mean_judge = _mean([r.llm_judge_score for r in results])
+        mean_judge = _mean([r.llm_judge_score for r in ans_results])  # quality of answers only, not refusal checks
 
         # Per-Route Breakdown
         by_route: Dict[str, Dict[str, Any]] = {}
@@ -422,6 +433,7 @@ Respond ONLY with JSON formatted exactly like:
             mean_precision_at_k=round(mean_prec, 4),
             false_abstention_rate=round(false_abstains / len(ans_results), 4) if ans_results else 0.0,
             out_of_scope_abstention_rate=round(oos_abstains / len(oos_results), 4) if oos_results else 0.0,
+            out_of_scope_model_refusals=sum(1 for r in oos_results if r.model_refusal),
             mean_key_term_recall=round(mean_term_recall, 4) if mean_term_recall is not None else 0.0,
             mean_semantic_similarity=round(mean_sem_sim, 4) if mean_sem_sim is not None else 0.0,
             citation_validity_rate=round(citation_hits / len(non_abstained), 4) if non_abstained else 1.0,
@@ -447,6 +459,7 @@ Respond ONLY with JSON formatted exactly like:
         print(f"  • False Abstention Rate     : {aggregates.false_abstention_rate * 100:.2f}% (Valid queries refused)")
         if aggregates.out_of_scope_queries > 0:
             print(f"  • Out-of-Scope Abstention   : {aggregates.out_of_scope_abstention_rate * 100:.2f}% (Irrelevant queries correctly refused)")
+            print(f"      of which refused by the model (needs --llm-judge): {aggregates.out_of_scope_model_refusals}")
         print(f"  • Citation Verification Rate: {aggregates.citation_validity_rate * 100:.2f}% (Valid citations in non-abstained answers)")
         print("-" * 80)
         print("GENERATION & ANSWER QUALITY:")
@@ -493,12 +506,6 @@ if __name__ == "__main__":
     )
     
     harness.print_summary_report(aggregates)
-
-    try:
-        get_client().flush()
-        print("Langfuse traces successfully flushed.")
-    except Exception as e:
-        print(f"Failed to flush Langfuse traces: {e}")
 
     export_payload = {
         "summary": asdict(aggregates),

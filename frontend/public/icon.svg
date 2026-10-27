@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="prismGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="210" cy="210" r="140" stroke="url(#prismGrad)" stroke-width="44" fill="none" />
+  <path d="M 315 315 L 435 435" stroke="url(#prismGrad)" stroke-width="48" stroke-linecap="round" />
+  <circle cx="210" cy="210" r="80" stroke="#38BDF8" stroke-width="16" stroke-dasharray="360 40" fill="none" />
+  <circle cx="210" cy="210" r="28" fill="#2563EB" />
+  <path d="M 210 170 L 210 250 M 170 210 L 250 210" stroke="white" stroke-width="10" stroke-linecap="round" />
+</svg>

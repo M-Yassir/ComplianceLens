@@ -1,4 +1,5 @@
 import os
+import re
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -75,6 +76,123 @@ class RAGPipeline:
         self.top_k_reranked = top_k_reranked
         self.max_per_section = max_per_section
 
+        # Cross-version engine (VERSION_DIFF / HYBRID_BOTH). Built lazily so a problem in the
+        # versioning module can never break plain policy lookups; shares the pipeline's
+        # already-loaded dense retriever instead of opening a second Chroma/parents copy.
+        self._diff_engine = None
+
+    def _get_diff_engine(self):
+        if self._diff_engine is None:
+            from src.versioning.section_key_rag import SectionKeyCrossVersionRAG
+            self._diff_engine = SectionKeyCrossVersionRAG(
+                retriever=getattr(self.hybrid_retriever, "dense_retriever", None)
+            )
+        return self._diff_engine
+
+    @staticmethod
+    def _trace(**kwargs: Any) -> None:
+        if settings.LANGFUSE_ENABLED and settings.LANGFUSE_PUBLIC_KEY:
+            try:
+                get_client().update_current_trace(**kwargs)
+            except Exception:
+                pass
+
+    @staticmethod
+    def _verify_diff_citations(answer: str, context: str) -> CitationVerificationResult:
+        """Deterministic grounding check for diff answers: every § number the answer cites must
+        occur in the 2023/2026 context the model was given."""
+        cited = set(re.findall(r"(?:§|\bsections?)\s*(\d{4,5})", answer, flags=re.IGNORECASE))
+        if not cited:
+            return CitationVerificationResult(
+                is_valid=True, verification_score=1.0,
+                summary="Diff answer cites no section numbers; nothing to verify.",
+            )
+        in_context = set(re.findall(r"\b(\d{4,5})\b", context))
+        ungrounded = sorted(cited - in_context)
+        return CitationVerificationResult(
+            is_valid=not ungrounded,
+            verification_score=round(1 - len(ungrounded) / len(cited), 4),
+            summary=("All cited sections appear in the compared 2023/2026 text."
+                     if not ungrounded else f"Cited sections not present in the compared text: {ungrounded}"),
+        )
+
+    def _answer_version_diff(
+        self, user_query: str, routing_decision: QueryRoutingDecision, callbacks: List[Any]
+    ) -> RAGResponse:
+        """VERSION_DIFF route: deterministic 2023-vs-2026 section/definition join + one LLM call."""
+        engine = self._get_diff_engine()
+        resp = engine.query_section_changes(
+            user_query,
+            extracted_sections=routing_decision.extracted_sections or None,
+            llm_config={"callbacks": callbacks} if callbacks else None,
+        )
+
+        if resp.abstained:
+            abstention = AbstentionDecision(
+                should_abstain=True,
+                confidence_score=0.0,
+                reason="No comparable 2023/2026 section or definition could be resolved for this query.",
+                fallback_response=resp.answer,
+            )
+            citation = CitationVerificationResult(
+                is_valid=True, verification_score=1.0,
+                summary="Query resulted in abstention. Citation verification skipped.",
+            )
+            sources: List[Dict[str, Any]] = []
+        else:
+            abstention = AbstentionDecision(
+                should_abstain=False,
+                confidence_score=1.0,
+                reason=f"Cross-version comparison resolved sections {resp.sections_analyzed}"
+                       + (f" and {len(resp.terms_analyzed)} definition(s)" if resp.terms_analyzed else "")
+                       + " by section-key join (no relevance score involved).",
+            )
+            citation = self._verify_diff_citations(resp.answer, resp.context)
+            sources = []
+            for sec in resp.sections_analyzed:
+                parents = engine.parent_map_2026.get(sec) or engine.parent_map_2023.get(sec) or [{}]
+                sources.append({
+                    "parent_id": f"diff_sec{sec}",
+                    "section": sec,
+                    "section_title": parents[0].get("section_title") or ("Definitions." if sec == "7001" else ""),
+                    "rerank_score": 0.0,  # not a retrieval score: sections are joined by key
+                    "snippet": f"2023 vs 2026 comparison of § {sec}",
+                    "source_type": "cross_version_diff",
+                    **({"terms": resp.terms_analyzed} if sec == "7001" and resp.terms_analyzed else {}),
+                })
+
+        self._trace(output={"answer": None if resp.abstained else resp.answer, "abstained": resp.abstained})
+        return RAGResponse(
+            query=user_query,
+            answer=resp.answer,
+            routing_decision=routing_decision,
+            abstention_decision=abstention,
+            citation_verification=citation,
+            source_documents=sources,
+        )
+
+    def _hybrid_diff_context(
+        self, user_query: str, routing_decision: QueryRoutingDecision, context_docs: List[Document]
+    ) -> str:
+        """Changelog context for HYBRID_BOTH, built from the sections the policy path already found
+        (no second vector search, no extra LLM call). Failure just means a policy-only answer."""
+        try:
+            sections = list(routing_decision.extracted_sections or [])
+            if not sections:
+                for d in context_docs:
+                    sec = str(d.metadata.get("section", "")).strip()
+                    if sec and sec != "N/A" and sec not in sections:
+                        sections.append(sec)
+                    if len(sections) >= 2:
+                        break
+            ctx = self._get_diff_engine().build_context(
+                user_query, extracted_sections=sections[:2], discovered_docs=context_docs
+            )
+            return ctx.context_str
+        except Exception as e:
+            print(f"⚠️ Hybrid changelog context unavailable: {str(e)[:120]}")
+            return ""
+
     def _format_context(self, docs: List[Document]) -> str:
         """Formats retrieved documents into a clean text block for prompt injection."""
         formatted_blocks = []
@@ -119,6 +237,15 @@ class RAGPipeline:
 
         # Step 1: Intent Routing
         routing_decision = self.router.route_query(user_query)
+        self._trace(metadata={
+            **(metadata or {}),
+            "route": routing_decision.route.value,
+            "extracted_sections": routing_decision.extracted_sections,
+        })
+
+        # Cross-version questions are answered by the section-key diff engine, not policy retrieval.
+        if routing_decision.route == RouteType.VERSION_DIFF:
+            return self._answer_version_diff(user_query, routing_decision, callbacks)
 
         # Check section presence early so both retrieval and abstention can use it
         has_sections = len(routing_decision.extracted_sections) > 0
@@ -182,6 +309,11 @@ class RAGPipeline:
         # Step 5: Prompt Selection & LLM Answer Generation
         prompt_template = get_prompt_template(routing_decision.route)
         context_str = self._format_context(context_docs)
+
+        if routing_decision.route == RouteType.HYBRID_BOTH:
+            changelog = self._hybrid_diff_context(user_query, routing_decision, context_docs)
+            if changelog:
+                context_str += "\n\n=== CHANGELOG CONTEXT: 2023 vs 2026 (same sections, side by side) ===\n" + changelog
 
         formatted_messages = prompt_template.format_messages(
             context=context_str,
@@ -293,4 +425,3 @@ if __name__ == "__main__":
     print("--- RETRIEVED SOURCES ---")
     for s in res_injected.source_documents:
         print(f"• {s}")
-    

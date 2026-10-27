@@ -80,6 +80,351 @@
     "key_terms": ["rainfall", "weather", "Sacramento", "trivia"]
   },
   {
+    "id": "eval_oos_009",
+    "query": "What is the maximum civil penalty under the Virginia Consumer Data Protection Act when a controller fails to honor a consumer's opt-out of targeted advertising?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query concerns Virginia state law, which is outside the California CCPA/CPRA regulations.",
+    "target_term": "Virginia CDPA penalty",
+    "key_terms": [
+      "Virginia",
+      "VCDPA",
+      "civil penalty"
+    ],
+    "category": "other_state_law"
+  },
+  {
+    "id": "eval_oos_010",
+    "query": "What are the PCI DSS requirements for storing and masking credit card numbers in a merchant's database?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. PCI DSS is a payment-industry standard, not part of the CCPA/CPRA regulations.",
+    "target_term": "PCI DSS",
+    "key_terms": [
+      "PCI DSS",
+      "credit card",
+      "payment card"
+    ],
+    "category": "other_regime"
+  },
+  {
+    "id": "eval_oos_011",
+    "query": "What is the exact dollar amount of the civil penalty per violation that the California Attorney General can seek for a CCPA violation?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Penalty amounts are set by the statute (Civil Code), not stated in the CCPA regulations.",
+    "target_term": "AG civil penalty amount",
+    "key_terms": [
+      "civil penalty",
+      "per violation",
+      "Attorney General"
+    ],
+    "category": "near_miss_statute_penalty"
+  },
+  {
+    "id": "eval_oos_012",
+    "query": "How much in statutory damages can a consumer recover in a private lawsuit after a data breach under the CCPA?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The private right of action and its damages are in the statute, not in the CCPA regulations.",
+    "target_term": "Private right of action damages",
+    "key_terms": [
+      "statutory damages",
+      "private right of action",
+      "data breach"
+    ],
+    "category": "near_miss_statute_private_action"
+  },
+  {
+    "id": "eval_oos_013",
+    "query": "Does the CCPA apply to a nonprofit organization that collects donor email addresses?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Which entities are covered businesses is determined by the statute; the regulations do not address nonprofit donor lists.",
+    "target_term": "Nonprofit applicability",
+    "key_terms": [
+      "nonprofit",
+      "donor",
+      "covered business"
+    ],
+    "category": "near_miss_scope"
+  },
+  {
+    "id": "eval_oos_014",
+    "query": "Which specific encryption algorithm and minimum key length must a business use to satisfy the CCPA's cybersecurity requirements?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The regulations do not prescribe a specific encryption algorithm or key length.",
+    "target_term": "Encryption algorithm",
+    "key_terms": [
+      "encryption algorithm",
+      "key length",
+      "AES"
+    ],
+    "category": "near_miss_in_domain"
+  },
+  {
+    "id": "eval_oos_015",
+    "query": "How do Colorado's universal opt-out mechanism rules differ from California's opt-out preference signal requirements?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query asks about Colorado law, which is outside the California CCPA/CPRA regulations.",
+    "target_term": "Colorado opt-out mechanism",
+    "key_terms": [
+      "Colorado",
+      "universal opt-out",
+      "opt-out preference signal"
+    ],
+    "category": "other_state_in_domain"
+  },
+  {
+    "id": "eval_oos_016",
+    "query": "Which specific companies are currently registered as data brokers with the California Privacy Protection Agency?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Registry listings are operational data, not part of the regulatory text.",
+    "target_term": "Data broker registry",
+    "key_terms": [
+      "data broker",
+      "registered",
+      "registry"
+    ],
+    "category": "registry_data"
+  },
+  {
+    "id": "eval_oos_017",
+    "query": "Should my company settle with the California Privacy Protection Agency or contest an enforcement action in a hearing?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. This is a legal-strategy question; the regulations describe procedures but do not advise on strategy.",
+    "target_term": "Settlement strategy",
+    "key_terms": [
+      "settle",
+      "enforcement action",
+      "strategy"
+    ],
+    "category": "legal_strategy"
+  },
+  {
+    "id": "eval_oos_018",
+    "query": "How many CCPA enforcement actions has the California Privacy Protection Agency brought against retailers so far?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Enforcement statistics are not part of the regulatory text.",
+    "target_term": "Enforcement statistics",
+    "key_terms": [
+      "enforcement actions",
+      "retailers",
+      "statistics"
+    ],
+    "category": "current_events"
+  },
+  {
+    "id": "eval_oos_019",
+    "query": "What new obligations do the 2030 amendments to the CCPA regulations impose on quantum computing vendors?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. No 2030 amendments exist in the 2023 or 2026 regulatory text.",
+    "target_term": "Non-existent 2030 amendments",
+    "key_terms": [
+      "2030 amendments",
+      "quantum computing",
+      "non-existent version"
+    ],
+    "category": "false_version"
+  },
+  {
+    "id": "eval_oos_020",
+    "query": "Under § 7051(k), what penalty applies to a service provider that subcontracts without written notice to the business?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. § 7051 has no subdivision (k) and sets no such penalty.",
+    "target_term": "Non-existent 7051(k)",
+    "key_terms": [
+      "7051(k)",
+      "subcontract",
+      "non-existent subsection"
+    ],
+    "category": "false_subsection"
+  },
+  {
+    "id": "eval_oos_021",
+    "query": "What notice must a business give consumers under § 7450 of the CCPA regulations before using blockchain-based consent receipts?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. No § 7450 exists in the CCPA regulations, and they do not address blockchain consent receipts.",
+    "target_term": "Non-existent 7450",
+    "key_terms": [
+      "7450",
+      "blockchain",
+      "consent receipts"
+    ],
+    "category": "false_section"
+  },
+  {
+    "id": "eval_oos_022",
+    "query": "What civil penalty per violation can the Federal Trade Commission impose on a company that violates COPPA?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. FTC penalties under COPPA are federal law and outside the California CCPA/CPRA regulations.",
+    "target_term": "COPPA FTC penalty",
+    "key_terms": [
+      "COPPA",
+      "FTC",
+      "civil penalty"
+    ],
+    "category": "other_federal_law"
+  },
+  {
+    "id": "eval_oos_023",
+    "query": "What is the deadline for notifying affected individuals of a data breach under the Texas Business and Commerce Code?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The query concerns Texas state law, which is outside the California CCPA/CPRA regulations.",
+    "target_term": "Texas breach notification",
+    "key_terms": [
+      "Texas",
+      "data breach",
+      "notification deadline"
+    ],
+    "category": "other_state_law"
+  },
+  {
+    "id": "eval_oos_024",
+    "query": "Which web browsers natively support the Global Privacy Control signal without needing an extension?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The regulations describe how businesses must treat opt-out preference signals but do not list browser support.",
+    "target_term": "GPC browser support",
+    "key_terms": [
+      "Global Privacy Control",
+      "browsers",
+      "native support"
+    ],
+    "category": "technical_adjacent"
+  },
+  {
+    "id": "eval_oos_025",
+    "query": "How much does it typically cost a mid-sized company to complete a required CCPA cybersecurity audit?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Audit pricing is market information, not part of the regulatory text.",
+    "target_term": "Audit cost",
+    "key_terms": [
+      "audit cost",
+      "mid-sized company",
+      "pricing"
+    ],
+    "category": "cost_estimate"
+  },
+  {
+    "id": "eval_oos_026",
+    "query": "Which software vendors are best for automating the handling of consumer deletion requests?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Product and vendor recommendations are not part of the CCPA/CPRA regulations.",
+    "target_term": "Vendor recommendation",
+    "key_terms": [
+      "software vendors",
+      "deletion requests",
+      "automation"
+    ],
+    "category": "vendor_recommendation"
+  },
+  {
+    "id": "eval_oos_027",
+    "query": "Under the Fair Credit Reporting Act, what must an employer do before taking adverse action based on a background check report?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The Fair Credit Reporting Act is federal law outside the CCPA/CPRA regulations.",
+    "target_term": "FCRA adverse action",
+    "key_terms": [
+      "Fair Credit Reporting Act",
+      "adverse action",
+      "background check"
+    ],
+    "category": "other_federal_law"
+  },
+  {
+    "id": "eval_oos_028",
+    "query": "What obligations does the EU AI Act impose on providers of high-risk automated decision-making systems?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. The EU AI Act is outside the scope of the California CCPA/CPRA regulations.",
+    "target_term": "EU AI Act",
+    "key_terms": [
+      "EU AI Act",
+      "high-risk",
+      "automated decision-making"
+    ],
+    "category": "other_regime_in_domain"
+  },
+  {
+    "id": "eval_oos_029",
+    "query": "What type of consent does Canada's PIPEDA require before a company collects a customer's email address?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. PIPEDA is Canadian federal law, outside the California CCPA/CPRA regulations.",
+    "target_term": "PIPEDA consent",
+    "key_terms": [
+      "PIPEDA",
+      "Canada",
+      "consent"
+    ],
+    "category": "other_country_law"
+  },
+  {
+    "id": "eval_oos_030",
+    "query": "What are the steps and typical timeline for obtaining ISO 27001 certification?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. ISO 27001 certification is a private standard process, not part of the CCPA/CPRA regulations.",
+    "target_term": "ISO 27001",
+    "key_terms": [
+      "ISO 27001",
+      "certification",
+      "timeline"
+    ],
+    "category": "certification_process"
+  },
+  {
+    "id": "eval_oos_031",
+    "query": "Who is the current executive director of the California Privacy Protection Agency?",
+    "query_type": "OUT_OF_SCOPE",
+    "answerable": false,
+    "section": "",
+    "ground_truth_answer": "Unable to provide a confident answer. Agency personnel are not part of the regulatory text.",
+    "target_term": "CPPA leadership",
+    "key_terms": [
+      "executive director",
+      "California Privacy Protection Agency",
+      "current"
+    ],
+    "category": "current_events"
+  },
+  {
     "id": "eval_7001_001",
     "query": "If a company uses an automated tool to screen job applicants, what specific conditions must a human reviewer meet for the process to NOT be considered as 'substantially replacing human decisionmaking'?",
     "query_type": "POLICY_LOOKUP",
