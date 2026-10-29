@@ -182,7 +182,7 @@ flowchart LR
 - The Langfuse stack (web, worker, PostgreSQL, ClickHouse, Redis, MinIO) runs from its own Compose file so it can be started, stopped and upgraded independently of the application.
 
 <p align="center">
-  <img src="../docs/screenshots/langfuse-trace.png" alt="Langfuse Trace" width="800">
+  <img src="/docs/screenshots/langfuse-trace.png" alt="Langfuse Trace" width="800">
   <br>
   <em>End-to-end trace of one query</em>
 </p>
@@ -375,4 +375,4 @@ Parsing and chunking are deterministic and make no API calls; only `ingest --sta
 ---
 
 ## 📄 License
-
+This project is under the MIT license
