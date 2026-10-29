@@ -51,14 +51,20 @@ flowchart LR
 flowchart LR
     subgraph online["Online: answer a question"]
         Q[Question] --> RT{Router}
-        RT -->|policy / hybrid| HY["Hybrid retrieval<br/>dense + BM25 → RRF"]
+
+        RT -->|"policy lookup / both"| HY["Hybrid retrieval<br/>dense + BM25 → RRF"]
         HY --> RR[Cross-encoder rerank]
         RR --> AB{Abstention guard}
         AB -->|abstain| REF[Refusal]
         AB -->|answer| GEN[LLM answer]
         GEN --> CV[Citation verifier]
-        RT -->|diff / hybrid| DF["Section-key diff<br/>parents + glossaries"]
-        DF --> GEN2[LLM describes changes]
+
+        RT -->|"what changed"| DF["Diff engine<br/>resolve sections / terms,<br/>pair 2023 + 2026 text"]
+        DF -->|nothing resolved| REF2[Refusal, no LLM call]
+        DF --> GEN2["LLM compares<br/>2023 vs 2026"]
+        GEN2 --> CV2[Citation check]
+
+        AB -. "both: add changelog block" .-> DF
     end
 ```
 
