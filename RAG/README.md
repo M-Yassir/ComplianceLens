@@ -502,7 +502,7 @@ This answers the questions that come up when debugging: which route did this que
 <p align="center">
   <img src="../docs/screenshots/langfuse-trace.png" alt="Langfuse Trace" width="800">
   <br>
-  <em>Langfuse Trace of a user query</em>
+  <em>End-to-end trace of one query</em>
 </p>
 
 ---

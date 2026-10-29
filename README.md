@@ -169,13 +169,9 @@ flowchart LR
 - Ask in plain language (“If a business never audits its vendor, can it claim it had no reason to believe the vendor was violating the law?”) or cite a section directly (“What does § 7025 require?”).
 - Answers are rendered as Markdown with section citations and a list of the source sections used.
 
-<!-- Add a screenshot: <p align="center"><img src="docs/screenshots/qa.png" alt="Policy Q&A" width="800"><br><em>Cited answer with source sections</em></p> -->
-
 ### 🔁 “What Changed?” Across Versions
 - Ask “What changed regarding Opt-out Preference Signals?” and get a side-by-side comparison of the 2023 and 2026 text for the affected sections.
 - New, repealed and amended sections are labelled by set logic rather than guessed by the model; definitions in § 7001 are compared term by term.
-
-<!-- Add a screenshot: <p align="center"><img src="docs/screenshots/diff.png" alt="Version diff" width="800"><br><em>2023 vs 2026 comparison</em></p> -->
 
 ### 🛡 Safe Failure
 - Out-of-scope questions (other jurisdictions, other laws, prices, vendor recommendations, non-existent sections) are refused with an explanation of what the regulations do and do not cover.
@@ -185,7 +181,11 @@ flowchart LR
 - Every request is traced in Langfuse with its tags, metadata, final answer and whether the system abstained.
 - The Langfuse stack (web, worker, PostgreSQL, ClickHouse, Redis, MinIO) runs from its own Compose file so it can be started, stopped and upgraded independently of the application.
 
-<!-- Add a screenshot: <p align="center"><img src="docs/screenshots/langfuse.png" alt="Langfuse trace" width="800"><br><em>End-to-end trace of one query</em></p> -->
+<p align="center">
+  <img src="../docs/screenshots/langfuse-trace.png" alt="Langfuse Trace" width="800">
+  <br>
+  <em>End-to-end trace of one query</em>
+</p>
 
 ### 📊 Evaluation Harness
 - Runs a golden dataset through the real pipeline and reports retrieval recall, top-1 precision, routing accuracy, abstention behaviour, citation validity and LLM-judged answer quality.
@@ -221,7 +221,7 @@ Measured on a hand-built golden dataset of **150 questions**: 128 answerable (wi
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/compliancelens.git
+git clone https://github.com/M-Yassir/compliancelens.git
 cd compliancelens
 cp .env.example .env        # then add your API key(s)
 ```
@@ -261,7 +261,47 @@ docker compose up --build
 ```
 
 ### 5. Index the regulations (first run only)
-<!-- TODO: add the ingestion command, e.g. the CLI call or the /api/v1/ingest request, and the expected output -->
+Everything runs from the `RAG/` directory through `cli.py`. It needs the same `.env` as the API and a running Chroma (`docker compose up chroma`, or the full stack).
+
+```bash
+# 0. Check the environment before spending any API quota
+python cli.py doctor
+
+# 1. Build the knowledge base: parse -> chunk -> index
+python cli.py ingest
+
+#    ...or one stage at a time
+python cli.py ingest --stage parse                 # redlined PDF -> version_2023.txt / version_2026.txt
+python cli.py ingest --stage chunk                 # -> chunks_ / parents_ / glossary_ {2023,2026}.json
+python cli.py ingest --stage index                 # 2026 children -> Chroma (10 chunks / 6 s)
+python cli.py ingest --stage index --reindex       # wipe the 2026 chunks first (after changing the embedding model)
+
+# 2. Inspect the result
+python cli.py stats                                # chunk / parent / glossary statistics per version
+python cli.py doctor --deep                        # also makes one real embedding call and one LLM call
+
+# 3. Ask a question
+python cli.py ask "What must a business do when a consumer opts out of sale?" -v
+
+# 4. Evaluate and tune
+python cli.py eval --llm-judge --max-samples 150
+python cli.py sweep
+
+# 5. Serve
+python cli.py serve                                # or: docker compose up --build
+```
+
+| Command | Stage it runs | Section |
+|---|---|---|
+| `ingest --stage parse` | redline parsing | [§2](#2-parsing-the-redlined-pdf) |
+| `ingest --stage chunk` | legal chunking | [§3](#3-chunking) |
+| `ingest --stage index` | embedding and indexing | [§4](#4-embedding-and-indexing) |
+| `ask` | the full online pipeline | [§11](#11-request-lifecycle) |
+| `eval`, `sweep` | evaluation and tuning | [§13](#13-evaluation) |
+| `serve` | the HTTP API | [§11](#11-request-lifecycle) |
+| `doctor`, `stats` | consistency checks | [§4](#4-embedding-and-indexing), [§3](#3-chunking) |
+
+Parsing and chunking are deterministic and make no API calls; only `ingest --stage index`, `ask`, `eval` and `doctor --deep` use API quota. Rerunning `ingest` is safe: the index step upserts by chunk ID.
 
 ### 6. Access
 
@@ -336,4 +376,3 @@ docker compose up --build
 
 ## 📄 License
 
-<!-- TODO: choose a license and add it here -->
