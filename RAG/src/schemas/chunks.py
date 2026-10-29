@@ -1,17 +1,6 @@
 from typing import Dict, List, Literal, Optional
 from pydantic import BaseModel, Field
 
-# Explicit alignment statuses for full structural change tracking
-AlignmentStatus = Literal[
-    "UNCHANGED", 
-    "MODIFIED", 
-    "ADDED", 
-    "DELETED", 
-    "RELETTERED", 
-    "SPLIT", 
-    "MERGED"
-]
-
 
 class BaseLegalChunk(BaseModel):
     """Base metadata fields shared across all chunk representations."""
@@ -114,60 +103,4 @@ class GlossaryEntry(BaseModel):
     source_chunk_id: str = Field(
         ..., 
         description="Foreign key referencing underlying ChildChunk ID for automated lineage inheritance"
-    )
-
-
-class LineagePairwiseResolution(BaseModel):
-    """Alignment record comparing any two arbitrary versions (e.g., 2023 vs 2026 or 2021 vs 2023)."""
-    canonical_lineage_id: str = Field(
-        ..., 
-        description="Persistent identity mapping the same underlying provision across versions"
-    )
-    source_version: str = Field(
-        ..., 
-        description="Baseline version identifier (e.g., '2023-03')"
-    )
-    source_chunk_id: Optional[str] = Field(
-        default=None, 
-        description="ChildChunk ID in the source version (None if added in target version)"
-    )
-    target_version: str = Field(
-        ..., 
-        description="Compared version identifier (e.g., '2026-09')"
-    )
-    target_chunk_id: Optional[str] = Field(
-        default=None, 
-        description="ChildChunk ID in the target version (None if deleted from source version)"
-    )
-    alignment_status: AlignmentStatus = Field(
-        ..., 
-        description="Categorical status representing structural/semantic transformation"
-    )
-    similarity_score: Optional[float] = Field(
-        default=None, 
-        description="Cosine similarity score produced by aligner.py (None for pure ADDED/DELETED actions)"
-    )
-
-
-class LineageHistoryRecord(BaseModel):
-    """Derived, read-only materialized view tracking a single provision's chunk IDs 
-    across all historical versions.
-    
-    INVARIANTS:
-    1. Always strictly 1:1 (one chunk_id per version key).
-    2. On SPLIT: The pre-split lineage terminates at source_version. New branch 
-       lineages are minted for target_version. Provenance is preserved via 
-       LineagePairwiseResolution rows with alignment_status='SPLIT'.
-    3. On MERGED: The primary lineage continues into target_version; secondary 
-       lineages terminate at source_version. Provenance is preserved via 
-       LineagePairwiseResolution rows with alignment_status='MERGED'.
-    4. Programmatically derived from LineagePairwiseResolution—never edited directly.
-    """
-    canonical_lineage_id: str = Field(
-        ..., 
-        description="Global persistent identity for a specific legal provision timeline"
-    )
-    version_chunk_map: Dict[str, Optional[str]] = Field(
-        default_factory=dict,
-        description="Strict 1:1 mapping of version tags to chunk IDs (e.g., {'2021': 'c_1', '2023': 'c_2', '2026': 'c_5'})"
     )
