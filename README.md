@@ -330,7 +330,7 @@ docker compose up --build
 | Document | Description |
 |---|---|
 | **This README** | Product overview, architecture, results, quick start |
-| **Technical deep dive** | [RAG/README.md](RAG/README.md) *Coming soon* — chunking strategy, embeddings, retrieval and reranking, guardrails, monitoring, and evaluation methodology |
+| **Technical deep dive** | [RAG/README.md](RAG/README.md) chunking strategy, embeddings, retrieval and reranking, guardrails, monitoring, and evaluation methodology |
 
 ---
 
