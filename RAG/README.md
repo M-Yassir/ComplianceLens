@@ -104,7 +104,7 @@ Words are grouped into lines by `(page, block, line)` so line breaks survive, an
 
 Running page headers and footers would otherwise become fake text inside sections. Words and drawings in the top 70 pt and bottom 80 pt of every page are dropped (`header_margin`, `footer_margin`). Lines in those margins are also ignored so a header rule is not mistaken for a strikethrough. The parser returns counters (`normal_words`, `strikethrough_words`, `underline_words`, `margin_words_stripped`) so a run can be sanity-checked.
 
-**Limits.** The classification is geometric and threshold-based. A word crossed by an unrelated rule can be misclassified, and there is no ground-truth check of the output beyond manual inspection and the counters above. `TODO: record the parser counters for the shipped PDF here (pages, normal / struck / underlined / stripped words).`
+**Limits.** The classification is geometric and threshold-based. A word crossed by an unrelated rule can be misclassified, and there is no ground-truth check of the output beyond manual inspection and the counters above.
 
 ---
 
